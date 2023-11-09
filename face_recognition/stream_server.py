@@ -3,6 +3,8 @@ import socket
 import struct
 from PIL import Image
 import keyboard
+import cv2 as cv
+import numpy as np
 
 # Start a socket listening for connections on 0.0.0.0:8000 (0.0.0.0 means
 # all interfaces)
@@ -27,14 +29,16 @@ try:
         # Rewind the stream, open it as an image with PIL and do some
         # processing on it
         image_stream.seek(0)
-        image = Image.open(image_stream)
+        image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
 
         #Save the image to a folder called stream-pics (each image will have a different name)
         # image.save('stream-pics/im' + str(i) + '.png')
-        print('Image is %dx%d' % image.size)
+        cv.imwrite('stream-pics/im' + str(i) + '.png', image)
+        print('Image is saved')
+        # print('Image is %dx%d' % image.size)
 
-        image.verify()
-        print('Image is verified')
+        #image.verify()
+        #print('Image is verified')
         i = i + 1
         if keyboard.is_pressed('q'):
             break
