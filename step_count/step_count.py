@@ -51,7 +51,10 @@ ax.set_ylim(0,7)
 plt.show()
 
 # TODO: change height
-peaks, _ = find_peaks(accel_mag, height=1.5)
+# accel_mag = accel_mag - np.mean(accel_mag)
+min_peak_height = np.std(accel_mag) + np.mean(accel_mag)
+
+peaks, _ = find_peaks(accel_mag, height=min_peak_height)
 
 fig, ax = plt.subplots(1,1)
 fig.set_figheight(7.5)

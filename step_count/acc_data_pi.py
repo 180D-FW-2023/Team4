@@ -1,7 +1,12 @@
 from sense_hat import SenseHat
 from datetime import datetime
+import socket
 
 sense = SenseHat()
+
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(('169.232.86.224', 8080))
 
 while True:
 	# accelerometer data
@@ -17,5 +22,6 @@ while True:
 	date = now.strftime("%Y-%m-%d")
 	time = now.strftime("%H:%M:%S.%f")
 
-	line = date + "," + time + "," + acc
+	line = date + "," + time + "," + acc + ";"
 	print(line)
+	client.send(line.encode())
