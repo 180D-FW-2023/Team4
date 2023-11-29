@@ -9,7 +9,7 @@ def convert_strings_to_floats(input_array):
         output_array.append(converted_float)
     return output_array
 
-data = np.loadtxt('acc.csv', delimiter =',', dtype = str)
+data = np.loadtxt('./data/2023-11-28_23.csv', delimiter =',', dtype = str)
 xdata = convert_strings_to_floats(data[:,2])
 ydata = convert_strings_to_floats(data[:,3])
 zdata = convert_strings_to_floats(data[:,4])
@@ -35,7 +35,7 @@ ax[2].set_ylim(-5,5)
 
 plt.show()
 
-accel_mag = np.sqrt((np.power(xdata, 2) + np.power(ydata, 2) + np.power(ydata, 2)))
+accel_mag = np.sqrt((np.power(xdata, 2) + np.power(ydata, 2) + np.power(zdata, 2)))
 
 fig, ax = plt.subplots(1,1)
 fig.set_figheight(7.5)
