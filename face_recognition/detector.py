@@ -72,8 +72,23 @@ def recognize_faces(
         input_image, input_face_locations
     )
 
-    #pillow_image = Image.fromarray(input_image)
-    #draw = ImageDraw.Draw(pillow_image)
+def recognize_faces2(
+    input_image,
+    model: str = "hog",
+    encodings_location: Path = DEFAULT_ENCODINGS_PATH,
+) -> None:
+    with encodings_location.open(mode="rb") as f:
+        loaded_encodings = pickle.load(f)
+
+    input_face_locations = face_recognition.face_locations(
+        input_image, model=model
+    )
+    input_face_encodings = face_recognition.face_encodings(
+        input_image, input_face_locations
+    )
+
+    pillow_image = Image.fromarray(input_image)
+    draw = ImageDraw.Draw(pillow_image)
 
     for bounding_box, unknown_encoding in zip(
         input_face_locations, input_face_encodings
@@ -83,10 +98,10 @@ def recognize_faces(
             name = "Unknown"
         print(name)
         # Removed print(name, bounding_box)
-        #_display_face(draw, bounding_box, name)
+        _display_face(draw, bounding_box, name)
 
-    #del draw
-    #pillow_image.show()
+    del draw
+    pillow_image.show()
 
 def _recognize_face(unknown_encoding, loaded_encodings):
     boolean_matches = face_recognition.compare_faces(
