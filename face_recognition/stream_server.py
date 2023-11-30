@@ -5,6 +5,7 @@ from PIL import Image
 import keyboard
 import cv2 as cv
 import numpy as np
+import time
 
 # Start a socket listening for connections on 0.0.0.0:8000 (0.0.0.0 means
 # all interfaces)
@@ -15,6 +16,7 @@ i = 0
 
 # Accept a single connection and make a file-like object out of it
 connection = server_socket.accept()[0].makefile('rb')
+start = time.time()
 try:
     while True:
         # Read the length of the image as a 32-bit unsigned int. If the
@@ -26,21 +28,18 @@ try:
         # data from the connection
         image_stream = io.BytesIO()
         image_stream.write(connection.read(image_len))
+
         # Rewind the stream, open it as an image with PIL and do some
         # processing on it
         image_stream.seek(0)
-        image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
+        image = Image.open(image_stream)
+        print('Image is %dx%d' % image.size)
+        image.verify()
+        print('Image is verified')
 
-        #Save the image to a folder called stream-pics (each image will have a different name)
-        # image.save('stream-pics/im' + str(i) + '.png')
-        cv.imwrite('stream-pics/im' + str(i) + '.png', image)
-        print('Image is saved')
-        # print('Image is %dx%d' % image.size)
-
-        #image.verify()
-        #print('Image is verified')
         i = i + 1
         if keyboard.is_pressed('q'):
+            print(time.time() - start)
             break
 finally:
     connection.close()
