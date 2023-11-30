@@ -20,7 +20,6 @@ while True:
 	# data and time
 	now = datetime.now()
 	date = now.strftime("%Y-%m-%d")
-	# TODO: Make 24 hour time
 	time = now.strftime("%H:%M:%S.%f")
 
 	line = date + "," + time + "," + acc + ";"

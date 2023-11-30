@@ -10,10 +10,10 @@ def main():
     # Assigns a port for the server that listens to clients connecting to this port.
     serv.bind(('0.0.0.0', 8080))
     serv.listen(5)
-    file = None
 
     while True:
         conn, addr = serv.accept()
+        print(addr)
         from_client = ''
 
         current_date = ""
@@ -33,6 +33,8 @@ def main():
             for item in list_data: 
                 list_item = item.split(",")
                 if len(list_item) != 5:
+                    continue
+                if len(list_item[0]) != 10:
                     continue
                 # print(item)
                 # TODO: thread/process parallelize this
@@ -88,13 +90,25 @@ def step_count(path_name):
     zdata = convert_strings_to_floats(data[:,4])
 
     accel_mag = np.sqrt((np.power(xdata, 2) + np.power(ydata, 2) + np.power(zdata, 2)))
+    accel_mag = accel_mag - np.mean(accel_mag)
 
     # accel_mag = accel_mag - np.mean(accel_mag)
     # min_peak_height = 2*np.std(accel_mag) + np.mean(accel_mag)
     # TODO: tune height, make greater of 1.3 and std dev?
-    peaks, _ = find_peaks(accel_mag, height=1.3)
+    std_dev_height = np.std(accel_mag)
+    height = 0.3
+    min_peak_height = std_dev_height if std_dev_height > height else height
+    peaks, _ = find_peaks(accel_mag, height=min_peak_height)
 
-    return len(peaks)
+    neg_accel_mag = -accel_mag
+    neg_std_dev_height = np.std(neg_accel_mag)
+    neg_height = 0.18
+    neg_min_peak_height = neg_std_dev_height if neg_std_dev_height > neg_height else height
+    neg_peaks, _ = find_peaks(neg_accel_mag, height=neg_min_peak_height)
+
+    total_peaks = len(peaks) if len(peaks) < len(neg_peaks) else len(neg_peaks)
+
+    return total_peaks
 
 if __name__ == "__main__":
     main()
