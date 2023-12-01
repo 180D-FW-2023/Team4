@@ -5,7 +5,7 @@ from PIL import Image
 import keyboard
 import cv2 as cv
 import numpy as np
-import time
+import face_recognition.detector as d
 
 # Start a socket listening for connections on 0.0.0.0:8000 (0.0.0.0 means
 # all interfaces)
@@ -16,7 +16,6 @@ i = 0
 
 # Accept a single connection and make a file-like object out of it
 connection = server_socket.accept()[0].makefile('rb')
-start = time.time()
 try:
     while True:
         # Read the length of the image as a 32-bit unsigned int. If the
@@ -36,6 +35,7 @@ try:
         print('Image is %dx%d' % image.size)
         image.verify()
         print('Image is verified')
+        d.recognize_faces2(image)
 
         i = i + 1
         if keyboard.is_pressed('q'):
