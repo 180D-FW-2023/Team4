@@ -4,9 +4,9 @@ import socket
 
 sense = SenseHat()
 
-
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('169.232.86.224', 8080))
+client.connect(('192.168.1.199', 8080))
+client.sendall("step count".encode())
 
 while True:
 	# accelerometer data
@@ -20,7 +20,6 @@ while True:
 	# data and time
 	now = datetime.now()
 	date = now.strftime("%Y-%m-%d")
-	# TODO: Make 24 hour time
 	time = now.strftime("%H:%M:%S.%f")
 
 	line = date + "," + time + "," + acc + ";"
