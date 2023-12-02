@@ -72,6 +72,22 @@ def recognize_faces(
         input_image, input_face_locations
     )
 
+    pillow_image = Image.fromarray(input_image)
+    draw = ImageDraw.Draw(pillow_image)
+
+    for bounding_box, unknown_encoding in zip(
+        input_face_locations, input_face_encodings
+    ):
+        name = _recognize_face(unknown_encoding, loaded_encodings)
+        if not name:
+            name = "Unknown"
+        print(name)
+        # Removed print(name, bounding_box)
+        _display_face(draw, bounding_box, name)
+
+    del draw
+    pillow_image.show()
+
 def recognize_faces2(
     input_image,
     model: str = "hog",
