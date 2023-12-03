@@ -2,6 +2,7 @@ import socket
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks
+import multiprocessing 
 
 path = "./data/"
 
@@ -14,8 +15,11 @@ def main():
     while True:
         conn, addr = serv.accept()
         print(addr)
-        if (conn.recv(4096).decode('utf_8') == "step count"):
-            server_step_count(conn)
+        first_message = conn.recv(4096).decode('utf_8')
+        if (first_message == "step count"):
+            p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
+            p1.start()
+            # server_step_count(conn)
         
 def convert_strings_to_floats(input_array):
     output_array = []
