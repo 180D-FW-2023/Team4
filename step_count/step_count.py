@@ -9,7 +9,7 @@ def convert_strings_to_floats(input_array):
         output_array.append(converted_float)
     return output_array
 
-data = np.loadtxt('./data/2023-11-29_18.csv', delimiter =',', dtype = str)
+data = np.loadtxt('./data/2023-12-03_12.csv', delimiter =',', dtype = str)
 xdata = convert_strings_to_floats(data[:,2])
 ydata = convert_strings_to_floats(data[:,3])
 zdata = convert_strings_to_floats(data[:,4])
