@@ -18,39 +18,40 @@ i = 0
 # Accept a single connection and make a file-like object out of it
 connection = server_socket.accept()[0].makefile('rb')
 try:
-    #while True:
-    # Read the length of the image as a 32-bit unsigned int. If the
-    # length is zero, quit the loop
-    image_len = struct.unpack('<L', connection.read(struct.calcsize('<L')))[0]
-    #if not image_len:
-        #break
-        #return
-    # Construct a stream to hold the image data and read the image
-    # data from the connection
-    image_stream = io.BytesIO()
-    image_stream.write(connection.read(image_len))
+    while True:
+        # Read the length of the image as a 32-bit unsigned int. If the
+        # length is zero, quit the loop
+        image_len = struct.unpack('<L', connection.read(struct.calcsize('<L')))[0]
+        if not image_len:
+            break
+            #return
+        # Construct a stream to hold the image data and read the image
+        # data from the connection
+        image_stream = io.BytesIO()
+        image_stream.write(connection.read(image_len))
 
-    # Rewind the stream, open it as an image with PIL and do some
-    # processing on it
-    image_stream.seek(0)
-    image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
+        # Rewind the stream, open it as an image with PIL and do some
+        # processing on it
+        image_stream.seek(0)
+        image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
 
-        #Save the image to a folder called stream-pics (each image will have a different name)
-        # image.save('stream-pics/im' + str(i) + '.png')
-    cv.imwrite('test.png', image)
-    print('Image is saved')
-    # image = Image.open(image_stream)
-    # print('Image is %dx%d' % image.size)
-    # image.verify()
-    # print('Image is verified')
+            #Save the image to a folder called stream-pics (each image will have a different name)
+            # image.save('stream-pics/im' + str(i) + '.png')
+        cv.imwrite('test.png', image)
+        print('Image is saved')
+        # image = Image.open(image_stream)
+        # print('Image is %dx%d' % image.size)
+        # image.verify()
+        # print('Image is verified')
 
 
-    recognize_faces('test.png')
+        recognize_faces('test.png')
+        #print("I passed")
 
-    i = i + 1
-    # if keyboard.is_pressed('q'):
-    #     print(time.time() - start)
-    #     break
+        i = i + 1
+        # if keyboard.is_pressed('q'):
+        #     print(time.time() - start)
+        #     break
 finally:
     connection.close()
     server_socket.close()

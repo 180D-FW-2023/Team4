@@ -33,6 +33,8 @@ try:
         # processing on it
         image_stream.seek(0)
         image = Image.open(image_stream)
+        image.save('stream-pics/im' + str(i) + '.png')
+
         print('Image is %dx%d' % image.size)
         image.verify()
         print('Image is verified')
