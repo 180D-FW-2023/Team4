@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13.1)
-
+add_executable(app)
 if(NOT TARGET app)
      message(FATAL_ERROR "Please create a target named 'app' (ex: add_executable(app)) before adding this file")
 endif()

@@ -1,0 +1,28 @@
+The target system is: Linux -  - arm
+The host system is: Linux - 5.15.133.1-microsoft-standard-WSL2 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-gcc 
+Build flags: -mcpu=arm1176jzf-s
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/3.22.1/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-g++ 
+Build flags: -mcpu=arm1176jzf-s
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/3.22.1/CompilerIdCXX/a.out"
+

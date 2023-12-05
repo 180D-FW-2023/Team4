@@ -1,0 +1,174 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake:206 (message)"
+      - "CMakeLists.txt"
+    message: |
+      The target system is: Linux -  - arm
+      The host system is: Linux - 5.15.133.1-microsoft-standard-WSL2 - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-gcc 
+      Build flags: -mcpu=arm1176jzf-s
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is GNU, found in:
+        /mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/3.27.0/CompilerIdC/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-g++ 
+      Build flags: -mcpu=arm1176jzf-s
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is GNU, found in:
+        /mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/3.27.0/CompilerIdCXX/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-BuDDrE"
+      binary: "/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-BuDDrE"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-mcpu=arm1176jzf-s"
+      CMAKE_SYSROOT: "/var/lib/schroot/chroots/rpi-bullseye-armhf"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-BuDDrE'
+        
+        Run Build Command(s): /home/jolin/.local/lib/python3.10/site-packages/cmake/data/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_eb6b4/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_eb6b4.dir/build.make CMakeFiles/cmTC_eb6b4.dir/build
+        gmake[1]: Entering directory '/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-BuDDrE'
+        Building C object CMakeFiles/cmTC_eb6b4.dir/CMakeCCompilerABI.c.o
+        /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-gcc --sysroot=/var/lib/schroot/chroots/rpi-bullseye-armhf   -mcpu=arm1176jzf-s    -v -o CMakeFiles/cmTC_eb6b4.dir/CMakeCCompilerABI.c.o -c /home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-gcc
+        Target: armv6-rpi-linux-gnueabihf
+        Configured with: /home/develop/.build/armv6-rpi-linux-gnueabihf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-build_pc-linux-gnu --target=armv6-rpi-linux-gnueabihf --prefix=/home/develop/x-tools/armv6-rpi-linux-gnueabihf --exec_prefix=/home/develop/x-tools/armv6-rpi-linux-gnueabihf --with-sysroot=/home/develop/x-tools/armv6-rpi-linux-gnueabihf/armv6-rpi-linux-gnueabihf/sysroot --enable-languages=c,c++,fortran --with-cpu=arm1176jzf-s --with-fpu=vfp --with-float=hard --with-pkgversion='crosstool-NG UNKNOWN - tttapa/docker-arm-cross-toolchain:armv6-rpi' --with-bugurl=https://github.com/tttapa/docker-arm-cross-toolchain --enable-__cxa_atexit --disable-libmudflap --enable-libgomp --disable-libssp --enable-libquadmath --enable-libquadmath-support --enable-libsanitizer --disable-libmpx --with-gmp=/home/develop/.build/armv6-rpi-linux-gnueabihf/buildtools --with-mpfr=/home/develop/.build/armv6-rpi-linux-gnueabihf/buildtools --with-mpc=/home/develop/.build/armv6-rpi-linux-gnueabihf/buildtools --with-isl=/home/develop/.build/armv6-rpi-linux-gnueabihf/buildtools --enable-lto --enable-threads=posix --enable-target-optspace --enable-plugin --enable-gold --disable-nls --disable-multilib --with-local-prefix=/home/develop/x-tools/armv6-rpi-linux-gnueabihf/armv6-rpi-linux-gnueabihf/sysroot --enable-long-long --enable-multiarch --enable-libstdcxx-backtrace=yes
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13.2.0 (crosstool-NG UNKNOWN - tttapa/docker-arm-cross-toolchain:armv6-rpi) 
+        COLLECT_GCC_OPTIONS='--sysroot=/var/lib/schroot/chroots/rpi-bullseye-armhf' '-mcpu=arm1176jzf-s' '-v' '-o' 'CMakeFiles/cmTC_eb6b4.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-mlibarch=armv6kz+fp' '-march=armv6kz+fp' '-dumpdir' 'CMakeFiles/cmTC_eb6b4.dir/'
+         /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../libexec/gcc/armv6-rpi-linux-gnueabihf/13.2.0/cc1 -quiet -v -imultilib . -imultiarch arm-linux-gnueabihf -iprefix /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/ -isysroot /var/lib/schroot/chroots/rpi-bullseye-armhf /home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_eb6b4.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=arm1176jzf-s -mfloat-abi=hard -mfpu=vfp -mtls-dialect=gnu -marm -mlibarch=armv6kz+fp -march=armv6kz+fp -version -o /tmp/cctQWkSp.s
+        GNU C17 (crosstool-NG UNKNOWN - tttapa/docker-arm-cross-toolchain:armv6-rpi) version 13.2.0 (armv6-rpi-linux-gnueabihf)
+        	compiled by GNU C version 7.5.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.26-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/include-fixed/arm-linux-gnueabihf"
+        ignoring duplicate directory "/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/../../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/include"
+        ignoring nonexistent directory "/var/lib/schroot/chroots/rpi-bullseye-armhf/home/develop/x-tools/armv6-rpi-linux-gnueabihf/armv6-rpi-linux-gnueabihf/sysroot/include/arm-linux-gnueabihf"
+        ignoring nonexistent directory "/var/lib/schroot/chroots/rpi-bullseye-armhf/home/develop/x-tools/armv6-rpi-linux-gnueabihf/armv6-rpi-linux-gnueabihf/sysroot/include"
+        ignoring nonexistent directory "/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/../../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/include-fixed/arm-linux-gnueabihf"
+        ignoring duplicate directory "/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/../../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/include-fixed"
+        ignoring duplicate directory "/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/../../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/include"
+        ignoring nonexistent directory "/var/lib/schroot/chroots/rpi-bullseye-armhf/usr/include/arm-linux-gnueabihf"
+        ignoring nonexistent directory "/var/lib/schroot/chroots/rpi-bullseye-armhf/usr/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/include
+         /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/include-fixed
+         /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/include
+        End of search list.
+        Compiler executable checksum: 849f76372f7d1f568cc5aaea62f9b4ad
+        COLLECT_GCC_OPTIONS='--sysroot=/var/lib/schroot/chroots/rpi-bullseye-armhf' '-mcpu=arm1176jzf-s' '-v' '-o' 'CMakeFiles/cmTC_eb6b4.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-mlibarch=armv6kz+fp' '-march=armv6kz+fp' '-dumpdir' 'CMakeFiles/cmTC_eb6b4.dir/'
+         /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/bin/as -v -march=armv6kz+fp -mfloat-abi=hard -mfpu=vfp -meabi=5 -o CMakeFiles/cmTC_eb6b4.dir/CMakeCCompilerABI.c.o /tmp/cctQWkSp.s
+        GNU assembler version 2.40 (armv6-rpi-linux-gnueabihf) using BFD version (crosstool-NG UNKNOWN - tttapa/docker-arm-cross-toolchain:armv6-rpi) 2.40
+        COMPILER_PATH=/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../libexec/gcc/armv6-rpi-linux-gnueabihf/13.2.0/:/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../libexec/gcc/:/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/bin/
+        LIBRARY_PATH=/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/:/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/:/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/lib/
+        COLLECT_GCC_OPTIONS='--sysroot=/var/lib/schroot/chroots/rpi-bullseye-armhf' '-mcpu=arm1176jzf-s' '-v' '-o' 'CMakeFiles/cmTC_eb6b4.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-mlibarch=armv6kz+fp' '-march=armv6kz+fp' '-dumpdir' 'CMakeFiles/cmTC_eb6b4.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_eb6b4
+        /home/jolin/.local/lib/python3.10/site-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/cmTC_eb6b4.dir/link.txt --verbose=1
+        /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-gcc --sysroot=/var/lib/schroot/chroots/rpi-bullseye-armhf -mcpu=arm1176jzf-s   -v -rdynamic CMakeFiles/cmTC_eb6b4.dir/CMakeCCompilerABI.c.o -o cmTC_eb6b4 
+        Using built-in specs.
+        COLLECT_GCC=/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-gcc
+        COLLECT_LTO_WRAPPER=/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../libexec/gcc/armv6-rpi-linux-gnueabihf/13.2.0/lto-wrapper
+        Target: armv6-rpi-linux-gnueabihf
+        Configured with: /home/develop/.build/armv6-rpi-linux-gnueabihf/src/gcc/configure --build=x86_64-build_pc-linux-gnu --host=x86_64-build_pc-linux-gnu --target=armv6-rpi-linux-gnueabihf --prefix=/home/develop/x-tools/armv6-rpi-linux-gnueabihf --exec_prefix=/home/develop/x-tools/armv6-rpi-linux-gnueabihf --with-sysroot=/home/develop/x-tools/armv6-rpi-linux-gnueabihf/armv6-rpi-linux-gnueabihf/sysroot --enable-languages=c,c++,fortran --with-cpu=arm1176jzf-s --with-fpu=vfp --with-float=hard --with-pkgversion='crosstool-NG UNKNOWN - tttapa/docker-arm-cross-toolchain:armv6-rpi' --with-bugurl=https://github.com/tttapa/docker-arm-cross-toolchain --enable-__cxa_atexit --disable-libmudflap --enable-libgomp --disable-libssp --enable-libquadmath --enable-libquadmath-support --enable-libsanitizer --disable-libmpx --with-gmp=/home/develop/.build/armv6-rpi-linux-gnueabihf/buildtools --with-mpfr=/home/develop/.build/armv6-rpi-linux-gnueabihf/buildtools --with-mpc=/home/develop/.build/armv6-rpi-linux-gnueabihf/buildtools --with-isl=/home/develop/.build/armv6-rpi-linux-gnueabihf/buildtools --enable-lto --enable-threads=posix --enable-target-optspace --enable-plugin --enable-gold --disable-nls --disable-multilib --with-local-prefix=/home/develop/x-tools/armv6-rpi-linux-gnueabihf/armv6-rpi-linux-gnueabihf/sysroot --enable-long-long --enable-multiarch --enable-libstdcxx-backtrace=yes
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13.2.0 (crosstool-NG UNKNOWN - tttapa/docker-arm-cross-toolchain:armv6-rpi) 
+        COMPILER_PATH=/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../libexec/gcc/armv6-rpi-linux-gnueabihf/13.2.0/:/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../libexec/gcc/:/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/bin/
+        LIBRARY_PATH=/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/:/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/:/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/lib/
+        COLLECT_GCC_OPTIONS='--sysroot=/var/lib/schroot/chroots/rpi-bullseye-armhf' '-mcpu=arm1176jzf-s' '-v' '-rdynamic' '-o' 'cmTC_eb6b4' '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-mlibarch=armv6kz+fp' '-march=armv6kz+fp' '-dumpdir' 'cmTC_eb6b4.'
+         /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../libexec/gcc/armv6-rpi-linux-gnueabihf/13.2.0/collect2 -plugin /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../libexec/gcc/armv6-rpi-linux-gnueabihf/13.2.0/liblto_plugin.so -plugin-opt=/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../libexec/gcc/armv6-rpi-linux-gnueabihf/13.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccC1LY4e.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/var/lib/schroot/chroots/rpi-bullseye-armhf --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_eb6b4 crt1.o crti.o /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/crtbegin.o -L/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0 -L/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc -L/home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/lib CMakeFiles/cmTC_eb6b4.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/crtend.o crtn.o
+        /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/bin/ld.bfd: cannot find crt1.o: No such file or directory
+        /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/bin/ld.bfd: cannot find crti.o: No such file or directory
+        collect2: error: ld returned 1 exit status
+        gmake[1]: *** [CMakeFiles/cmTC_eb6b4.dir/build.make:99: cmTC_eb6b4] Error 1
+        gmake[1]: Leaving directory '/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-BuDDrE'
+        gmake: *** [Makefile:127: cmTC_eb6b4/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/jolin/.local/lib/python3.10/site-packages/cmake/data/share/cmake-3.27/Modules/CMakeTestCCompiler.cmake:56 (try_compile)"
+      - "CMakeLists.txt"
+    checks:
+      - "Check for working C compiler: /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-gcc"
+    directories:
+      source: "/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-6qb9tf"
+      binary: "/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-6qb9tf"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-mcpu=arm1176jzf-s"
+      CMAKE_SYSROOT: "/var/lib/schroot/chroots/rpi-bullseye-armhf"
+    buildResult:
+      variable: "CMAKE_C_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: '/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-6qb9tf'
+        
+        Run Build Command(s): /home/jolin/.local/lib/python3.10/site-packages/cmake/data/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_9c885/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_9c885.dir/build.make CMakeFiles/cmTC_9c885.dir/build
+        gmake[1]: Entering directory '/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-6qb9tf'
+        Building C object CMakeFiles/cmTC_9c885.dir/testCCompiler.c.o
+        /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-gcc --sysroot=/var/lib/schroot/chroots/rpi-bullseye-armhf   -mcpu=arm1176jzf-s  -o CMakeFiles/cmTC_9c885.dir/testCCompiler.c.o -c /mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-6qb9tf/testCCompiler.c
+        Linking C executable cmTC_9c885
+        /home/jolin/.local/lib/python3.10/site-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9c885.dir/link.txt --verbose=1
+        /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/armv6-rpi-linux-gnueabihf-gcc --sysroot=/var/lib/schroot/chroots/rpi-bullseye-armhf -mcpu=arm1176jzf-s  -rdynamic CMakeFiles/cmTC_9c885.dir/testCCompiler.c.o -o cmTC_9c885 
+        /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/bin/ld.bfd: cannot find crt1.o: No such file or directory
+        /home/jolin/opt/x-tools/armv6-rpi-linux-gnueabihf/bin/../lib/gcc/armv6-rpi-linux-gnueabihf/13.2.0/../../../../armv6-rpi-linux-gnueabihf/bin/ld.bfd: cannot find crti.o: No such file or directory
+        collect2: error: ld returned 1 exit status
+        gmake[1]: *** [CMakeFiles/cmTC_9c885.dir/build.make:99: cmTC_9c885] Error 1
+        gmake[1]: Leaving directory '/mnt/c/Users/jolin/OneDrive/Desktop/Senior/fall/EE180DA/Team4/fall_detection/fall_detection-v3/build/CMakeFiles/CMakeScratch/TryCompile-6qb9tf'
+        gmake: *** [Makefile:127: cmTC_9c885/fast] Error 2
+        
+      exitCode: 2
+...
