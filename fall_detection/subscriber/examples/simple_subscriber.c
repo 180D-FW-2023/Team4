@@ -52,7 +52,7 @@ int main(int argc, const char *argv[])
     if (argc > 2) {
         port = argv[2];
     } else {
-        port = "8883";
+        port = "1883";
     }
 
     /* get the topic name to publish */
