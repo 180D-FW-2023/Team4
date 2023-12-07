@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     fstream newfile;
     string tp;
     string complete;
-    newfile.open("../subscriber/test.txt",ios::in);
+    newfile.open("test.txt",ios::in);
     if(newfile.is_open()){
         while(getline(newfile, tp)){
             complete.append(tp);

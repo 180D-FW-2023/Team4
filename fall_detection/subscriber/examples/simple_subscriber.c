@@ -128,6 +128,7 @@ int main(int argc, const char *argv[])
         return -1;
     }
     fprintf(fp, buffer);
+    fclose(fp);
     sleep(1);
 
     /* exit */
