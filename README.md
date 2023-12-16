@@ -16,11 +16,15 @@ make simple_publisher
 ```
 
 Then launch the subscriber and the fall detection model by running the shell script after going back to the previous folder:
-`cd ..`
-`sh shell_script.sh`
+```console
+cd ..
+sh shell_script.sh
+```
 You may need to give the file permission with:
 `chmod +x shell_script.sh`
 
 Next, ssh into the Raspberry Pi and navigate to the folder for the publisher:
-`cd subscriber`
-`./bin/simple_publisher`
+```console
+cd subscriber
+./bin/simple_publisher
+```
