@@ -10,7 +10,7 @@ import struct
 from PIL import Image
 import cv2 as cv
 import numpy as np
-from detector import recognize_faces
+from face_recog.detector import recognize_faces
 
 
 path = "./data/"
@@ -28,7 +28,7 @@ def main():
         if (first_message == "step count"):
             p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
             p1.start()
-            server_step_count(conn)
+            # server_step_count(conn)
         if (first_message == "face recognition"):
             p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
             p2.start()
@@ -149,14 +149,14 @@ def server_face_rec(conn):
 
             #Save the image to a folder called stream-pics (each image will have a different name)
             # image.save('stream-pics/im' + str(i) + '.png')
-        cv.imwrite('test.png', image)
+        cv.imwrite('face_recog/test.png', image)
         # image = Image.open(image_stream)
         # print('Image is %dx%d' % image.size)
         # image.verify()
         # print('Image is verified')
 
 
-        recognize_faces('test.png')
+        recognize_faces('face_recog/test.png')
         #print("I passed")
 
 if __name__ == "__main__":

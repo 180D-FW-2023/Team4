@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 import face_recognition
 import pickle
 
-DEFAULT_ENCODINGS_PATH = Path("output/encodings.pkl")
+DEFAULT_ENCODINGS_PATH = Path("face_recog/output/encodings.pkl")
 
 BOUNDING_BOX_COLOR = "blue"
 TEXT_COLOR = "white"
