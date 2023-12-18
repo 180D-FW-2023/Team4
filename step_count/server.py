@@ -57,7 +57,6 @@ def step_count(path_name):
     return total_peaks
 
 def server_step_count(conn):
-    from_client = ''
     current_date = ""
     current_hour = ""
     day_step_count = 0
@@ -69,7 +68,6 @@ def server_step_count(conn):
     while True:
         data = conn.recv(4096)
         if not data: break
-        from_client += data.decode('utf_8')
         list_data = data.decode('utf_8').replace("\n", "").split(";")
 
         for item in list_data: 
