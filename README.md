@@ -36,12 +36,12 @@ cd subscriber
 4. ssh into your two Raspberry Pis. One pi (pi 1) will be for facial recognition and the other (pi 2) will be for the step counter
 5. Copy stream_client.py onto pi 1 and step_count_client_pi.py onto pi 2 (that have your changes from step 2)
 6. On your server you will need to install the packages used in server.py: `pip install socket matplotlib.pyplot numpy scipy.signal multiprocessing io struct PIL cv2 face_recognition argparse pathlib collections pickle`
-7. On pi 1 you will need to install the packages used in TBD: `pip install socket io picamera struct time`
+7. On pi 1 you will need to install the packages used in stream_client.py: `pip install socket io picamera struct time`
 8. On pi 2 you will need ot install the packages used in step_count_client_pi.py `pip install sense_hat datetime socket`
 
 ## Run the Code
 Now that you have finished setup, you can now run everything!
 1. Start up the server code (server.py) on your laptop: `python3 server.py`
 2. Run the client code on your two pis in any order
-   1. pi 1 with TBD: `python stream_client.py`
+   1. pi 1 with stream_client.py: `python stream_client.py`
    2. pi 2 with step_count_client_pi.py: `python3 step_count_client_pi.py`
