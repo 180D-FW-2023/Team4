@@ -31,7 +31,7 @@ def main():
 		time = now.strftime("%H:%M:%S.%f")
 
 		line = date + "," + time + "," + acc + ";"
-		print(line)
+		# print(line)
 		client.sendall(line.encode())
 
 if __name__ == "__main__":

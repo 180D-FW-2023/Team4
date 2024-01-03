@@ -3,14 +3,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks
 import multiprocessing 
+import fabric
+import subprocess
 
 path = "./data/"
+step_count_pi_path = "~/Team4/step_count/acc_data_pi.py"
 
 def main():
     serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Assigns a port for the server that listens to clients connecting to this port.
     serv.bind(('0.0.0.0', 8080))
     serv.listen(5)
+    
+    ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
+    ip_addr = ip_addr.stdout.decode()
+    print(ip_addr)
+
+    # TODO: order? parallelize?
+    p0 = multiprocessing.Process(target=run_pi, args=("raspberrypi.local", ip_addr, step_count_pi_path, ))
+    p0.start()
 
     while True:
         conn, addr = serv.accept()
@@ -113,6 +124,11 @@ def server_step_count(conn):
                 file.write(item + "\n")
     conn.close()
     print('client disconnected')
+
+def run_pi(pi_ip, ip_addr, script_path):
+    with fabric.Connection(pi_ip, user="pi", connect_kwargs={'password': 'isabella'}) as c:
+        result = c.run('python ' + script_path + ' ' + ip_addr)
+        print(result)
 
 if __name__ == "__main__":
     main()
