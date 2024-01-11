@@ -1,7 +1,7 @@
 import socket
-import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks
+from scipy.signal import savgol_filter
 import multiprocessing 
 import fabric
 import subprocess
@@ -54,22 +54,11 @@ def step_count(path_name):
 
     accel_mag = np.sqrt((np.power(xdata, 2) + np.power(ydata, 2) + np.power(zdata, 2)))
     accel_mag = accel_mag - np.mean(accel_mag)
+    
+    y_smooth = savgol_filter(accel_mag, window_length=40, polyorder=3, mode="nearest")
+    smooth_peaks, _ = find_peaks(y_smooth, height=0.2)
 
-    # accel_mag = accel_mag - np.mean(accel_mag)
-    # min_peak_height = 2*np.std(accel_mag) + np.mean(accel_mag)
-    # TODO: tune height, make greater of 1.3 and std dev?
-    std_dev_height = np.std(accel_mag)
-    height = 0.3
-    min_peak_height = std_dev_height if std_dev_height > height else height
-    peaks, _ = find_peaks(accel_mag, height=min_peak_height)
-
-    neg_accel_mag = -accel_mag
-    neg_std_dev_height = np.std(neg_accel_mag)
-    neg_height = 0.18
-    neg_min_peak_height = neg_std_dev_height if neg_std_dev_height > neg_height else height
-    neg_peaks, _ = find_peaks(neg_accel_mag, height=neg_min_peak_height)
-
-    total_peaks = len(peaks) if len(peaks) < len(neg_peaks) else len(neg_peaks)
+    total_peaks = len(smooth_peaks)
 
     return total_peaks
 
