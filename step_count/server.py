@@ -7,7 +7,7 @@ import fabric
 import subprocess
 
 path = "./data/"
-step_count_pi_path = "~/Team4/step_count/acc_data_pi.py"
+step_count_pi_path = "~/step_count_client_pi.py"
 
 def main():
     serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -15,17 +15,23 @@ def main():
     serv.bind(('0.0.0.0', 8080))
     serv.listen(5)
     
-    ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
-    ip_addr = ip_addr.stdout.decode()
-    print(ip_addr)
+    serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
+    serv_ip_addr = serv_ip_addr.stdout.decode()
+    print("server ip adddress: " + serv_ip_addr)
 
-    # TODO: order? parallelize?
-    p0 = multiprocessing.Process(target=run_pi, args=("raspberrypi.local", ip_addr, step_count_pi_path, ))
+    # TODO: order?
+    # step count start pi client code
+    step_count_info_list = None
+    with open("step_count_pi_ip.txt") as file_step_count:
+        step_count_info_list = file_step_count.read().splitlines() 
+    # TODO: error handling
+    assert(len(step_count_info_list) == 3)
+    p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr ))
     p0.start()
 
     while True:
         conn, addr = serv.accept()
-        print(addr)
+        print("client connection ip address: " + addr[0])
         first_message = conn.recv(4096).decode('utf_8')
         if (first_message == "step count"):
             p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
@@ -125,9 +131,12 @@ def server_step_count(conn):
     conn.close()
     print('client disconnected')
 
-def run_pi(pi_ip, ip_addr, script_path):
-    with fabric.Connection(pi_ip, user="pi", connect_kwargs={'password': 'isabella'}) as c:
-        result = c.run('python ' + script_path + ' ' + ip_addr)
+def run_pi(info, server_ip_addr):
+    pi_ip = info[0]
+    pi_user = info[1]
+    pi_pswd = info[2]
+    with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
+        result = c.run('python ' + step_count_pi_path + ' ' + server_ip_addr)
         print(result)
 
 if __name__ == "__main__":
