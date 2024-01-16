@@ -1,13 +1,14 @@
 import socket
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks
 import multiprocessing 
+import subprocess
 
 import io
 import socket
 import struct
-from PIL import Image
+#from PIL import Image
 import cv2 as cv
 import numpy as np
 from face_recog.detector import recognize_faces
@@ -15,11 +16,14 @@ from face_recog.detector import recognize_faces
 
 path = "./data/"
 
-def main():
+def main1():
     serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Assigns a port for the server that listens to clients connecting to this port.
     serv.bind(('0.0.0.0', 8080))
     serv.listen(5)
+
+    p3 = multiprocessing.Process(target=server_fall)
+    p3.start()
 
     while True:
         conn, addr = serv.accept()
@@ -128,6 +132,9 @@ def server_step_count(conn):
     conn.close()
     print('client disconnected')
 
+def server_fall():
+    subprocess.call(['sh', '../fall_detection/shell_script.sh'])
+
 def server_face_rec(conn):
     connection = conn.makefile('rb')
     while True:
@@ -160,6 +167,6 @@ def server_face_rec(conn):
         #print("I passed")
 
 if __name__ == "__main__":
-    main()
+    main1()
 
     
