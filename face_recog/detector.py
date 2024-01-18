@@ -7,10 +7,11 @@ from PIL import Image, ImageDraw, ImageFont
 import face_recognition
 import pickle
 
-DEFAULT_ENCODINGS_PATH = Path("face_recog/output/encodings.pkl")
+DEFAULT_ENCODINGS_PATH = Path("/Users/Home/Team4/face_recog/output/encodings.pkl")
 
 BOUNDING_BOX_COLOR = "blue"
 TEXT_COLOR = "white"
+COUNT = 0
 
 parser = argparse.ArgumentParser(description="Recognize faces in an image")
 parser.add_argument("--train", action="store_true", help="Train on input data")
@@ -55,6 +56,7 @@ def encode_known_faces(
     with encodings_location.open(mode="wb") as f:
         pickle.dump(name_encodings, f)
 
+count = 0
 def recognize_faces(
     image_location: str,
     model: str = "hog",
@@ -75,6 +77,7 @@ def recognize_faces(
     pillow_image = Image.fromarray(input_image)
     draw = ImageDraw.Draw(pillow_image)
 
+    names = []
     for bounding_box, unknown_encoding in zip(
         input_face_locations, input_face_encodings
     ):
@@ -82,42 +85,21 @@ def recognize_faces(
         if not name:
             name = "Unknown"
         print(name)
+        names.append(name)
         # Removed print(name, bounding_box)
         _display_face(draw, bounding_box, name)
 
     del draw
-    pillow_image.show()
-
-def recognize_faces2(
-    input_image,
-    model: str = "hog",
-    encodings_location: Path = DEFAULT_ENCODINGS_PATH,
-) -> None:
-    with encodings_location.open(mode="rb") as f:
-        loaded_encodings = pickle.load(f)
-
-    input_face_locations = face_recognition.face_locations(
-        input_image, model=model
-    )
-    input_face_encodings = face_recognition.face_encodings(
-        input_image, input_face_locations
-    )
-
-    pillow_image = Image.fromarray(input_image)
-    draw = ImageDraw.Draw(pillow_image)
-
-    for bounding_box, unknown_encoding in zip(
-        input_face_locations, input_face_encodings
-    ):
-        name = _recognize_face(unknown_encoding, loaded_encodings)
-        if not name:
-            name = "Unknown"
-        print(name)
-        # Removed print(name, bounding_box)
-        _display_face(draw, bounding_box, name)
-
-    del draw
-    pillow_image.show()
+    global COUNT
+    if COUNT == 5:
+        try:
+            pillow_image.verify()
+            pillow_image.save("out.png")
+            COUNT = 0
+        except Exception:
+            COUNT = COUNT - 1
+    COUNT = COUNT + 1
+    return names
 
 def _recognize_face(unknown_encoding, loaded_encodings):
     boolean_matches = face_recognition.compare_faces(
