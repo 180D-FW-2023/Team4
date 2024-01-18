@@ -6,8 +6,12 @@ from collections import Counter
 from PIL import Image, ImageDraw, ImageFont
 import face_recognition
 import pickle
+import os
 
-DEFAULT_ENCODINGS_PATH = Path("/Users/Home/Team4/face_recog/output/encodings.pkl")
+cwd = os.getcwd()
+cwd = cwd[:cwd.find('Team4') + 5]
+print(cwd)
+DEFAULT_ENCODINGS_PATH = Path(cwd + "/face_recog/output/encodings.pkl")
 
 BOUNDING_BOX_COLOR = "blue"
 TEXT_COLOR = "white"
@@ -33,16 +37,16 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-Path("training").mkdir(exist_ok=True)
-Path("output").mkdir(exist_ok=True)
-Path("validation").mkdir(exist_ok=True)
+Path(cwd + "training").mkdir(exist_ok=True)
+Path(cwd + "output").mkdir(exist_ok=True)
+Path(cwd + "validation").mkdir(exist_ok=True)
 
 def encode_known_faces(
     model: str = "hog", encodings_location: Path = DEFAULT_ENCODINGS_PATH
 ) -> None:
     names = []
     encodings = []
-    for filepath in Path("training").glob("*/*"):
+    for filepath in Path(cwd + "training").glob("*/*"):
         name = filepath.parent.name
         image = face_recognition.load_image_file(filepath)
 
@@ -62,6 +66,8 @@ def recognize_faces(
     model: str = "hog",
     encodings_location: Path = DEFAULT_ENCODINGS_PATH,
 ) -> None:
+    cwd = os.getcwd()
+    print(cwd)
     with encodings_location.open(mode="rb") as f:
         loaded_encodings = pickle.load(f)
 
