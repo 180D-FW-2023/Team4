@@ -5,6 +5,7 @@ from scipy.signal import savgol_filter
 import multiprocessing 
 import fabric
 import subprocess
+import os
 
 import io
 import socket
@@ -14,10 +15,13 @@ import cv2 as cv
 import numpy as np
 # from face_recog.detector import recognize_faces
 
+cwd = os.getcwd()
+cwd = cwd[:cwd.find('Team4') + 5]
+print(cwd)
 
-path = "./step_count/data/"
-step_count_pi_path = "~/step_count_client_pi.py"
-facial_rec_pi_path = "~/facial_rec_client_pi.py"
+path = cwd + "/step_count/data/"
+step_count_pi_path = cwd + "/step_count_client_pi.py"
+facial_rec_pi_path = cwd + "/facial_rec_client_pi.py"
 
 names = []
 total_seen = set()
@@ -149,7 +153,7 @@ def server_step_count(conn):
     print('client disconnected')
 
 def server_fall():
-    subprocess.call(['sh', '/Users/Home/Team4/fall_detection/shell_script.sh'])
+    subprocess.call(['sh', cwd + '/fall_detection/shell_script.sh'])
 
 def server_face_rec(conn):
     connection = conn.makefile('rb')
@@ -172,19 +176,19 @@ def server_face_rec(conn):
 
             #Save the image to a folder called stream-pics (each image will have a different name)
             # image.save('stream-pics/im' + str(i) + '.png')
-        cv.imwrite('/Users/Home/Team4/face_recog/test.png', image)
+        cv.imwrite(cwd + '/face_recog/test.png', image)
         # image = Image.open(image_stream)
         # print('Image is %dx%d' % image.size)
         # image.verify()
         # print('Image is verified')
 
 
-        names_recognized = recognize_faces('/Users/Home/Team4/face_recog/test.png')
+        names_recognized = recognize_faces(cwd + '/face_recog/test.png')
         for name in names_recognized:
             if name not in total_seen:
                 total_seen.add(name)
         if len(total_seen) != 0:
-            with open('/Users/Home/Team4/total_seen.txt', 'w') as f:
+            with open(cwd + '/total_seen.txt', 'w') as f:
                 f.write(str(total_seen))
         #print("I passed")
 
