@@ -14,7 +14,9 @@ import numpy as np
 from face_recog.detector import recognize_faces
 
 
-path = "./data/"
+path = "/Users/Home/Team4/data/"
+names = []
+total_seen = set()
 
 def main1():
     serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -133,7 +135,7 @@ def server_step_count(conn):
     print('client disconnected')
 
 def server_fall():
-    subprocess.call(['sh', '../fall_detection/shell_script.sh'])
+    subprocess.call(['sh', '/Users/Home/Team4/fall_detection/shell_script.sh'])
 
 def server_face_rec(conn):
     connection = conn.makefile('rb')
@@ -156,14 +158,20 @@ def server_face_rec(conn):
 
             #Save the image to a folder called stream-pics (each image will have a different name)
             # image.save('stream-pics/im' + str(i) + '.png')
-        cv.imwrite('face_recog/test.png', image)
+        cv.imwrite('/Users/Home/Team4/face_recog/test.png', image)
         # image = Image.open(image_stream)
         # print('Image is %dx%d' % image.size)
         # image.verify()
         # print('Image is verified')
 
 
-        recognize_faces('face_recog/test.png')
+        names_recognized = recognize_faces('/Users/Home/Team4/face_recog/test.png')
+        for name in names_recognized:
+            if name not in total_seen:
+                total_seen.add(name)
+        if len(total_seen) != 0:
+            with open('/Users/Home/Team4/total_seen.txt', 'w') as f:
+                f.write(str(total_seen))
         #print("I passed")
 
 if __name__ == "__main__":

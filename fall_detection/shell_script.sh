@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 echo "running first test"
-../fall_detection/subscriber/bin/simple_subscriber
+/Users/Home/Team4/fall_detection/subscriber/bin/simple_subscriber
 wait
-../fall_detection/fall_detection-v3/build/app
+/Users/Home/Team4/fall_detection/fall_detection-v3/build/app
 exit 0
