@@ -1,9 +1,8 @@
 import socket
+#import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks
-from scipy.signal import savgol_filter
 import multiprocessing 
-import fabric
 import subprocess
 import os
 
@@ -13,7 +12,7 @@ import struct
 #from PIL import Image
 import cv2 as cv
 import numpy as np
-# from face_recog.detector import recognize_faces
+from face_recog.detector import recognize_faces
 
 cwd = os.getcwd()
 cwd = cwd[:cwd.find('Team4') + 5]
@@ -32,35 +31,12 @@ def main1():
     serv.bind(('0.0.0.0', 8080))
     serv.listen(5)
 
-    serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
-    serv_ip_addr = serv_ip_addr.stdout.decode()
-    print("server ip adddress: " + serv_ip_addr)
-
-    # p3 = multiprocessing.Process(target=server_fall)
-    # p3.start()
-
-    # TODO: order?
-    # step count start pi client code
-    step_count_info_list = None
-    with open("step_count_pi_ip.txt") as file_step_count:
-        step_count_info_list = file_step_count.read().splitlines() 
-    # TODO: error handling
-    assert(len(step_count_info_list) == 3)
-    p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
-    p0.start()
-
-    # facial rec start pi client code
-    facial_rec_info_list = None
-    with open("facial_rec_pi_ip.txt") as file_facial_rec:
-        facial_rec_info_list = file_facial_rec.read().splitlines() 
-    # TODO: error handling
-    assert(len(facial_rec_info_list) == 3)
-    p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
-    p01.start()
+    p3 = multiprocessing.Process(target=server_fall)
+    p3.start()
 
     while True:
         conn, addr = serv.accept()
-        print("client connection ip address: " + addr[0])
+        print(addr)
         first_message = conn.recv(4096).decode('utf_8')
         if (first_message == "step count"):
             p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
@@ -86,15 +62,27 @@ def step_count(path_name):
 
     accel_mag = np.sqrt((np.power(xdata, 2) + np.power(ydata, 2) + np.power(zdata, 2)))
     accel_mag = accel_mag - np.mean(accel_mag)
-    
-    y_smooth = savgol_filter(accel_mag, window_length=40, polyorder=3, mode="nearest")
-    smooth_peaks, _ = find_peaks(y_smooth, height=0.2)
 
-    total_peaks = len(smooth_peaks)
+    # accel_mag = accel_mag - np.mean(accel_mag)
+    # min_peak_height = 2*np.std(accel_mag) + np.mean(accel_mag)
+    # TODO: tune height, make greater of 1.3 and std dev?
+    std_dev_height = np.std(accel_mag)
+    height = 0.3
+    min_peak_height = std_dev_height if std_dev_height > height else height
+    peaks, _ = find_peaks(accel_mag, height=min_peak_height)
+
+    neg_accel_mag = -accel_mag
+    neg_std_dev_height = np.std(neg_accel_mag)
+    neg_height = 0.18
+    neg_min_peak_height = neg_std_dev_height if neg_std_dev_height > neg_height else height
+    neg_peaks, _ = find_peaks(neg_accel_mag, height=neg_min_peak_height)
+
+    total_peaks = len(peaks) if len(peaks) < len(neg_peaks) else len(neg_peaks)
 
     return total_peaks
 
 def server_step_count(conn):
+    from_client = ''
     current_date = ""
     current_hour = ""
     day_step_count = 0
@@ -106,6 +94,7 @@ def server_step_count(conn):
     while True:
         data = conn.recv(4096)
         if not data: break
+        from_client += data.decode('utf_8')
         list_data = data.decode('utf_8').replace("\n", "").split(";")
 
         for item in list_data: 
@@ -191,24 +180,6 @@ def server_face_rec(conn):
             with open(cwd + '/total_seen.txt', 'w') as f:
                 f.write(str(total_seen))
         #print("I passed")
-
-def run_pi(info, server_ip_addr, pi_type):
-    pi_ip = info[0]
-    pi_user = info[1]
-    pi_pswd = info[2]
-    if pi_type == "step_count":
-        with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-            result = c.run('python ' + step_count_pi_path + ' ' + server_ip_addr)
-            print(result)
-    elif pi_type == "facial_rec":
-        with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-            result = c.run('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
-            print(result)
-    elif pi_type == "fall_detector":
-        pass
-    else:
-        # TODO: error handle
-        pass
 
 if __name__ == "__main__":
     main1()
