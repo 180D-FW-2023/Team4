@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+
 using namespace std;
 #include "edge-impulse-sdk/classifier/ei_run_classifier.h"
 
@@ -17,6 +18,7 @@ float input_float_buf[600];
 
 int main(int argc, char **argv) {
 
+    // edge impulse
     // Reading test.txt to get the string
     fstream newfile;
     string tp;
@@ -30,7 +32,17 @@ int main(int argc, char **argv) {
     }
 
     // cleaning up string
-    complete.erase(0, 11);
+    int N = complete.length();
+    int first_publish = 0;
+    for (int i = 0; i < N; i++) {
+        printf("true");
+        if(complete[i] == ' '){
+            first_publish = i;
+            break;
+        }
+    }
+    printf("\nThe first number is %i \n", first_publish);
+    complete.erase(0, first_publish);
     complete.pop_back();
     complete.pop_back();
     // cout << complete << "\n";
@@ -42,14 +54,16 @@ int main(int argc, char **argv) {
     string test[600];
     int count = 0;
 
-    while ((pos = complete.find(delimiter)) != string::npos) {
+    while (((pos = complete.find(delimiter)) != string::npos) && count != 600) {
         token = complete.substr(0, pos);
         test[count] = token;
         complete.erase(0, pos + delimiter.length());
         count = count + 1;
     }
-    test[count] = complete;
-
+    // test[count] = complete;
+    for (int i = 0; i < 600; i++){
+        cout << test[i] << "\n";
+    }
     // cleaning up and converting numbers to float
 
     for(int i = 0; i < 600; i++){
@@ -57,6 +71,7 @@ int main(int argc, char **argv) {
         input_float_buf[i] = stof(test[i]);
         // cout << input_float_buf[i] << "\n";
     }
+
 
 
     signal_t signal;            // Wrapper for raw input buffer

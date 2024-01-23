@@ -35,7 +35,8 @@ CSOURCES += $(wildcard edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/*.c)
 			$(wildcard edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/*.c) \
 			$(wildcard edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/*.c) \
 			$(wildcard edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/*.c) \
-			$(wildcard edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/*.c)
+			$(wildcard edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/*.c) \
+			$(wildcard src/mqtt.c src/mqtt_pal.c)
 
 # Include C++ source code for required libraries
 CXXSOURCES += 	$(wildcard tflite-model/*.cpp) \

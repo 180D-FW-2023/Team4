@@ -107,14 +107,14 @@ int main(int argc, const char *argv[])
 
     /* block */
     // while(fgetc(stdin) != EOF);
-    while(strlen(buffer) < 4812);
+    while(strlen(buffer) < 4900);
 
     /* disconnect */
     printf("\n%s disconnecting from %s\n", argv[0], addr);
 
     // delete extra characters
     for (long unsigned int i = 0; i < strlen(buffer) - 1; i++){
-        if (i >= 4812){
+        if (i >= 4900){
             buffer[i] = '\0';
         }
     }
