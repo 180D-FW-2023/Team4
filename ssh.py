@@ -4,6 +4,7 @@ import fabric
 
 def main1(user, pswd, pi_name, host_name):
     file = None
+    # TODO: connection fails
     with fabric.Connection(host_name, user=user, connect_kwargs={'password': pswd}) as c:
         result = c.run("ip -4 a")
         result = str(result)
@@ -12,6 +13,7 @@ def main1(user, pswd, pi_name, host_name):
         pi_ip = result[result.find("inet") + 5:result.find("/")]
         if pi_name == "step_count":
             file = open("./" + pi_name + "_pi_ip.txt", "w")
+            # TODO: move put to server?
             c.put("./step_count_client_pi.py")
         elif pi_name == "facial_rec":
             file = open("./" + pi_name + "_pi_ip.txt", "w")
