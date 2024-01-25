@@ -172,13 +172,18 @@ def server_face_rec(conn):
 
 
         names_recognized = recognize_faces(cwd + '/face_recog/test.png')
+        message = ''
         for name in names_recognized:
             if name not in total_seen:
                 total_seen.add(name)
+                message += name
+                message += ', '
         if len(total_seen) != 0:
             with open(cwd + '/total_seen.txt', 'w') as f:
                 f.write(str(total_seen))
         #print("I passed")
+        encodedMessage = bytes(message, 'utf-8')
+        conn.sendall(encodedMessage)
 
 if __name__ == "__main__":
     main1()

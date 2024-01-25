@@ -39,6 +39,11 @@ try:
         # Reset the stream for the next capture
         stream.seek(0)
         stream.truncate()
+
+        #Recieve the name message from the server
+        name = client_socket.recv(1024).decode()
+        print('Received from server: ' + name)  # show in terminal (for now)
+        
     # Write a length of zero to the stream to signal we're done
     connection.write(struct.pack('<L', 0))
 finally:
