@@ -13,6 +13,7 @@ import struct
 import cv2 as cv
 import numpy as np
 from face_recog.detector import recognize_faces
+import fabric
 
 
 # TODO: can this be here?
