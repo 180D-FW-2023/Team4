@@ -29,4 +29,4 @@ def main1(user, pswd, pi_name, host_name):
             pass
 
 if __name__ == "__main__":
-    main1("pi", "isabella", "step_count", "raspberrypi.local")
+    main1("pi", "krisha", "facial_rec", "raspberrypi.local")

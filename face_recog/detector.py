@@ -10,7 +10,6 @@ import os
 
 cwd = os.getcwd()
 cwd = cwd[:cwd.find('Team4') + 5]
-print(cwd)
 DEFAULT_ENCODINGS_PATH = Path(cwd + "/face_recog/output/encodings.pkl")
 
 BOUNDING_BOX_COLOR = "blue"

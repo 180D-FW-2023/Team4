@@ -13,15 +13,14 @@ import struct
 #from PIL import Image
 import cv2 as cv
 import numpy as np
-# from face_recog.detector import recognize_faces
+from face_recog.detector import recognize_faces
 
 cwd = os.getcwd()
 cwd = cwd[:cwd.find('Team4') + 5]
-print(cwd)
 
 path = cwd + "/step_count/data/"
-step_count_pi_path = cwd + "/step_count_client_pi.py"
-facial_rec_pi_path = cwd + "/facial_rec_client_pi.py"
+step_count_pi_path = "./step_count_client_pi.py"
+facial_rec_pi_path = "./facial_rec_client_pi.py"
 
 names = []
 total_seen = set()
@@ -41,6 +40,7 @@ def main1():
 
     # TODO: order?
     # step count start pi client code
+    print("here 1")
     step_count_info_list = None
     with open("step_count_pi_ip.txt") as file_step_count:
         step_count_info_list = file_step_count.read().splitlines() 
@@ -48,6 +48,7 @@ def main1():
     assert(len(step_count_info_list) == 3)
     p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
     p0.start()
+    print("here 2")
 
     # facial rec start pi client code
     facial_rec_info_list = None
@@ -57,8 +58,9 @@ def main1():
     assert(len(facial_rec_info_list) == 3)
     p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
     p01.start()
-
+    print("here 3")
     while True:
+        print("here")
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
         first_message = conn.recv(4096).decode('utf_8')
@@ -201,6 +203,7 @@ def run_pi(info, server_ip_addr, pi_type):
             result = c.run('python ' + step_count_pi_path + ' ' + server_ip_addr)
             print(result)
     elif pi_type == "facial_rec":
+        print('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
         with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
             result = c.run('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
             print(result)
