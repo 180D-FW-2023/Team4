@@ -12,9 +12,9 @@ from pathlib import Path
 # import socket
 # import struct
 #from PIL import Image
-# import cv2 as cv
-# import numpy as np
-# from face_recog.detector import recognize_faces
+import cv2 as cv
+import numpy as np
+from face_recog.detector import recognize_faces
 
 
 # TODO: can this be here?
@@ -54,17 +54,19 @@ def main1():
     # step count start pi client code
     p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
     p0.start()
+    print("here 2")
 
     # facial rec start pi client code
-    # facial_rec_info_list = None
-    # with open("facial_rec_pi_ip.txt") as file_facial_rec:
-    #     facial_rec_info_list = file_facial_rec.read().splitlines() 
-    # # TODO: error handling
-    # assert(len(facial_rec_info_list) == 3)
-    # p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
-    # p01.start()
-
+    facial_rec_info_list = None
+    with open("facial_rec_pi_ip.txt") as file_facial_rec:
+        facial_rec_info_list = file_facial_rec.read().splitlines() 
+    # TODO: error handling
+    assert(len(facial_rec_info_list) == 3)
+    p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
+    p01.start()
+    print("here 3")
     while True:
+        print("here")
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
         first_message = conn.recv(4096).decode('utf_8')
