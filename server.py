@@ -16,7 +16,11 @@ from face_recog.detector import recognize_faces
 cwd = os.getcwd()
 cwd = cwd[:cwd.find('Team4') + 5]
 print(cwd)
-path = cwd + "/data/"
+
+path = cwd + "/step_count/data/"
+step_count_pi_path = cwd + "/step_count_client_pi.py"
+facial_rec_pi_path = cwd + "/facial_rec_client_pi.py"
+
 names = []
 total_seen = set()
 
