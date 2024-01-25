@@ -128,6 +128,8 @@ def server_step_count(conn):
                 cur_step_count = day_step_count + step_count(file_name)
                 file = file_open(file_name)
                 print("Step Count: " + str(cur_step_count))
+                send_data = str(cur_step_count) + ";"
+                conn.sendall(send_data.encode())
             # in current date and hour
             if list_item[0] == current_date and list_item[1][0:2] == current_hour:
                 if file:
