@@ -11,6 +11,8 @@ def main():
         return
     # TODO: validate a correct ip address
 
+    print("here2")
+
     # Connect a client socket to my_server:8000 (change my_server to the
     # hostname of your server)
     client_socket = socket.socket()
@@ -51,3 +53,6 @@ def main():
     finally:
         connection.close()
         client_socket.close()
+
+if __name__ == "__main__":
+    main()
