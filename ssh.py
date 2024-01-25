@@ -23,6 +23,12 @@ def main1(user, pswd, pi_name, host_name):
         else:
             # TODO: error handle
             pass
+        if file:
+            file.write(pi_ip + "\n" + user + "\n" + pswd + "\n")
+            file.close()
+        else:
+            # TODO: error handle
+            pass
 
 if __name__ == "__main__":
     main1("pi", "krisha", "facial_rec", "raspberrypi.local")
