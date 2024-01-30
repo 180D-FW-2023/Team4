@@ -54,23 +54,31 @@ def main1():
     except:
          print("Error: Set Up Your Step Counter Pi")
          #TODO: return?
-    
-    if(len(step_count_info_list) != 3):
-        print("Error: Set Up Your Step Counter Pi")
-        return
-    
-    # step count start pi client code
-    p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
-    p0.start()
+    else:
+        if(len(step_count_info_list) != 3):
+            print("Error: Set Up Your Step Counter Pi")
+            # TODO: review this error handle
+            return
+        # step count start pi client code
+        p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
+        p0.start()
 
     # facial rec start pi client code
     facial_rec_info_list = None
-    with open("facial_rec_pi_ip.txt") as file_facial_rec:
-        facial_rec_info_list = file_facial_rec.read().splitlines() 
-    # TODO: error handling
-    assert(len(facial_rec_info_list) == 3)
-    p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
-    p01.start()
+    try:
+        with open("facial_rec_pi_ip.txt") as file_facial_rec:
+            facial_rec_info_list = file_facial_rec.read().splitlines() 
+    except:
+         print("Error: Set Up Your Facial Recognition Pi")
+         #TODO: return?
+    else:
+        if(len(facial_rec_info_list) != 3):
+            print("Error: Set Up Your Facial Recognition Pi")
+            return
+            # TODO: error handling
+
+        p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
+        p01.start()
 
     # TODO: verify in while true that all processses are still running?
     while True:
