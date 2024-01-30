@@ -28,7 +28,6 @@ def main():
 	p0 = multiprocessing.Process(target=write_acc, args=(sense, client,))
 	p0.start()
 
-	sense.show_message("hi")
 	while True:
 		recv_data = client.recv(4096).decode('utf_8')
 		num = recv_data.split(";")
