@@ -1,4 +1,5 @@
 import fabric
+import scrypt
 
 # wired connection and return ip addr of pi
 
@@ -24,11 +25,14 @@ def main1(user, pswd, pi_name, host_name):
             # TODO: error handle
             pass
         if file:
-            file.write(pi_ip + "\n" + user + "\n" + pswd + "\n")
+            pwd = scrypt.encrypt(pswd, 'password')
+            dec_pwd = pwd.hex()
+            print(dec_pwd)
+            file.write(pi_ip + "\n" + user + "\n" + dec_pwd + "\n")
             file.close()
         else:
             # TODO: error handle
             pass
 
 if __name__ == "__main__":
-    main1("pi", "maya", "facial_rec", "raspberrypi.local")
+    main1("pi", "krisha", "facial_rec", "raspberrypi.local")
