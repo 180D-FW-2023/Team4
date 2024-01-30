@@ -14,6 +14,7 @@ import cv2 as cv
 import numpy as np
 from face_recog.detector import recognize_faces
 import fabric
+import scrypt
 
 
 # TODO: can this be here?
@@ -58,7 +59,9 @@ def main1():
     # facial rec start pi client code
     facial_rec_info_list = None
     with open("facial_rec_pi_ip.txt") as file_facial_rec:
-        facial_rec_info_list = file_facial_rec.read().splitlines() 
+        facial_rec_info_list = file_facial_rec.read().splitlines()
+        b = bytes.fromhex(facial_rec_info_list[-1])
+        facial_rec_info_list[-1] = scrypt.decrypt(b, 'password')
     # TODO: error handling
     assert(len(facial_rec_info_list) == 3)
     p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
