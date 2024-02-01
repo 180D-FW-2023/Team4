@@ -8,7 +8,7 @@ st_autorefresh(interval=1000, key="dataframerefresh")
 
 st.image('out.png', caption='Recognized Face')
 
-with open('/Users/Home/Team4/total_seen.txt','r') as f:
+with open('total_seen.txt','r') as f:
    my_set = ast.literal_eval(f.read())
 
 st.json(my_set)

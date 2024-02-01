@@ -3,19 +3,23 @@ import numpy as np
 from scipy.signal import find_peaks
 from scipy.signal import savgol_filter
 import multiprocessing 
+import subprocess
+import os
+from pathlib import Path
+
+import io
+import struct
+#from PIL import Image
+import cv2 as cv
+import numpy as np
+from face_recog.detector import recognize_faces
+import fabric
+import scrypt
 import fabric
 import subprocess
 import os
 from pathlib import Path
 import paramiko
-
-# import io
-# import socket
-# import struct
-# from PIL import Image
-# import cv2 as cv
-# import numpy as np
-# from face_recog.detector import recognize_faces
 
 
 # TODO: can this be here?
@@ -51,6 +55,9 @@ def main1():
     try:
         with open("step_count_pi_ip.txt") as file_step_count:
             step_count_info_list = file_step_count.read().splitlines() 
+            b = bytes.fromhex(step_count_info_list[-1])
+            step_count_info_list[-1] = scrypt.decrypt(b, 'password')
+            print(step_count_info_list[-1])
     except:
          print("Error: Set Up Your Step Counter Pi")
          #TODO: return?
@@ -67,7 +74,9 @@ def main1():
     facial_rec_info_list = None
     try:
         with open("facial_rec_pi_ip.txt") as file_facial_rec:
-            facial_rec_info_list = file_facial_rec.read().splitlines() 
+            facial_rec_info_list = file_facial_rec.read().splitlines()
+            b = bytes.fromhex(facial_rec_info_list[-1])
+            facial_rec_info_list[-1] = scrypt.decrypt(b, 'password')    
     except:
          print("Error: Set Up Your Facial Recognition Pi")
          #TODO: return?
@@ -82,6 +91,7 @@ def main1():
 
     # TODO: verify in while true that all processses are still running?
     while True:
+        print("here")
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
         first_message = conn.recv(4096).decode('utf_8')
@@ -221,12 +231,18 @@ def server_face_rec(conn):
         # print('Image is verified')
 
         names_recognized = recognize_faces(cwd + '/face_recog/test.png')
+        message = ''
         for name in names_recognized:
             if name not in total_seen:
                 total_seen.add(name)
+                message += name
+                message += ', '
         if len(total_seen) != 0:
             with open(cwd + '/total_seen.txt', 'w') as f:
                 f.write(str(total_seen))
+        #print("I passed")
+        encodedMessage = bytes(message, 'utf-8')
+        conn.sendall(encodedMessage)
         #print("I passed")
 
 def run_pi(info, server_ip_addr, pi_type):
