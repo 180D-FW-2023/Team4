@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 echo "running first test"
-while sleep 10
+while true
 {
     ./subscriber/bin/simple_subscriber
     wait

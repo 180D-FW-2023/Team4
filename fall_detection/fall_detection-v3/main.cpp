@@ -104,6 +104,7 @@ int main(int argc, char **argv) {
             result.timing.classification,
             result.timing.anomaly);
 
+
     // Print the prediction results (object detection)
 #if EI_CLASSIFIER_OBJECT_DETECTION == 1
     printf("Object detection bounding boxes:\r\n");
@@ -124,10 +125,40 @@ int main(int argc, char **argv) {
     // Print the prediction results (classification)
 #else
     printf("Predictions:\r\n");
+    uint16_t position = 0;
     for (uint16_t i = 0; i < EI_CLASSIFIER_LABEL_COUNT; i++) {
         printf("  %s: ", ei_classifier_inferencing_categories[i]);
         printf("%.5f\r\n", result.classification[i].value);
+        if (result.classification[i].value >= 0.5){
+            position = i;
+        }
     }
+
+    // J *req = NoteNewRequest("hub.set");
+    // JAddStringToObject(req, "product", "com.gmail.jolin51502:activity_and_fall_detector");
+    // // J *rsp = NoteRequestResponse(req);
+    // NoteRequest(req);
+    // J *second_req = NoteNewRequest("hub.sync");
+    // if (NoteRequest(second_req)){
+    //     cout << "1" << "\n";
+    // }
+    // else {
+    //     cout << "No response from NoteCard" << "\n";
+    // }
+    // if (rsp == NULL || NoteResponseError(rsp)){
+    //     cout << "No response from NoteCard" << "\n";
+    // }
+
+    ofstream myfile;
+    myfile.open("fall.txt");
+    if(position == 1){
+        myfile << "fall\n";
+    } else if (position == 0) {
+        myfile << "ADL\n";
+    } else {
+        myfile << "neither, error\n";
+    }
+    myfile.close();
 #endif
 
     // Print anomaly result (if it exists)
