@@ -1,7 +1,7 @@
 import socket
-#import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks
+from scipy.signal import savgol_filter
 import multiprocessing 
 import subprocess
 import os
@@ -15,6 +15,11 @@ import numpy as np
 from face_recog.detector import recognize_faces
 import fabric
 import scrypt
+import fabric
+import subprocess
+import os
+from pathlib import Path
+import paramiko
 
 
 # TODO: can this be here?
@@ -29,11 +34,13 @@ names = []
 total_seen = set()
 
 def main1():
-    # TODO: check return values of all following
-    serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # Assigns a port for the server that listens to clients connecting to this port.
-    serv.bind(('0.0.0.0', 8080))
-    serv.listen(5)
+    try: 
+        serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # Assigns a port for the server that listens to clients connecting to this port.
+        serv.bind(('0.0.0.0', 8080))
+        serv.listen(5)
+    except:
+        print("Please Try Again. Server is not properly starting up.")
 
     # TODO: only on mac?
     serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
@@ -45,38 +52,56 @@ def main1():
 
     # gets step counter pi info
     step_count_info_list = None
-    with open("step_count_pi_ip.txt") as file_step_count:
-        step_count_info_list = file_step_count.read().splitlines() 
-    if(len(step_count_info_list) != 3):
-        print("Error: Set Up Your Step Counter Pi")
-        return
-    
-    # step count start pi client code
-    p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
-    p0.start()
-    print("here 2")
+    try:
+        with open("step_count_pi_ip.txt") as file_step_count:
+            step_count_info_list = file_step_count.read().splitlines() 
+            b = bytes.fromhex(step_count_info_list[-1])
+            step_count_info_list[-1] = scrypt.decrypt(b, 'password')
+            print(step_count_info_list[-1])
+    except:
+         print("Error: Set Up Your Step Counter Pi")
+         #TODO: return?
+    else:
+        if(len(step_count_info_list) != 3):
+            print("Error: Set Up Your Step Counter Pi")
+            # TODO: review this error handle
+            return
+        # step count start pi client code
+        p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
+        p0.start()
 
     # facial rec start pi client code
     facial_rec_info_list = None
-    with open("facial_rec_pi_ip.txt") as file_facial_rec:
-        facial_rec_info_list = file_facial_rec.read().splitlines()
-        b = bytes.fromhex(facial_rec_info_list[-1])
-        facial_rec_info_list[-1] = scrypt.decrypt(b, 'password')
-    # TODO: error handling
-    assert(len(facial_rec_info_list) == 3)
-    p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
-    p01.start()
-    print("here 3")
+    try:
+        with open("facial_rec_pi_ip.txt") as file_facial_rec:
+            facial_rec_info_list = file_facial_rec.read().splitlines()
+            b = bytes.fromhex(facial_rec_info_list[-1])
+            facial_rec_info_list[-1] = scrypt.decrypt(b, 'password')    
+    except:
+         print("Error: Set Up Your Facial Recognition Pi")
+         #TODO: return?
+    else:
+        if(len(facial_rec_info_list) != 3):
+            print("Error: Set Up Your Facial Recognition Pi")
+            return
+            # TODO: error handling
+
+        p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
+        p01.start()
+
+    # TODO: verify in while true that all processses are still running?
     while True:
         print("here")
         conn, addr = serv.accept()
-        print(addr)
+        print("client connection ip address: " + addr[0])
         first_message = conn.recv(4096).decode('utf_8')
         if (first_message == "step count"):
+            print("Step Counter Pi Starting")
             p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
             p1.start()
             # server_step_count(conn)
         if (first_message == "face recognition"):
+            print("Facial Recognition Pi Starting")
             p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
             p2.start()
         
@@ -88,36 +113,27 @@ def convert_strings_to_floats(input_array):
     return output_array
 
 def step_count(path_name):
-    # TODO: error handle?
-    data = np.loadtxt(path_name, delimiter =',', dtype = str)
+    try:
+        data = np.loadtxt(path_name, delimiter =',', dtype = str)
+    except:
+        print("Please Try Again. Data not being stored properly.")
 
+    # TODO: error handle
     xdata = convert_strings_to_floats(data[:,2])
     ydata = convert_strings_to_floats(data[:,3])
     zdata = convert_strings_to_floats(data[:,4])
 
     accel_mag = np.sqrt((np.power(xdata, 2) + np.power(ydata, 2) + np.power(zdata, 2)))
     accel_mag = accel_mag - np.mean(accel_mag)
+    
+    y_smooth = savgol_filter(accel_mag, window_length=40, polyorder=3, mode="nearest")
+    smooth_peaks, _ = find_peaks(y_smooth, height=0.2)
 
-    # accel_mag = accel_mag - np.mean(accel_mag)
-    # min_peak_height = 2*np.std(accel_mag) + np.mean(accel_mag)
-    # TODO: tune height, make greater of 1.3 and std dev?
-    std_dev_height = np.std(accel_mag)
-    height = 0.3
-    min_peak_height = std_dev_height if std_dev_height > height else height
-    peaks, _ = find_peaks(accel_mag, height=min_peak_height)
-
-    neg_accel_mag = -accel_mag
-    neg_std_dev_height = np.std(neg_accel_mag)
-    neg_height = 0.18
-    neg_min_peak_height = neg_std_dev_height if neg_std_dev_height > neg_height else height
-    neg_peaks, _ = find_peaks(neg_accel_mag, height=neg_min_peak_height)
-
-    total_peaks = len(peaks) if len(peaks) < len(neg_peaks) else len(neg_peaks)
+    total_peaks = len(smooth_peaks)
 
     return total_peaks
 
 def server_step_count(conn):
-    from_client = ''
     current_date = ""
     current_hour = ""
     day_step_count = 0
@@ -129,7 +145,6 @@ def server_step_count(conn):
     while True:
         data = conn.recv(4096)
         if not data: break
-        from_client += data.decode('utf_8')
         list_data = data.decode('utf_8').replace("\n", "").split(";")
 
         for item in list_data: 
@@ -145,6 +160,8 @@ def server_step_count(conn):
                 cur_step_count = day_step_count + step_count(file_name)
                 file = file_open(file_name)
                 print("Step Count: " + str(cur_step_count))
+                send_data = str(cur_step_count) + ";"
+                conn.sendall(send_data.encode())
             # in current date and hour
             if list_item[0] == current_date and list_item[1][0:2] == current_hour:
                 if file:
@@ -233,7 +250,7 @@ def run_pi(info, server_ip_addr, pi_type):
     pi_user = info[1]
     pi_pswd = info[2]
     # TODO: is this right for resiliency?
-    while True:
+    try:
         if pi_type == "step_count":
             # TODO: what if bad password/host/ip?
             with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
@@ -248,6 +265,17 @@ def run_pi(info, server_ip_addr, pi_type):
         else:
             print("Error: Bad Handle")
             return
+    except (TimeoutError, paramiko.ssh_exception.AuthenticationException):
+        nice_pi_name = None
+        if pi_type == "step_count": nice_pi_name = "Step Count"
+        elif pi_type == "facial_rec": nice_pi_name = "Face Recognition"
+        elif pi_type == "fall_detector": nice_pi_name = "Fall Detection"
+        print("Error: Please Run the Setup on Your " + nice_pi_name + " Pi Again")
+        # TODO: kill all processes if reach here
+    except Exception as e:
+        print(type(e))
+        print(e)
+        # retry? connection and run?x
 
 if __name__ == "__main__":
     main1()
