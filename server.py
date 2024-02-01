@@ -88,6 +88,24 @@ def main1():
 
         p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
         p01.start()
+    
+    fall_detect_info_list = None
+    try:
+        with open("fall_detect_pi_ip.txt") as file_fall_detect:
+            fall_detect_info_list = file_fall_detect.read().splitlines() 
+            b = bytes.fromhex(fall_detect_info_list[-1])
+            fall_detect_info_list[-1] = scrypt.decrypt(b, 'password')
+    except:
+         print("Error: Set Up Your Fall Detector Pi")
+         #TODO: return?
+    else:
+        if(len(step_count_info_list) != 3):
+            print("Error: Set Up Your Fall Detector Pi")
+            # TODO: review this error handle
+            return
+        # step count start pi client code
+        p0 = multiprocessing.Process(target=run_pi, args=(fall_detect_info_list, serv_ip_addr, "fall_detect" ))
+        p0.start()
 
     # TODO: verify in while true that all processses are still running?
     while True:
@@ -261,8 +279,10 @@ def run_pi(info, server_ip_addr, pi_type):
             with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
                 result = c.run('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
                 print(result)
-        elif pi_type == "fall_detector":
-            pass
+        elif pi_type == "fall_detect":
+            with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
+                result = c.run('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
+                print(result)
         else:
             print("Error: Bad Handle")
             return

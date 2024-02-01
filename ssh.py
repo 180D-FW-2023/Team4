@@ -2,6 +2,7 @@ import fabric
 import scrypt
 import paramiko
 import socket
+import subprocess
 
 # wired connection and return ip addr of pi
 
@@ -22,8 +23,10 @@ def main1(user, pswd, pi_name, host_name):
             elif pi_name == "facial_rec":
                 file = open("./" + pi_name + "_pi_ip.txt", "w")
                 c.put("./facial_rec_client_pi.py")
-            elif pi_name == "Fall Detection":
-                pass
+            elif pi_name == "fall_detect":
+                file = open("./" + pi_name + "_pi_ip.txt", "w")
+                s = "sshpass -p \"" + pswd + "\" scp -r ./fall_detection/subscriber/bin "+user+"@"+pi_ip+":"
+                subprocess.run(s, shell=True)
             else:
                 # TODO: error handle
                 pass
@@ -48,4 +51,4 @@ def main1(user, pswd, pi_name, host_name):
         print(e)
 
 if __name__ == "__main__":
-    main1("pi", "isabella", "step_count", "raspberrypi.local")
+    main1("pi", "jolin", "fall_detect", "raspberrypi.local")
