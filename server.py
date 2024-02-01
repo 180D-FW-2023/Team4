@@ -47,8 +47,8 @@ def main1():
     serv_ip_addr = serv_ip_addr.stdout.decode()
     print("server ip adddress: " + serv_ip_addr)
 
-    # p3 = multiprocessing.Process(target=server_fall)
-    # p3.start()
+    p3 = multiprocessing.Process(target=server_fall)
+    p3.start()
 
     # gets step counter pi info
     step_count_info_list = None
@@ -202,7 +202,7 @@ def file_open(file_name):
         return file_open(file_name)
 
 def server_fall():
-    subprocess.call(['sh', cwd + '/fall_detection/shell_script.sh'])
+    subprocess.call(['sh', cwd + '/fall_detection/shell_script_new.sh'])
 
 def server_face_rec(conn):
     connection = conn.makefile('rb')
