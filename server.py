@@ -91,7 +91,6 @@ def main1():
 
     # TODO: verify in while true that all processses are still running?
     while True:
-        print("here")
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
         first_message = conn.recv(4096).decode('utf_8')
@@ -160,6 +159,8 @@ def server_step_count(conn):
                 cur_step_count = day_step_count + step_count(file_name)
                 file = file_open(file_name)
                 print("Step Count: " + str(cur_step_count))
+                with open(cwd + '/steps.txt', 'w') as f:
+                    f.write(str(cur_step_count))
                 send_data = str(cur_step_count) + ";"
                 conn.sendall(send_data.encode())
             # in current date and hour
@@ -279,5 +280,3 @@ def run_pi(info, server_ip_addr, pi_type):
 
 if __name__ == "__main__":
     main1()
-
-    
