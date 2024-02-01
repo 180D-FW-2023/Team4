@@ -372,7 +372,7 @@ struct mqtt_response_publish {
     uint16_t packet_id;
 
     /** @brief The publish message's application message.*/
-    const void* application_message;
+    const char* application_message;
 
     /** @brief The size of the application message in bytes. */
     size_t application_message_size;
