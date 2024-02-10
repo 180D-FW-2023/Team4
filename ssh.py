@@ -25,8 +25,11 @@ def main1(user, pswd, pi_name, host_name):
                 c.put("./facial_rec_client_pi.py")
             elif pi_name == "fall_detect":
                 file = open("./" + pi_name + "_pi_ip.txt", "w")
-                s = "sshpass -p \"" + pswd + "\" scp -r ./fall_detection/subscriber/bin "+user+"@"+pi_ip+":"
+                s = "sshpass -p \"" + pswd + "\" scp -r ./fall_detection/subscriber "+user+"@"+pi_ip+":"
                 subprocess.run(s, shell=True)
+                c.run("make -C subscriber clean")
+                c.run("make -C subscriber bin")
+                c.run("make -C subscriber bin/simple_publisher")
             else:
                 # TODO: error handle
                 pass
