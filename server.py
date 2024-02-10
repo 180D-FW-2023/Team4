@@ -1,5 +1,4 @@
 import socket
-import numpy as np
 from scipy.signal import find_peaks
 from scipy.signal import savgol_filter
 import multiprocessing 
@@ -15,10 +14,6 @@ import numpy as np
 from face_recog.detector import recognize_faces
 import fabric
 import scrypt
-import fabric
-import subprocess
-import os
-from pathlib import Path
 import paramiko
 
 
@@ -99,13 +94,14 @@ def main1():
          print("Error: Set Up Your Fall Detector Pi")
          #TODO: return?
     else:
-        if(len(step_count_info_list) != 3):
+        if(len(fall_detect_info_list) != 3):
             print("Error: Set Up Your Fall Detector Pi")
             # TODO: review this error handle
             return
         # step count start pi client code
-        p0 = multiprocessing.Process(target=run_pi, args=(fall_detect_info_list, serv_ip_addr, "fall_detect" ))
-        p0.start()
+        print("yoyo")
+        p02 = multiprocessing.Process(target=run_pi, args=(fall_detect_info_list, serv_ip_addr, "fall_detect" ))
+        p02.start()
 
     # TODO: verify in while true that all processses are still running?
     while True:
@@ -277,11 +273,13 @@ def run_pi(info, server_ip_addr, pi_type):
                 print(result)
         elif pi_type == "facial_rec":
             with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
+                print("run")
                 result = c.run('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
                 print(result)
         elif pi_type == "fall_detect":
             with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-                result = c.run('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
+                print("hey")
+                result = c.run("./subscriber/bin/simple_publisher")
                 print(result)
         else:
             print("Error: Bad Handle")

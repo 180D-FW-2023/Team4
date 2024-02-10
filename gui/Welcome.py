@@ -7,5 +7,7 @@ os.chdir(cwd)
 
 st.title('Welcome to MemoryMate')
 
+st.session_state['fall'] = 'Never'
+
 
 
