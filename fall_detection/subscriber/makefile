@@ -17,6 +17,9 @@ all: $(BINDIR) $(MQTT_C_UNITTESTS) $(MQTT_C_EXAMPLES)
 bin/simple_%: examples/simple_%.c $(MQTT_C_SOURCES)
 	$(CC) $(CFLAGS) $^ -lpthread $(MSFLAGS) -o $@
 
+bin/gps_subscriber: examples/gps_subscriber.c $(MQTT_C_SOURCES)
+	$(CC) $(CFLAGS) $^ -lpthread $(MSFLAGS) -o $@
+
 bin/reconnect_%: examples/reconnect_%.c $(MQTT_C_SOURCES)
 	$(CC) $(CFLAGS) $^ -lpthread $(MSFLAGS) -o $@
 
