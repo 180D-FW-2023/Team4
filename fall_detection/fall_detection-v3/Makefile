@@ -26,6 +26,7 @@ CXXFLAGS += -std=c++14				# Use C++14 standard
 # Linker flags
 LDFLAGS += -lm 						# Link to math.h
 LDFLAGS += -lstdc++					# Link to stdc++.h
+LDFLAGS += -lcurl
 
 # Include C source code for required libraries
 CSOURCES += $(wildcard edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/*.c) \

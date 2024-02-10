@@ -153,6 +153,7 @@ int main(int argc, char **argv) {
     myfile.open("fall.txt");
     if(position == 1){
         myfile << "fall\n";
+
     } else if (position == 0) {
         myfile << "ADL\n";
     } else {
