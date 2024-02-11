@@ -34,11 +34,11 @@ void readACC(int  a[])
 	}
 	else if (BerryIMUversion == 2){
 		selectDevice(file,LSM9DS1_ACC_ADDRESS);
-		readBlock(LSM9DS1_OUT_X_L_XL, sizeof(block), block);       
+		readBlock(LSM9DS1_OUT_X_L_XL, sizeof(block), block);
 	}
 	else if (BerryIMUversion == 3){
 		selectDevice(file,LSM6DSL_ADDRESS);
-		readBlock(LSM6DSL_OUTX_L_XL, sizeof(block), block);    
+		readBlock(LSM6DSL_OUTX_L_XL, sizeof(block), block);
 	}
 	// Combine readings for each axis.
 	a[0] = (int16_t)(block[0] | block[1] << 8);
@@ -56,11 +56,11 @@ void readMAG(int  m[])
 	}
 	else if (BerryIMUversion == 2){
 		selectDevice(file,LSM9DS1_MAG_ADDRESS);
-		readBlock(LSM9DS1_OUT_X_L_M, sizeof(block), block);    
+		readBlock(LSM9DS1_OUT_X_L_M, sizeof(block), block);
 	}
 	else if (BerryIMUversion == 3){
 		selectDevice(file,LIS3MDL_ADDRESS);
-		readBlock(LIS3MDL_OUT_X_L, sizeof(block), block);    
+		readBlock(LIS3MDL_OUT_X_L, sizeof(block), block);
 	}
 
 	// Combine readings for each axis.
@@ -79,11 +79,11 @@ void readGYR(int g[])
 	}
 	else if (BerryIMUversion == 2){
 		selectDevice(file,LSM9DS1_GYR_ADDRESS);
-		readBlock(LSM9DS1_OUT_X_L_G, sizeof(block), block);    
+		readBlock(LSM9DS1_OUT_X_L_G, sizeof(block), block);
 	}
 	else if (BerryIMUversion == 3){
 		selectDevice(file,LSM6DSL_ADDRESS);
-		readBlock(LSM6DSL_OUTX_L_G, sizeof(block), block);   
+		readBlock(LSM6DSL_OUTX_L_G, sizeof(block), block);
 	}
 
 	// Combine readings for each axis.
@@ -164,7 +164,7 @@ void detectIMU()
 	selectDevice(file,LSM9DS0_ACC_ADDRESS);
 	int LSM9DS0_WHO_XM_response = i2c_smbus_read_byte_data(file, LSM9DS0_WHO_AM_I_XM);
 
-	selectDevice(file,LSM9DS0_GYR_ADDRESS);	
+	selectDevice(file,LSM9DS0_GYR_ADDRESS);
 	int LSM9DS0_WHO_G_response = i2c_smbus_read_byte_data(file, LSM9DS0_WHO_AM_I_G);
 
 	if (LSM9DS0_WHO_G_response == 0xd4 && LSM9DS0_WHO_XM_response == 0x49){
@@ -179,7 +179,7 @@ void detectIMU()
 	selectDevice(file,LSM9DS1_MAG_ADDRESS);
 	int LSM9DS1_WHO_M_response = i2c_smbus_read_byte_data(file, LSM9DS1_WHO_AM_I_M);
 
-	selectDevice(file,LSM9DS1_GYR_ADDRESS);	
+	selectDevice(file,LSM9DS1_GYR_ADDRESS);
 	int LSM9DS1_WHO_XG_response = i2c_smbus_read_byte_data(file, LSM9DS1_WHO_AM_I_XG);
 
     if (LSM9DS1_WHO_XG_response == 0x68 && LSM9DS1_WHO_M_response == 0x3d){
@@ -191,7 +191,7 @@ void detectIMU()
 	selectDevice(file,LSM6DSL_ADDRESS);
 	int LSM6DSL_WHO_M_response = i2c_smbus_read_byte_data(file, LSM6DSL_WHO_AM_I);
 
-	selectDevice(file,LIS3MDL_ADDRESS);	
+	selectDevice(file,LIS3MDL_ADDRESS);
 	int LIS3MDL_WHO_XG_response = i2c_smbus_read_byte_data(file, LIS3MDL_WHO_AM_I);
 
 	if ( LSM6DSL_WHO_M_response == 0x6A && LIS3MDL_WHO_XG_response == 0x3D){
@@ -228,11 +228,11 @@ void enableIMU()
 
 	}
 
-	if (BerryIMUversion == 2){//For BerryIMUv2      
+	if (BerryIMUversion == 2){//For BerryIMUv2
 		// Enable gyroscope
 		writeGyrReg(LSM9DS1_CTRL_REG4,0b00111000);      // z, y, x axis enabled for gyro
 		writeGyrReg(LSM9DS1_CTRL_REG1_G,0b10111000);    // Gyro ODR = 476Hz, 2000 dps
-		writeGyrReg(LSM9DS1_ORIENT_CFG_G,0b10111000);   // Swap orientation 
+		writeGyrReg(LSM9DS1_ORIENT_CFG_G,0b10111000);   // Swap orientation
 
 		// Enable the accelerometer
 		writeAccReg(LSM9DS1_CTRL_REG5_XL,0b00111000);   // z, y, x axis enabled for accelerometer
@@ -249,7 +249,7 @@ void enableIMU()
 		writeGyrReg(LSM6DSL_CTRL2_G,0b10011100);        // ODR 3.3 kHz, 2000 dps
 
 		// Enable the accelerometer
-		writeAccReg(LSM6DSL_CTRL1_XL,0b10011111);       // ODR 3.33 kHz, +/- 8g , BW = 400hz
+		writeAccReg(LSM6DSL_CTRL1_XL,0b01111111);       // ODR 833Hz, +/- 8g , BW = 400hz
 		writeAccReg(LSM6DSL_CTRL8_XL,0b11001000);       // Low pass filter enabled, BW9, composite filter
 		writeAccReg(LSM6DSL_CTRL3_C,0b01000100);        // Enable Block Data update, increment during multi byte read
 

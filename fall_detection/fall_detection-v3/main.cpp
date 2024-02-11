@@ -35,13 +35,13 @@ int main(int argc, char **argv) {
     int N = complete.length();
     int first_publish = 0;
     for (int i = 0; i < N; i++) {
-        printf("true");
+        // printf("true");
         if(complete[i] == ' '){
             first_publish = i;
             break;
         }
     }
-    printf("\nThe first number is %i \n", first_publish);
+    // printf("\nThe first number is %i \n", first_publish);
     complete.erase(0, first_publish);
     complete.pop_back();
     complete.pop_back();
@@ -61,9 +61,9 @@ int main(int argc, char **argv) {
         count = count + 1;
     }
     // test[count] = complete;
-    for (int i = 0; i < 600; i++){
-        cout << test[i] << "\n";
-    }
+    // for (int i = 0; i < 600; i++){
+    //     cout << test[i] << "\n";
+    // }
     // cleaning up and converting numbers to float
 
     for(int i = 0; i < 600; i++){
@@ -129,8 +129,10 @@ int main(int argc, char **argv) {
     for (uint16_t i = 0; i < EI_CLASSIFIER_LABEL_COUNT; i++) {
         printf("  %s: ", ei_classifier_inferencing_categories[i]);
         printf("%.5f\r\n", result.classification[i].value);
-        if (result.classification[i].value >= 0.5){
-            position = i;
+        if (i == 1 && result.classification[i].value >= 0.99){
+            position = 1;
+        } else {
+            position = 0;
         }
     }
 

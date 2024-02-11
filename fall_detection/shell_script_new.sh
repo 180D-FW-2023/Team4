@@ -1,4 +1,4 @@
 clear
 echo "running first test"
-./subscriber/bin/gps_subscriber &
-sh while_loop.sh &
+./while_loop_gps.sh&
+./while_loop.sh &

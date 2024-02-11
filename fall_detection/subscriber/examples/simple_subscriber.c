@@ -59,7 +59,7 @@ int main(int argc, const char *argv[])
     if (argc > 3) {
         topic = argv[3];
     } else {
-        topic = "datetime";
+        topic = "berryaccel";
     }
 
     /* open the non-blocking TCP socket (connecting to the broker) */
@@ -121,7 +121,7 @@ int main(int argc, const char *argv[])
 
     char *filename = "test.txt";
     FILE *fp = fopen(filename, "w");
-    printf("\nBuffer: %s", buffer);
+    // printf("\nBuffer: %s", buffer);
     if (fp == NULL)
     {
         printf("Error opening the file %s", filename);
@@ -151,7 +151,7 @@ void publish_callback(void** unused, struct mqtt_response_publish *published)
     memcpy(topic_name, published->topic_name, published->topic_name_size);
     topic_name[published->topic_name_size] = '\0';
 
-    printf("Received publish('%s'): %s\n", topic_name, (const char*) published->application_message);
+    // printf("Received publish('%s'): %s\n", topic_name, (const char*) published->application_message);
     strcat(buffer, published->application_message);
     // printf("%lu", strlen(buffer));
 

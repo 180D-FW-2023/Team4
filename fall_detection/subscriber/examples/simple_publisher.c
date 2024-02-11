@@ -132,7 +132,7 @@ int main(int argc, const char *argv[])
     if (argc > 3) {
         topic = argv[3];
     } else {
-        topic = "datetime";
+        topic = "berryaccel";
     }
 
     /* open the non-blocking TCP socket (connecting to the broker) */
