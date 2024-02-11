@@ -171,9 +171,9 @@ int main(int argc, const char *argv[])
     }
 
     /* start publishing the time */
-    printf("%s is ready to begin publishing the time.\n", argv[0]);
-    printf("Press ENTER to publish the current time.\n");
-    printf("Press CTRL-D (or any other key) to exit.\n\n");
+    // printf("%s is ready to begin publishing the time.\n", argv[0]);
+    // printf("Press ENTER to publish the current time.\n");
+    // printf("Press CTRL-D (or any other key) to exit.\n\n");
     while(1) {
         /* get the current time */
         // time_t timer;
@@ -213,7 +213,7 @@ int main(int argc, const char *argv[])
         /* print a message */
         char application_message[256];
         snprintf(application_message, sizeof(application_message), "%s", accelbuf);
-        printf("%s published : \"%s\"", argv[0], application_message);
+        // sprintf("%s published : \"%s\"", argv[0], application_message);
 
         /* publish the time */
         mqtt_publish(&client, topic, application_message, strlen(application_message) + 1, MQTT_PUBLISH_QOS_0);

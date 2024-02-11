@@ -116,10 +116,10 @@ def main1():
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
         # if unknown client, don't accept tcp connections
-        if (step_count_info_list is not None and addr != step_count_info_list[0]) and (facial_rec_info_list is not None and addr != facial_rec_info_list[0]):
-            conn.close()
-            print('Unknown Client Disconnected')
-            continue
+        # if (step_count_info_list is None or addr != step_count_info_list[0]) and (facial_rec_info_list is None or addr != facial_rec_info_list[0]):
+        #     conn.close()
+        #     print('Unknown Client Disconnected')
+        #     continue
         # TODO: verify good client
         first_message = conn.recv(4096).decode('utf_8')
         if (first_message == "step count"):

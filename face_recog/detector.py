@@ -36,16 +36,16 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-Path(cwd + "training").mkdir(exist_ok=True)
-Path(cwd + "output").mkdir(exist_ok=True)
-Path(cwd + "validation").mkdir(exist_ok=True)
+Path(cwd + "/face_recog/training").mkdir(exist_ok=True)
+Path(cwd + "/face_recog/output").mkdir(exist_ok=True)
+Path(cwd + "/face_recog/validation").mkdir(exist_ok=True)
 
 def encode_known_faces(
     model: str = "hog", encodings_location: Path = DEFAULT_ENCODINGS_PATH
 ) -> None:
     names = []
     encodings = []
-    for filepath in Path(cwd + "training").glob("*/*"):
+    for filepath in Path(cwd + "/face_recog/training").glob("*/*"):
         name = filepath.parent.name
         image = face_recognition.load_image_file(filepath)
 
