@@ -3,11 +3,12 @@ import subprocess
 import sys
 import os
 from streamlit_autorefresh import st_autorefresh
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 # cwd = os.getcwd()
 # path = cwd[:cwd.find('Team4') + 5]
 
 # sys.path.append('../Team4')
-st_autorefresh(interval=1000, key="dataframerefresh")
 
 def on_click():
     subprocess.call(['python','server.py'])
