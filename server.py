@@ -15,6 +15,7 @@ import numpy as np
 from face_recog.detector import recognize_faces
 import fabric
 import scrypt
+import paramiko
 
 
 # TODO: can this be here?

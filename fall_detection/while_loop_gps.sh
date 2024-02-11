@@ -1,4 +1,4 @@
 while true
 do
-    ./subscriber/bin/gps_subscriber
+    ./fall_detection/subscriber/bin/gps_subscriber
 done
