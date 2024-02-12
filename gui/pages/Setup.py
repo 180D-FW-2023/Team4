@@ -37,3 +37,10 @@ if os.path.exists('facial_rec_pi_ip.txt'):
     st.text("Facial Recognition Setup Last Updated: " + str(mtime))
 else:
     st.text("Facial Recognition Not Yet Setup")
+
+if os.path.exists('fall_detect_pi_ip.txt'):
+    mtime = os.path.getmtime('fall_detect_pi_ip.txt')
+    mtime = datetime.datetime.fromtimestamp(mtime)
+    st.text("Fall Detection Setup Last Updated: " + str(mtime))
+else:
+    st.text("Fall Detection Not Yet Setup")

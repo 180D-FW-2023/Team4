@@ -58,7 +58,6 @@ def main1():
             step_count_info_list = file_step_count.read().splitlines() 
             b = bytes.fromhex(step_count_info_list[-1])
             step_count_info_list[-1] = scrypt.decrypt(b, 'password')
-            print(step_count_info_list[-1])
     except:
          print("Error: Set Up Your Step Counter Pi")
     else:
@@ -162,7 +161,7 @@ def server_step_count(conn):
     hour_data = 0
     file_name = None
     file = None
-    conn.settimeout(10)
+    conn.settimeout(20)
 
     try:
         while True:
@@ -172,10 +171,14 @@ def server_step_count(conn):
             for item in list_data: 
                 list_item = item.split(",")
                 bad = False
-                for i in list_item:
-                    if i is None or i == "":
+                for i in range(len(list_item)):
+                    if list_item[i] is None or list_item[i] == "":
                         bad = True
                         break
+                    if i == 2 or i == 3 or i == 4:
+                        if list_item[i] == '-':
+                            bad = True
+                            break
                 if bad == True:
                     continue
                 if len(list_item) != 5:
@@ -219,7 +222,9 @@ def server_step_count(conn):
                     file_name = path + current_date + "_" + current_hour + ".csv"
                     file = file_open(file_name)
                     file.write(item + "\n")
-    except:
+    except Exception as e:
+        print(type(e))
+        print(e)
         conn.shutdown(SHUT_RDWR)
         conn.close()
         print('Step Count Client Disconnected')
@@ -238,45 +243,54 @@ def server_fall():
 
 def server_face_rec(conn):
     connection = conn.makefile('rb')
-    while True:
-        # Read the length of the image as a 32-bit unsigned int. If the
-        # length is zero, quit the loop
-        image_len = struct.unpack('<L', connection.read(struct.calcsize('<L')))[0]
-        if not image_len:
-            break
-            #return
-        # Construct a stream to hold the image data and read the image
-        # data from the connection
-        image_stream = io.BytesIO()
-        image_stream.write(connection.read(image_len))
+    conn.settimeout(20)
 
-        # Rewind the stream, open it as an image with PIL and do some
-        # processing on it
-        image_stream.seek(0)
-        image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
+    try:
+        while True:
+            # Read the length of the image as a 32-bit unsigned int. If the
+            # length is zero, quit the loop
+            image_len = struct.unpack('<L', connection.read(struct.calcsize('<L')))[0]
+            if not image_len:
+                break
+                #return
+            # Construct a stream to hold the image data and read the image
+            # data from the connection
+            image_stream = io.BytesIO()
+            image_stream.write(connection.read(image_len))
 
-            #Save the image to a folder called stream-pics (each image will have a different name)
-            # image.save('stream-pics/im' + str(i) + '.png')
-        cv.imwrite(cwd + '/face_recog/test.png', image)
-        # image = Image.open(image_stream)
-        # print('Image is %dx%d' % image.size)
-        # image.verify()
-        # print('Image is verified')
+            # Rewind the stream, open it as an image with PIL and do some
+            # processing on it
+            image_stream.seek(0)
+            image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
 
-        names_recognized = recognize_faces(cwd + '/face_recog/test.png')
-        message = ''
-        for name in names_recognized:
-            if name not in total_seen:
-                total_seen.add(name)
-                message += name
-                message += ', '
-        if len(total_seen) != 0:
-            with open(cwd + '/total_seen.txt', 'w') as f:
-                f.write(str(total_seen))
-        #print("I passed")
-        encodedMessage = bytes(message, 'utf-8')
-        conn.sendall(encodedMessage)
-        #print("I passed")
+                #Save the image to a folder called stream-pics (each image will have a different name)
+                # image.save('stream-pics/im' + str(i) + '.png')
+            cv.imwrite(cwd + '/face_recog/test.png', image)
+            # image = Image.open(image_stream)
+            # print('Image is %dx%d' % image.size)
+            # image.verify()
+            # print('Image is verified')
+
+            names_recognized = recognize_faces(cwd + '/face_recog/test.png')
+            message = ''
+            for name in names_recognized:
+                if name not in total_seen:
+                    total_seen.add(name)
+                    message += name
+                    message += ', '
+            if len(total_seen) != 0:
+                with open(cwd + '/total_seen.txt', 'w') as f:
+                    f.write(str(total_seen))
+            #print("I passed")
+            encodedMessage = bytes(message, 'utf-8')
+            conn.sendall(encodedMessage)
+            #print("I passed")
+    except Exception as e:
+        print(type(e))
+        print(e)
+        conn.shutdown(SHUT_RDWR)
+        conn.close()
+        print('Facial Recognition Client Disconnected')
 
 def run_pi(info, server_ip_addr, pi_type):
     pi_ip = info[0]
@@ -326,7 +340,7 @@ def start_pi_code(info, server_ip_addr, pi_type):
         print(e)
 
 def ping_test(ip):
-    num = 5
+    num = 10
     response = os.popen(f"ping -c {num} {ip} ").read()
     count = response.count("Request timeout") + response.count("Request timed out.")
     if count >= num-1:

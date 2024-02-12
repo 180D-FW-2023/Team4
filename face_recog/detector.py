@@ -96,6 +96,8 @@ def recognize_faces(
 
     del draw
     global COUNT
+    if len(names) == 0:
+        COUNT = 4
     if COUNT == 5:
         try:
             pillow_image.verify()
