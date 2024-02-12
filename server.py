@@ -18,7 +18,6 @@ import scrypt
 import paramiko
 
 
-# TODO: can this be here?
 cwd = os.getcwd()
 cwd = cwd[:cwd.find('Team4') + 5]
 
@@ -31,7 +30,7 @@ total_seen = set()
 nice_pi_name = {
   "step_count": "Step Count",
   "facial_rec": "Face Recognition",
-  "fall_detector": "Fall Detection"
+  "fall_detect": "Fall Detection"
 }
 
 def main1():
@@ -42,6 +41,7 @@ def main1():
         serv.listen(5)
     except:
         print("Please Try Again. Server is not properly starting up.")
+        return
 
     # TODO: only on mac?
     serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
@@ -61,11 +61,9 @@ def main1():
             print(step_count_info_list[-1])
     except:
          print("Error: Set Up Your Step Counter Pi")
-         # TODO: return?
     else:
         if(len(step_count_info_list) != 3):
-            print("Error: Set Up Your Step Counter Pi")
-            # TODO: review this error handle
+            print("Error: Set Up Your Step Counter Pi Again")
         else:
             # step count start pi client code
             p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
@@ -80,16 +78,14 @@ def main1():
             facial_rec_info_list[-1] = scrypt.decrypt(b, 'password')    
     except:
          print("Error: Set Up Your Facial Recognition Pi")
-         #TODO: return?
     else:
         if(len(facial_rec_info_list) != 3):
-            print("Error: Set Up Your Facial Recognition Pi")
-            # TODO: error handling
+            print("Error: Set Up Your Facial Recognition Pi Again")
         else: 
             p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
             p01.start()
 
-    
+    # fall detection start pi client code
     fall_detect_info_list = None
     try:
         with open("fall_detect_pi_ip.txt") as file_fall_detect:
@@ -98,25 +94,24 @@ def main1():
             fall_detect_info_list[-1] = scrypt.decrypt(b, 'password')
     except:
          print("Error: Set Up Your Fall Detector Pi")
-         #TODO: return?
     else:
         if(len(fall_detect_info_list) != 3):
-            print("Error: Set Up Your Fall Detector Pi")
-            # TODO: review this error handle
+            print("Error: Set Up Your Fall Detector Pi Again")
         else:
             # step count start pi client code
             p02 = multiprocessing.Process(target=run_pi, args=(fall_detect_info_list, serv_ip_addr, "fall_detect" ))
             p02.start()
 
     # if no known ip adddresses exist, stop
-    if step_count_info_list is None and facial_rec_info_list is None and fall_detect_info_list is None:
+    if step_count_info_list is None and facial_rec_info_list is None:
             return
-    # TODO: verify in while true that all processses are still running?
+
     while True:
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
         # if unknown client, don't accept tcp connections
         # if (step_count_info_list is None or addr != step_count_info_list[0]) and (facial_rec_info_list is None or addr != facial_rec_info_list[0]):
+        #     conn.shutdown(SHUT_RDWR)
         #     conn.close()
         #     print('Unknown Client Disconnected')
         #     continue
@@ -285,7 +280,6 @@ def server_face_rec(conn):
 
 def run_pi(info, server_ip_addr, pi_type):
     pi_ip = info[0]
-    # TODO: is this right for resiliency?
     p0 = multiprocessing.Process(target=start_pi_code, args=(info, server_ip_addr, pi_type ))
     p0.start()
 
@@ -298,7 +292,6 @@ def run_pi(info, server_ip_addr, pi_type):
             if p0 and p0.is_alive():
                 p0.terminate()
                 p0.join()
-                # TODO fix this
                 print("Your " + nice_pi_name[pi_type] + " Pi is Down")
         # if the pi is up
         else:
@@ -317,11 +310,8 @@ def start_pi_code(info, server_ip_addr, pi_type):
         if pi_type == "step_count":
             with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
                 result = c.run('python ' + step_count_pi_path + ' ' + server_ip_addr)
-                # print(result)
-                print("test: here")
         elif pi_type == "facial_rec":
             with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-                print("run")
                 result = c.run('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
         elif pi_type == "fall_detect":
             with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
@@ -331,13 +321,9 @@ def start_pi_code(info, server_ip_addr, pi_type):
             return
     except (TimeoutError, paramiko.ssh_exception.AuthenticationException):
         print("Error: Please Run the Setup on Your " + nice_pi_name[pi_type] + " Pi Again")
-        # TODO: kill all processes if reach here
-        # TODO can do pinging here?
     except Exception as e:
         print(type(e))
         print(e)
-        print("test: here1")
-        # retry? connection and run?x
 
 def ping_test(ip):
     num = 5

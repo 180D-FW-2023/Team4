@@ -54,4 +54,4 @@ def main1(user, pswd, pi_name, host_name):
         print(e)
 
 if __name__ == "__main__":
-    main1("pi", "jolin", "fall_detect", "raspberrypi.local")
+    main1("pi", "isabella", "step_count", "raspberrypi.local")
