@@ -47,14 +47,14 @@ def main():
             # Rewind the stream and send the image data over the wire
             stream.seek(0)
             connection.write(stream.read())
-            # If we've been capturing for more than 30 seconds, quit
-            if time.time() - start > 60:
-                break
             # Reset the stream for the next capture
             stream.seek(0)
             stream.truncate()
         # Write a length of zero to the stream to signal we're done
         connection.write(struct.pack('<L', 0))
+    # except Exception as e:
+    #     print(type(e))
+    #     print(e)
     finally:
         connection.close()
         client_socket.close()
