@@ -2,6 +2,7 @@ import streamlit as st
 import subprocess
 import sys
 import os
+import time
 from streamlit_autorefresh import st_autorefresh
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
