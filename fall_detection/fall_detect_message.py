@@ -15,9 +15,9 @@ lon = coords["best_lon"]
 
 subject = "Fall Detected"
 body = "A fall has been detected at https://www.google.com/maps/search/?api=1&query=" +str(lat) + "," + str(lon)
-sender = "jolin51502@gmail.com"
-recipients = ["notmango60@gmail.com"]
-password = "rkbq epqd bkqz yzqv"
+sender = "memorymate.fall.detector@gmail.com"
+recipients = ["jolin51502@gmail.com"]
+password = "jmmo dwyv mdoj kass"
 
 
 def send_email(subject, body, sender, recipients, password):
