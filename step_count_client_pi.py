@@ -31,8 +31,8 @@ def main():
 	while True:
 		recv_data = client.recv(4096).decode('utf_8')
 		num = recv_data.split(";")
-		assert(len(num) >= 2)
-		step_count = num.pop(-2)
+		if(len(num) >= 2):
+			step_count = num.pop(-2)
 
 def write_acc(sense, client):
 	count = 0

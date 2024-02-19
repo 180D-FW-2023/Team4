@@ -1,7 +1,7 @@
 import socket
 from scipy.signal import find_peaks
 from scipy.signal import savgol_filter
-import multiprocessing 
+import multiprocessing
 import subprocess
 import os
 from pathlib import Path
@@ -15,9 +15,9 @@ import numpy as np
 from face_recog.detector import recognize_faces
 import fabric
 import scrypt
+import paramiko
 
 
-# TODO: can this be here?
 cwd = os.getcwd()
 cwd = cwd[:cwd.find('Team4') + 5]
 
@@ -30,17 +30,18 @@ total_seen = set()
 nice_pi_name = {
   "step_count": "Step Count",
   "facial_rec": "Face Recognition",
-  "fall_detector": "Fall Detection"
+  "fall_detect": "Fall Detection"
 }
 
 def main1():
-    try: 
+    try:
         serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Assigns a port for the server that listens to clients connecting to this port.
         serv.bind(('0.0.0.0', 8080))
         serv.listen(5)
     except:
         print("Please Try Again. Server is not properly starting up.")
+        return
 
     # TODO: only on mac?
     serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
@@ -54,17 +55,14 @@ def main1():
     step_count_info_list = None
     try:
         with open("step_count_pi_ip.txt") as file_step_count:
-            step_count_info_list = file_step_count.read().splitlines() 
+            step_count_info_list = file_step_count.read().splitlines()
             b = bytes.fromhex(step_count_info_list[-1])
             step_count_info_list[-1] = scrypt.decrypt(b, 'password')
-            print(step_count_info_list[-1])
     except:
          print("Error: Set Up Your Step Counter Pi")
-         # TODO: return?
     else:
         if(len(step_count_info_list) != 3):
-            print("Error: Set Up Your Step Counter Pi")
-            # TODO: review this error handle
+            print("Error: Set Up Your Step Counter Pi Again")
         else:
             # step count start pi client code
             p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
@@ -76,49 +74,46 @@ def main1():
         with open("facial_rec_pi_ip.txt") as file_facial_rec:
             facial_rec_info_list = file_facial_rec.read().splitlines()
             b = bytes.fromhex(facial_rec_info_list[-1])
-            facial_rec_info_list[-1] = scrypt.decrypt(b, 'password')    
+            facial_rec_info_list[-1] = scrypt.decrypt(b, 'password')
     except:
          print("Error: Set Up Your Facial Recognition Pi")
-         #TODO: return?
     else:
         if(len(facial_rec_info_list) != 3):
-            print("Error: Set Up Your Facial Recognition Pi")
-            # TODO: error handling
-        else: 
+            print("Error: Set Up Your Facial Recognition Pi Again")
+        else:
             p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
             p01.start()
 
-    
+    # fall detection start pi client code
     fall_detect_info_list = None
     try:
         with open("fall_detect_pi_ip.txt") as file_fall_detect:
-            fall_detect_info_list = file_fall_detect.read().splitlines() 
+            fall_detect_info_list = file_fall_detect.read().splitlines()
             b = bytes.fromhex(fall_detect_info_list[-1])
             fall_detect_info_list[-1] = scrypt.decrypt(b, 'password')
     except:
          print("Error: Set Up Your Fall Detector Pi")
-         #TODO: return?
     else:
         if(len(fall_detect_info_list) != 3):
-            print("Error: Set Up Your Fall Detector Pi")
-            # TODO: review this error handle
+            print("Error: Set Up Your Fall Detector Pi Again")
         else:
             # step count start pi client code
             p02 = multiprocessing.Process(target=run_pi, args=(fall_detect_info_list, serv_ip_addr, "fall_detect" ))
             p02.start()
 
     # if no known ip adddresses exist, stop
-    if step_count_info_list is None and facial_rec_info_list is None and fall_detect_info_list is None:
+    if step_count_info_list is None and facial_rec_info_list is None:
             return
-    # TODO: verify in while true that all processses are still running?
+
     while True:
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
         # if unknown client, don't accept tcp connections
-        if (step_count_info_list is not None and addr != step_count_info_list[0]) and (facial_rec_info_list is not None and addr != facial_rec_info_list[0]):
-            conn.close()
-            print('Unknown Client Disconnected')
-            continue
+        # if (step_count_info_list is None or addr != step_count_info_list[0]) and (facial_rec_info_list is None or addr != facial_rec_info_list[0]):
+        #     conn.shutdown(SHUT_RDWR)
+        #     conn.close()
+        #     print('Unknown Client Disconnected')
+        #     continue
         # TODO: verify good client
         first_message = conn.recv(4096).decode('utf_8')
         if (first_message == "step count"):
@@ -129,7 +124,7 @@ def main1():
             print("Facial Recognition Pi Starting")
             p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
             p2.start()
-        
+
 def convert_strings_to_floats(input_array):
     output_array = []
     for element in input_array:
@@ -150,7 +145,7 @@ def step_count(path_name):
 
     accel_mag = np.sqrt((np.power(xdata, 2) + np.power(ydata, 2) + np.power(zdata, 2)))
     accel_mag = accel_mag - np.mean(accel_mag)
-    
+
     y_smooth = savgol_filter(accel_mag, window_length=40, polyorder=3, mode="nearest")
     smooth_peaks, _ = find_peaks(y_smooth, height=0.2)
 
@@ -166,20 +161,24 @@ def server_step_count(conn):
     hour_data = 0
     file_name = None
     file = None
-    conn.settimeout(10)
+    conn.settimeout(20)
 
     try:
         while True:
             data = conn.recv(4096)
             if not data: break
             list_data = data.decode('utf_8').replace("\n", "").split(";")
-            for item in list_data: 
+            for item in list_data:
                 list_item = item.split(",")
                 bad = False
-                for i in list_item:
-                    if i is None or i == "":
+                for i in range(len(list_item)):
+                    if list_item[i] is None or list_item[i] == "":
                         bad = True
                         break
+                    if i == 2 or i == 3 or i == 4:
+                        if list_item[i] == '-':
+                            bad = True
+                            break
                 if bad == True:
                     continue
                 if len(list_item) != 5:
@@ -223,13 +222,15 @@ def server_step_count(conn):
                     file_name = path + current_date + "_" + current_hour + ".csv"
                     file = file_open(file_name)
                     file.write(item + "\n")
-    except:
+    except Exception as e:
+        print(type(e))
+        print(e)
         conn.shutdown(SHUT_RDWR)
         conn.close()
         print('Step Count Client Disconnected')
 
 def file_open(file_name):
-    try: 
+    try:
         file = open(file_name,"a")
         return file
     except:
@@ -242,49 +243,57 @@ def server_fall():
 
 def server_face_rec(conn):
     connection = conn.makefile('rb')
-    while True:
-        # Read the length of the image as a 32-bit unsigned int. If the
-        # length is zero, quit the loop
-        image_len = struct.unpack('<L', connection.read(struct.calcsize('<L')))[0]
-        if not image_len:
-            break
-            #return
-        # Construct a stream to hold the image data and read the image
-        # data from the connection
-        image_stream = io.BytesIO()
-        image_stream.write(connection.read(image_len))
+    conn.settimeout(20)
 
-        # Rewind the stream, open it as an image with PIL and do some
-        # processing on it
-        image_stream.seek(0)
-        image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
+    try:
+        while True:
+            # Read the length of the image as a 32-bit unsigned int. If the
+            # length is zero, quit the loop
+            image_len = struct.unpack('<L', connection.read(struct.calcsize('<L')))[0]
+            if not image_len:
+                break
+                #return
+            # Construct a stream to hold the image data and read the image
+            # data from the connection
+            image_stream = io.BytesIO()
+            image_stream.write(connection.read(image_len))
 
-            #Save the image to a folder called stream-pics (each image will have a different name)
-            # image.save('stream-pics/im' + str(i) + '.png')
-        cv.imwrite(cwd + '/face_recog/test.png', image)
-        # image = Image.open(image_stream)
-        # print('Image is %dx%d' % image.size)
-        # image.verify()
-        # print('Image is verified')
+            # Rewind the stream, open it as an image with PIL and do some
+            # processing on it
+            image_stream.seek(0)
+            image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
 
-        names_recognized = recognize_faces(cwd + '/face_recog/test.png')
-        message = ''
-        for name in names_recognized:
-            if name not in total_seen:
-                total_seen.add(name)
-                message += name
-                message += ', '
-        if len(total_seen) != 0:
-            with open(cwd + '/total_seen.txt', 'w') as f:
-                f.write(str(total_seen))
-        #print("I passed")
-        encodedMessage = bytes(message, 'utf-8')
-        conn.sendall(encodedMessage)
-        #print("I passed")
+                #Save the image to a folder called stream-pics (each image will have a different name)
+                # image.save('stream-pics/im' + str(i) + '.png')
+            cv.imwrite(cwd + '/face_recog/test.png', image)
+            # image = Image.open(image_stream)
+            # print('Image is %dx%d' % image.size)
+            # image.verify()
+            # print('Image is verified')
+
+            names_recognized = recognize_faces(cwd + '/face_recog/test.png')
+            message = ''
+            for name in names_recognized:
+                if name not in total_seen:
+                    total_seen.add(name)
+                    message += name
+                    message += ', '
+            if len(total_seen) != 0:
+                with open(cwd + '/total_seen.txt', 'w') as f:
+                    f.write(str(total_seen))
+            #print("I passed")
+            encodedMessage = bytes(message, 'utf-8')
+            conn.sendall(encodedMessage)
+            #print("I passed")
+    except Exception as e:
+        print(type(e))
+        print(e)
+        conn.shutdown(SHUT_RDWR)
+        conn.close()
+        print('Facial Recognition Client Disconnected')
 
 def run_pi(info, server_ip_addr, pi_type):
     pi_ip = info[0]
-    # TODO: is this right for resiliency?
     p0 = multiprocessing.Process(target=start_pi_code, args=(info, server_ip_addr, pi_type ))
     p0.start()
 
@@ -297,7 +306,6 @@ def run_pi(info, server_ip_addr, pi_type):
             if p0 and p0.is_alive():
                 p0.terminate()
                 p0.join()
-                # TODO fix this
                 print("Your " + nice_pi_name[pi_type] + " Pi is Down")
         # if the pi is up
         else:
@@ -316,8 +324,6 @@ def start_pi_code(info, server_ip_addr, pi_type):
         if pi_type == "step_count":
             with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
                 result = c.run('python ' + step_count_pi_path + ' ' + server_ip_addr)
-                # print(result)
-                print("test: here")
         elif pi_type == "facial_rec":
             with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
                 print("run")
@@ -330,16 +336,12 @@ def start_pi_code(info, server_ip_addr, pi_type):
             return
     except (TimeoutError, paramiko.ssh_exception.AuthenticationException):
         print("Error: Please Run the Setup on Your " + nice_pi_name[pi_type] + " Pi Again")
-        # TODO: kill all processes if reach here
-        # TODO can do pinging here?
     except Exception as e:
         print(type(e))
         print(e)
-        print("test: here1")
-        # retry? connection and run?x
 
 def ping_test(ip):
-    num = 5
+    num = 10
     response = os.popen(f"ping -c {num} {ip} ").read()
     count = response.count("Request timeout") + response.count("Request timed out.")
     if count >= num-1:

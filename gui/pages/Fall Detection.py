@@ -24,7 +24,7 @@ with open('falls.txt', 'r') as f:
     my_set = f.read().splitlines()
 st.dataframe(my_set, column_config={"value": "Last Fall"})
 
-with open('fall_detection/subscriber/gps.txt', 'r') as f:
+with open('gps.txt', 'r') as f:
     my_set = ast.literal_eval(f.read())
 
 lat = my_set["best_lat"]
