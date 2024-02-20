@@ -54,3 +54,16 @@ Once you are finished, you can stop the GUI and exit the virtual environment by 
 Ctrl-C
 deactivate
 ```
+## Setting Up The Physical Prototype
+### Fall Detection
+![20240220_135955](https://github.com/180D-FW-2023/Team4/assets/33609544/c8064991-d40d-4e39-83f7-8213a2044850)
+Connect the powerbank to the power ports on the Notecard and the Raspberry Pi (with 2 USB-A to micro USB cables). Velcro the powerbank and Pi into the center pocket of the sweatshirt in the orientation shown.
+
+### Face Recognition
+![IMG_20240220_140318](https://github.com/180D-FW-2023/Team4/assets/33609544/10571175-d382-419c-b4a3-787b5cf39251)
+Connect the camera to the Raspberry Pi and connect the power bank/battery to the Pi. Velcro the Pi and battery into the shoulder pouch, and put the camera through the slit as shown, and attach it to the velcro on the outside of the pocket.
+
+### Step Counter
+Switch on the battery pack to power on the Raspberry Pi. Place it in the wrist pocket such that the LED display is facing outwards.
+
+
