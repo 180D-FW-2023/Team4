@@ -11,4 +11,6 @@ st.image('out.png', caption='Recognized Face')
 with open('total_seen.txt','r') as f:
    my_set = ast.literal_eval(f.read())
 
-st.json(my_set)
+st.dataframe(my_set, column_config={"value": "Faces Recognized"})
+
+# st.json(my_set)
