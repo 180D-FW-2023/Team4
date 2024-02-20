@@ -14,13 +14,11 @@ def main():
 	sense = SenseHat()
 	step_count = 0
 	sense.stick.direction_any = print_num
-    # TODO: error handling
+
 	if len(sys.argv) != 2:
 		print("Wrong Input")
 		return
-	# TODO: validate a correct ip address
 
-	# TODO: check all return values
 	client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	client.connect((str(sys.argv[1]), 8080))
 	client.sendall("step count".encode())
