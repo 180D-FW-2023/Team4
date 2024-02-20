@@ -14,10 +14,7 @@ def main():
         return
     # TODO: validate a correct ip address
 
-    print("here2")
-
-    # Connect a client socket to my_server:8000 (change my_server to the
-    # hostname of your server)
+    # Connect a client socket to server
     client_socket = socket.socket()
     client_socket.connect((str(sys.argv[1]), 8080))
     client_socket.sendall("face recognition".encode())
@@ -52,9 +49,6 @@ def main():
             stream.truncate()
         # Write a length of zero to the stream to signal we're done
         connection.write(struct.pack('<L', 0))
-    # except Exception as e:
-    #     print(type(e))
-    #     print(e)
     finally:
         connection.close()
         client_socket.close()
@@ -62,10 +56,10 @@ def main():
 def get_name(client):
         #Recieve the name message from the server
         name = client.recv(1024).decode()
-        #print('Received from server: ' + name)  # show in terminal (for now)
-        with open('./nn.txt', 'w') as f:
-            f.write(str(name))
-        #os.system('espeak ' + name + ' 2>/dev/null')
+        print('Received from server: ' + name)  # show in terminal (for now)
+        # with open('./nn.txt', 'w') as f:
+        #     f.write(str(name))
+        os.system('espeak ' + name + ' 2>/dev/null')
 
 if __name__ == "__main__":
     main()
