@@ -46,7 +46,7 @@ Now, you can setup the Pi's. Plug each Pi in, one at a time. On the Setup page o
 <img width="1272" alt="Screenshot 2024-02-20 at 1 04 25 PM" src="https://github.com/180D-FW-2023/Team4/assets/29986734/1389a06d-cf47-4135-9a6d-55a5736df61f">
 
 ## Run the Server:
-With the GUI still running, navigate to the Run Server page and click the button to run it. While the server is running, you can navigate to the Fall Detection, Recognized Face, and Step Count pages to view subsystem specific output. To get a cohesive view of the output, you can also navigate to the Overall Output page. Once you are finished running the server, navigate back to the Run Server page and click the Stop server button. 
+With the GUI still running, navigate to the Run Server page and click the button to run it. After you hit the button, it may take a few minutes to get booted up and start working. While the server is running, you can navigate to the Fall Detection, Recognized Face, and Step Count pages to view subsystem specific output. To get a cohesive view of the output, you can also navigate to the Overall Output page. Once you are finished running the server, navigate back to the Run Server page and click the Stop server button.
 
 ## Stopping the GUI
 Once you are finished, you can stop the GUI and exit the virtual environment by running the following commands from the terminal where you started the GUI.
@@ -64,6 +64,10 @@ Connect the powerbank to the power ports on the Notecard and the Raspberry Pi (w
 Connect the camera to the Raspberry Pi and connect the power bank/battery to the Pi. Velcro the Pi and battery into the shoulder pouch, and put the camera through the slit as shown, and attach it to the velcro on the outside of the pocket.
 
 ### Step Counter
-Switch on the battery pack to power on the Raspberry Pi. Place it in the wrist pocket such that the LED display is facing outwards.
+Switch on the battery pack to power on the Raspberry Pi. Place it in the wrist pocket such that the LED display is facing outwards. The button circled in red in the image below indicates the bottom right of the device (for display purposes). You can orient the device however you may like within the pocket.
+
+<img width="308" alt="image" src="https://github.com/180D-FW-2023/Team4/assets/103907560/c2d69d28-59fc-4381-995c-ee198fc6331a">
+
+When the server is running, you can press the button circled in red in the image above to see your current daily step count show on the LED display.
 
 
