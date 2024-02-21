@@ -10,27 +10,37 @@ import numpy as np
 
 st_autorefresh(interval=1000, key="dataframerefresh")
 
-with open('steps.txt','r') as f:
-   my_set = f.read().splitlines()
+# with open('steps.txt','r') as f:
+#    my_set = f.read().splitlines()
 
-if len(my_set) >= 1:
-    s = my_set[0]
-else:
-    s = 0
+# if len(my_set) >= 1:
+#     s = my_set[0]
+# else:
+#     s = 0
 
-st.title("Today's Step Count: " + s)
-
-today = date.today()
-with open("step_count/data/"+ str(today) + "_total.csv", "r") as f:
-    day_steps = f.readlines()
+# st.title("Today's Step Count: " + s)
 
 hours = []
-for steps in day_steps:
-    steps = steps.split(",")
-    hour = steps[0]
-    hour_steps = steps[1]
-    if hour != "total":
-        hours.append(hour_steps)
+today = date.today()
+today_step = 0
+
+if os.path.exists("step_count/data/"+ str(today) + "_total.csv"):
+    with open("step_count/data/"+ str(today) + "_total.csv", "r") as f:
+        day_steps = f.readlines()
+        for steps in day_steps:
+            steps = steps.split(",")
+            hour = steps[0]
+            hour_steps = steps[1]
+            if hour != "total":
+                hours.append(hour_steps)
+            else:
+                today_step = hour_steps
+else:
+    day_steps = "total"
+    for i in range(24):
+        hours.append(0)
+
+st.title("Today's Step Count: " + str(today_step))
 
 "Hourly Step Count"
 source = pd.DataFrame({

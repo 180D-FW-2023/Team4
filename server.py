@@ -114,7 +114,6 @@ def main1():
             conn.close()
             print('Unknown Client Disconnected')
             continue
-        # TODO: verify good client
         first_message = conn.recv(4096).decode('utf_8')
         if (first_message == "step count"):
             print("Step Counter Pi Starting")
@@ -129,9 +128,8 @@ def convert_strings_to_floats(x_in, y_in, z_in):
     xdata = []
     ydata = []
     zdata = []
-    # TODO: verify all same length
-
-    for i in range(len(x_in)):
+    iterator_len = min(len(x_in), len(y_in), len(z_in))
+    for i in range(iterator_len):
         try:
             x_float = float(x_in[i])
             y_float = float(y_in[i])
@@ -147,7 +145,7 @@ def convert_strings_to_floats(x_in, y_in, z_in):
 def step_count(data):
     if data.ndim < 2:
         return 0
-    # TODO: error handle
+    
     out_data = convert_strings_to_floats(data[:,2], data[:,3], data[:,4])
     xdata = out_data[0]
     ydata = out_data[1]
@@ -163,12 +161,12 @@ def step_count(data):
 
     return total_peaks
 
-def step_count_update(data, day_step_count_prev_hours, file_name, conn, current_date, current_hour):
+def step_count_update(data, day_step_count_prev_hours, conn, current_date, current_hour):
     hour_step_count = step_count(data)
     cur_step_count = day_step_count_prev_hours + hour_step_count
     print("Step Count: " + str(cur_step_count))
-    with open(cwd + '/steps.txt', 'w') as f:
-        f.write(str(cur_step_count))
+    # with open(cwd + '/steps.txt', 'w') as f:
+    #     f.write(str(cur_step_count))
     send_data = str(cur_step_count) + ";"
     conn.sendall(send_data.encode())
     file_total = file_open(path + current_date + "_total.csv", "r")
@@ -194,100 +192,98 @@ def server_step_count(conn):
     file = None
     conn.settimeout(20)
     p0 = None
-    # try:
-    while True:
-        data = conn.recv(4096)
-        if not data: break
-        list_data = data.decode('utf_8').replace("\n", "").split(";")
-        for item in list_data: 
-            list_item = item.split(",")
-            bad = False
-            for i in range(len(list_item)):
-                if list_item[i] is None or list_item[i] == "":
-                    bad = True
-                    break
-                if i == 2 or i == 3 or i == 4:
-                    if list_item[i] == '-':
+    try:
+        while True:
+            data = conn.recv(4096)
+            if not data: break
+            list_data = data.decode('utf_8').replace("\n", "").split(";")
+            for item in list_data: 
+                list_item = item.split(",")
+                bad = False
+                for i in range(len(list_item)):
+                    # if one of values is not there
+                    if list_item[i] is None or list_item[i] == "":
                         bad = True
                         break
-            if bad == True:
-                continue
-            if len(list_item) != 5:
-                continue
-            if len(list_item[0]) != 10:
-                continue
+                    # if accelerometer data
+                    if i == 2 or i == 3 or i == 4:
+                        if list_item[i] == '-':
+                            bad = True
+                            break
+                if bad == True:
+                    continue
+                if len(list_item) != 5:
+                    continue
+                if len(list_item[0]) != 10:
+                    continue
+                if list_item[1][2] != ":" or list_item[1][5] != ":":
+                    continue
 
-            if file_name and file and (p0 is None or not p0.is_alive()):
-                file.close()
-                try:
-                    data = np.genfromtxt(file_name, delimiter =',', dtype = str, invalid_raise = False)
-                except:
-                    print("Please Try Again. Data not being stored properly.")
-                if p0 is not None:
-                    if not p0.is_alive():
-                        p0.join()
-                        p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, file_name, conn, current_date, current_hour)))
-                        p0.start()
-                else:
-                    p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, file_name, conn, current_date, current_hour)))
-                    p0.start()
-                file = file_open(file_name, "a")
-
-            # in current date and hour
-            if list_item[0] == current_date and list_item[1][0:2] == current_hour:
-                if file:
-                    file.write(item + "\n")
-            # in current date, new hour
-            # TODO: test this!!
-            elif list_item[0] == current_date and list_item[1][0:2] != current_hour:
-                if file:
+                if file_name and file and (p0 is None or not p0.is_alive()):
                     file.close()
                     try:
                         data = np.genfromtxt(file_name, delimiter =',', dtype = str, invalid_raise = False)
                     except:
                         print("Please Try Again. Data not being stored properly.")
-                    day_step_count_prev_hours += step_count(data)
-                current_hour = list_item[1][0:2]
-                file_name = path + current_date + "_" + current_hour + ".csv"
-                file = file_open(file_name)
-                file.write(item + "\n")
-            # in new date/just started
-            else:
-                if file:
-                    file.close()
-                current_date = list_item[0]
-                current_hour = list_item[1][0:2]
-                file_name = path + current_date + "_" + current_hour + ".csv"
-                file = file_open(file_name, "a")
-                file.write(item + "\n")
-                # TODO: error handle/test
-                # if starting again
-                if p0 is not None:
-                    p0.join()
-                if os.path.exists(path + current_date + "_total.csv"):
-                    file_total = file_open(path + current_date + "_total.csv", "r")
-                    totals = file_total.readlines()
-                    # get the total step count
-                    total = int(totals[0].split(",")[1])
-                    # get step count for current hour
-                    hour_total = int(totals[int(current_hour)+1].split(",")[1])
-                    day_step_count_prev_hours = total - hour_total
-                    file_total.close()
-                # if in new date/started for first time this day
-                else:
-                    file_total = file_open(path + current_date + "_total.csv", "w")
-                    file_total.write("total,0\n")
-                    for i in range(24):
-                        file_total.write(str(i)+",0\n")
-                    file_total.close()
-                    day_step_count_prev_hours = 0
+                    if p0 is not None:
+                        if not p0.is_alive():
+                            p0.join()
+                            p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, conn, current_date, current_hour)))
+                            p0.start()
+                    else:
+                        p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, conn, current_date, current_hour)))
+                        p0.start()
+                    file = file_open(file_name, "a")
 
-    # except Exception as e:
-    #     print(type(e))
-    #     print(e)
-    #     conn.shutdown(SHUT_RDWR)
-    #     conn.close()
-    #     print('Step Count Server Disconnected Socket')
+                # in current date and hour
+                if list_item[0] == current_date and list_item[1][0:2] == current_hour:
+                    if file:
+                        file.write(item + "\n")
+                # in current date, new hour
+                # TODO: test this!!
+                elif list_item[0] == current_date and list_item[1][0:2] != current_hour:
+                    if file:
+                        file.close()
+                    current_hour = list_item[1][0:2]
+                    file_name = path + current_date + "_" + current_hour + ".csv"
+                    file = file_open(file_name, "a")
+                    file.write(item + "\n")
+                # in new date/just started
+                else:
+                    if file:
+                        file.close()
+                    current_date = list_item[0]
+                    current_hour = list_item[1][0:2]
+                    file_name = path + current_date + "_" + current_hour + ".csv"
+                    file = file_open(file_name, "a")
+                    file.write(item + "\n")
+                    # TODO: error handle/test
+                    # if starting again
+                    if p0 is not None:
+                        p0.join()
+                    if os.path.exists(path + current_date + "_total.csv"):
+                        file_total = file_open(path + current_date + "_total.csv", "r")
+                        totals = file_total.readlines()
+                        # get the total step count
+                        total = int(totals[0].split(",")[1])
+                        # get step count for current hour
+                        hour_total = int(totals[int(current_hour)+1].split(",")[1])
+                        day_step_count_prev_hours = total - hour_total
+                        file_total.close()
+                    # if in new date/started for first time this day
+                    else:
+                        file_total = file_open(path + current_date + "_total.csv", "w")
+                        file_total.write("total,0\n")
+                        for i in range(24):
+                            file_total.write(str(i)+",0\n")
+                        file_total.close()
+                        day_step_count_prev_hours = 0
+    except Exception as e:
+        print(type(e))
+        print(e)
+        conn.shutdown(SHUT_RDWR)
+        conn.close()
+        print('Step Count Server Disconnected Socket')
 
 def file_open(file_name, type):
     try: 

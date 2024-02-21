@@ -5,6 +5,8 @@ import os
 import time
 from streamlit_autorefresh import st_autorefresh
 from PIL import ImageFile
+from datetime import date
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 # cwd = os.getcwd()
 # path = cwd[:cwd.find('Team4') + 5]
@@ -32,15 +34,14 @@ try:
 except:
     pass
 
-with open('steps.txt','r') as f:
-   my_set = f.read().splitlines()
+today = date.today()
+today_step = 0
 
-if len(my_set) >= 1:
-    s = my_set[0]
-else:
-    s = 0
+if os.path.exists("step_count/data/"+ str(today) + "_total.csv"):
+    with open("step_count/data/"+ str(today) + "_total.csv", "r") as f:
+        today_step = int(f.readline().rstrip().split(",")[1])
 
-st.title("Current Step Count: " + s)
+st.title("Today's Step Count: " + str(today_step))
 
 with open('falls.txt', 'r') as f:
     my_set = f.read().splitlines()
