@@ -65,10 +65,17 @@ Connect the powerbank to the power ports on the Notecard and the Raspberry Pi (w
 Connect the camera to the Raspberry Pi and connect the power bank/battery to the Pi. Velcro the Pi and battery into the shoulder pouch, and put the camera through the slit as shown, and attach it to the velcro on the outside of the pocket.
 
 ### Step Counter
-Switch on the battery pack to power on the Raspberry Pi. Place it in the wrist pocket such that the LED display is facing outwards. The button circled in red in the image below indicates the bottom right of the device (for display purposes). You can orient the device however you may like within the pocket.
+
+Power on the battery for the Raspberry Pi by pressing the button circled in red below once. To turn it off, press the button twice. The pi has finished booting once the rainbow display on the LED display turns off.
+
+<img width="371" alt="image" src="https://github.com/180D-FW-2023/Team4/assets/103907560/009759c6-c70b-412e-ac86-f3be8ebe9c9f">
+
+Place it in the wrist pocket such that the LED display is facing outwards. The button circled in red in the image below indicates the bottom right of the device (for display purposes). You can orient the device however you may like within the pocket.
 
 <img width="308" alt="image" src="https://github.com/180D-FW-2023/Team4/assets/103907560/c2d69d28-59fc-4381-995c-ee198fc6331a">
 
 When the server is running, you can press the button circled in red in the image above to see your current daily step count show on the LED display.
+
+
 
 
