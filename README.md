@@ -58,7 +58,9 @@ deactivate
 ## Setting Up The Physical Prototype
 ### Fall Detection
 ![20240220_135955](https://github.com/180D-FW-2023/Team4/assets/33609544/c8064991-d40d-4e39-83f7-8213a2044850)
-Connect the powerbank to the power ports on the Notecard and the Raspberry Pi (with 2 USB-A to micro USB cables). Velcro the powerbank and Pi into the center pocket of the sweatshirt in the orientation shown.
+Connect the powerbank to the power ports on the Notecard and the Raspberry Pi (with 2 USB-A to micro USB cables). The lights on the powerbank should turn on. Once the lights are on, hold the power button on the side of the power bank until the lights start flashing in order. 
+
+Velcro the powerbank and Pi into the center pocket of the sweatshirt in the orientation shown.
 
 ### Face Recognition
 ![IMG_20240220_140318](https://github.com/180D-FW-2023/Team4/assets/33609544/10571175-d382-419c-b4a3-787b5cf39251)
