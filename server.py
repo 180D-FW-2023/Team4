@@ -109,12 +109,11 @@ def main1():
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
         # if unknown client, don't accept tcp connections
-        # if (step_count_info_list is None or addr != step_count_info_list[0]) and (facial_rec_info_list is None or addr != facial_rec_info_list[0]):
-        #     conn.shutdown(SHUT_RDWR)
-        #     conn.close()
-        #     print('Unknown Client Disconnected')
-        #     continue
-        # TODO: verify good client
+        if (step_count_info_list is None or addr[0] != step_count_info_list[0]) and (facial_rec_info_list is None or addr[0] != facial_rec_info_list[0]):
+            conn.shutdown(SHUT_RDWR)
+            conn.close()
+            print('Unknown Client Disconnected')
+            continue
         first_message = conn.recv(4096).decode('utf_8')
         if (first_message == "step count"):
             print("Step Counter Pi Starting")
@@ -124,24 +123,33 @@ def main1():
             print("Facial Recognition Pi Starting")
             p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
             p2.start()
-
-def convert_strings_to_floats(input_array):
-    output_array = []
-    for element in input_array:
-        converted_float = float(element)
-        output_array.append(converted_float)
+        
+def convert_strings_to_floats(x_in, y_in, z_in):
+    xdata = []
+    ydata = []
+    zdata = []
+    iterator_len = min(len(x_in), len(y_in), len(z_in))
+    for i in range(iterator_len):
+        try:
+            x_float = float(x_in[i])
+            y_float = float(y_in[i])
+            z_float = float(z_in[i])
+            xdata.append(x_float)
+            ydata.append(y_float)
+            zdata.append(z_float)
+        except:
+            pass
+    output_array = [xdata, ydata, zdata]
     return output_array
 
-def step_count(path_name):
-    try:
-        data = np.loadtxt(path_name, delimiter =',', dtype = str)
-    except:
-        print("Please Try Again. Data not being stored properly.")
-
-    # TODO: error handle
-    xdata = convert_strings_to_floats(data[:,2])
-    ydata = convert_strings_to_floats(data[:,3])
-    zdata = convert_strings_to_floats(data[:,4])
+def step_count(data):
+    if data.ndim < 2:
+        return 0
+    
+    out_data = convert_strings_to_floats(data[:,2], data[:,3], data[:,4])
+    xdata = out_data[0]
+    ydata = out_data[1]
+    zdata = out_data[2]
 
     accel_mag = np.sqrt((np.power(xdata, 2) + np.power(ydata, 2) + np.power(zdata, 2)))
     accel_mag = accel_mag - np.mean(accel_mag)
@@ -153,16 +161,37 @@ def step_count(path_name):
 
     return total_peaks
 
+def step_count_update(data, day_step_count_prev_hours, conn, current_date, current_hour):
+    hour_step_count = step_count(data)
+    cur_step_count = day_step_count_prev_hours + hour_step_count
+    print("Step Count: " + str(cur_step_count))
+    # with open(cwd + '/steps.txt', 'w') as f:
+    #     f.write(str(cur_step_count))
+    send_data = str(cur_step_count) + ";"
+    conn.sendall(send_data.encode())
+    file_total = file_open(path + current_date + "_total.csv", "r")
+    totals = file_total.readlines()
+    file_total.close()
+    file_total = file_open(path + current_date + "_total.csv", "w")
+    for line in totals:
+        hour = line.split(",")[0]
+        if hour == "total":
+            file_total.write("total," + str(cur_step_count) + "\n")
+        elif hour == current_hour:
+            file_total.write(hour + "," + str(hour_step_count) + "\n")
+        elif hour.isdigit() and int(hour) <= 23 and int(hour) >= 0:
+            file_total.write(line)
+    file_total.close()
+
 def server_step_count(conn):
     current_date = ""
     current_hour = ""
-    day_step_count = 0
+    day_step_count_prev_hours = 0
 
-    hour_data = 0
     file_name = None
     file = None
     conn.settimeout(20)
-
+    p0 = None
     try:
         while True:
             data = conn.recv(4096)
@@ -172,9 +201,11 @@ def server_step_count(conn):
                 list_item = item.split(",")
                 bad = False
                 for i in range(len(list_item)):
+                    # if one of values is not there
                     if list_item[i] is None or list_item[i] == "":
                         bad = True
                         break
+                    # if accelerometer data
                     if i == 2 or i == 3 or i == 4:
                         if list_item[i] == '-':
                             bad = True
@@ -185,53 +216,78 @@ def server_step_count(conn):
                     continue
                 if len(list_item[0]) != 10:
                     continue
-                # TODO: thread/process parallelize this
-                hour_data += 1
-                if file_name and file and hour_data % 50 == 0:
+                if list_item[1][2] != ":" or list_item[1][5] != ":":
+                    continue
+
+                if file_name and file and (p0 is None or not p0.is_alive()):
                     file.close()
-                    cur_step_count = day_step_count + step_count(file_name)
-                    file = file_open(file_name)
-                    print("Step Count: " + str(cur_step_count))
-                    with open(cwd + '/steps.txt', 'w') as f:
-                        f.write(str(cur_step_count))
-                    send_data = str(cur_step_count) + ";"
-                    conn.sendall(send_data.encode())
+                    try:
+                        data = np.genfromtxt(file_name, delimiter =',', dtype = str, invalid_raise = False)
+                    except:
+                        print("Please Try Again. Data not being stored properly.")
+                    if p0 is not None:
+                        if not p0.is_alive():
+                            p0.join()
+                            p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, conn, current_date, current_hour)))
+                            p0.start()
+                    else:
+                        p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, conn, current_date, current_hour)))
+                        p0.start()
+                    file = file_open(file_name, "a")
+
                 # in current date and hour
                 if list_item[0] == current_date and list_item[1][0:2] == current_hour:
                     if file:
                         file.write(item + "\n")
                 # in current date, new hour
+                # TODO: test this!!
                 elif list_item[0] == current_date and list_item[1][0:2] != current_hour:
                     if file:
                         file.close()
-                        # TODO: make this a new process so parallelism
-                        day_step_count += step_count(file_name)
-                    print("Current Step Count: " + str(day_step_count))
                     current_hour = list_item[1][0:2]
                     file_name = path + current_date + "_" + current_hour + ".csv"
-                    file = file_open(file_name)
+                    file = file_open(file_name, "a")
                     file.write(item + "\n")
-                # in new date
+                # in new date/just started
                 else:
                     if file:
                         file.close()
-                    # TODO: store step count data
-                    day_step_count = 0
                     current_date = list_item[0]
                     current_hour = list_item[1][0:2]
                     file_name = path + current_date + "_" + current_hour + ".csv"
-                    file = file_open(file_name)
+                    file = file_open(file_name, "a")
                     file.write(item + "\n")
+                    # TODO: error handle/test
+                    # if starting again
+                    if p0 is not None:
+                        p0.join()
+                    if os.path.exists(path + current_date + "_total.csv"):
+                        file_total = file_open(path + current_date + "_total.csv", "r")
+                        totals = file_total.readlines()
+                        # get the total step count
+                        total = int(totals[0].split(",")[1])
+                        # get step count for current hour
+                        hour_total = int(totals[int(current_hour)+1].split(",")[1])
+                        day_step_count_prev_hours = total - hour_total
+                        file_total.close()
+                    # if in new date/started for first time this day
+                    else:
+                        file_total = file_open(path + current_date + "_total.csv", "w")
+                        file_total.write("total,0\n")
+                        for i in range(24):
+                            file_total.write(str(i)+",0\n")
+                        file_total.close()
+                        day_step_count_prev_hours = 0
     except Exception as e:
         print(type(e))
         print(e)
         conn.shutdown(SHUT_RDWR)
         conn.close()
-        print('Step Count Client Disconnected')
+        print('Step Count Server Disconnected Socket')
 
-def file_open(file_name):
-    try:
-        file = open(file_name,"a")
+def file_open(file_name, type):
+    try: 
+        file = open(file_name,type)
         return file
     except:
         dir = file_name[:file_name.rfind("/")]
@@ -303,14 +359,16 @@ def run_pi(info, server_ip_addr, pi_type):
         if not ping_test(pi_ip):
             print(pi_type + ": ping down")
             # if the run pi script is going
-            if p0 and p0.is_alive():
+            if p0 is not None and p0.is_alive():
                 p0.terminate()
                 p0.join()
                 print("Your " + nice_pi_name[pi_type] + " Pi is Down")
         # if the pi is up
         else:
             print(pi_type + ": ping up")
-            if p0 and not p0.is_alive():
+            # if the running pi code process is not running
+            # was down and coming back up
+            if p0 is not None and not p0.is_alive():
                 print("Your " + nice_pi_name[pi_type] + " Pi is Coming Back Up")
                 p0 = multiprocessing.Process(target=start_pi_code, args=(info, server_ip_addr, pi_type ))
                 p0.start()
