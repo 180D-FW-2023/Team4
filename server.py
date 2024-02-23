@@ -17,6 +17,25 @@ import fabric
 import scrypt
 import paramiko
 
+import paho.mqtt.client as mqtt
+import subprocess
+
+# 0. define callbacks - functions that run when events happen.
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, rc):
+    print("Connection returned result: "+str(rc))
+
+# The callback of the client when it disconnects.
+def on_disconnect(client, userdata, rc):
+    if rc != 0:
+        print('Unexpected Disconnect')
+    else:
+        print('Expected Disconnect')
+# The default message callback.
+# (won’t be used if only publishing, but can still exist)
+def on_message(client, userdata, message):
+    print('Received message: "' + str(message.payload) + '" on topic "' +
+    message.topic + '" with QoS ' + str(message.qos))
 
 cwd = os.getcwd()
 cwd = cwd[:cwd.find('Team4') + 5]
@@ -48,73 +67,30 @@ def main1():
     serv_ip_addr = serv_ip_addr.stdout.decode()
     print("server ip adddress: " + serv_ip_addr)
 
-    p3 = multiprocessing.Process(target=server_fall)
-    p3.start()
+    # p3 = multiprocessing.Process(target=server_fall)
+    # p3.start()
 
-    # gets step counter pi info
-    step_count_info_list = None
-    try:
-        with open("step_count_pi_ip.txt") as file_step_count:
-            step_count_info_list = file_step_count.read().splitlines()
-            b = bytes.fromhex(step_count_info_list[-1])
-            step_count_info_list[-1] = scrypt.decrypt(b, 'password')
-    except:
-         print("Error: Set Up Your Step Counter Pi")
-    else:
-        if(len(step_count_info_list) != 3):
-            print("Error: Set Up Your Step Counter Pi Again")
-        else:
-            # step count start pi client code
-            p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
-            p0.start()
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = on_message
+    client.connect_async('test.mosquitto.org')
+    client.loop_start()
+    serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
+    serv_ip_addr = serv_ip_addr.stdout.decode()
+    client.publish('/ece180d/team4/setup', str(serv_ip_addr), qos=1, retain=1)
+    client.loop_stop()
+    client.disconnect()
 
-    # facial rec start pi client code
-    facial_rec_info_list = None
-    try:
-        with open("facial_rec_pi_ip.txt") as file_facial_rec:
-            facial_rec_info_list = file_facial_rec.read().splitlines()
-            b = bytes.fromhex(facial_rec_info_list[-1])
-            facial_rec_info_list[-1] = scrypt.decrypt(b, 'password')
-    except:
-         print("Error: Set Up Your Facial Recognition Pi")
-    else:
-        if(len(facial_rec_info_list) != 3):
-            print("Error: Set Up Your Facial Recognition Pi Again")
-        else:
-            p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
-            p01.start()
-
-    # fall detection start pi client code
-    fall_detect_info_list = None
-    try:
-        with open("fall_detect_pi_ip.txt") as file_fall_detect:
-            fall_detect_info_list = file_fall_detect.read().splitlines()
-            b = bytes.fromhex(fall_detect_info_list[-1])
-            fall_detect_info_list[-1] = scrypt.decrypt(b, 'password')
-    except:
-         print("Error: Set Up Your Fall Detector Pi")
-    else:
-        if(len(fall_detect_info_list) != 3):
-            print("Error: Set Up Your Fall Detector Pi Again")
-        else:
-            # step count start pi client code
-            p02 = multiprocessing.Process(target=run_pi, args=(fall_detect_info_list, serv_ip_addr, "fall_detect" ))
-            p02.start()
-
-    # if no known ip adddresses exist, stop
-    if step_count_info_list is None and facial_rec_info_list is None:
-            return
-
+    print("Server Starting to Accept TCP Connections")
     while True:
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
-        # if unknown client, don't accept tcp connections
-        if (step_count_info_list is None or addr[0] != step_count_info_list[0]) and (facial_rec_info_list is None or addr[0] != facial_rec_info_list[0]):
-            conn.shutdown(SHUT_RDWR)
-            conn.close()
-            print('Unknown Client Disconnected')
+        try:
+            first_message = conn.recv(4096).decode('utf_8')
+        except:
+            print('Bad Client Disconnected')
             continue
-        first_message = conn.recv(4096).decode('utf_8')
         if (first_message == "step count"):
             print("Step Counter Pi Starting")
             p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
@@ -275,7 +251,10 @@ def server_step_count(conn):
                         file_total = file_open(path + current_date + "_total.csv", "w")
                         file_total.write("total,0\n")
                         for i in range(24):
-                            file_total.write(str(i)+",0\n")
+                            if i < 10:
+                                file_total.write("0" + str(i) + ",0\n")
+                            else:
+                                file_total.write(str(i) + ",0\n")
                         file_total.close()
                         day_step_count_prev_hours = 0
     except Exception as e:
