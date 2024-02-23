@@ -9,7 +9,7 @@ context = ssl.create_default_context()
 
 with open('gps.txt', 'r') as f:
     coords = ast.literal_eval(f.read())
-
+f.close()
 lat = coords["best_lat"]
 lon = coords["best_lon"]
 
@@ -37,3 +37,4 @@ if content == 'fall\n':
 elif content =="ADL\n":
     print("Not fall")
 # rkbq epqd bkqz yzqv
+file.close()

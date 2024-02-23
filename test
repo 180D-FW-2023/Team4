@@ -1,0 +1,40 @@
+def convert_strings_to_floats(x_in, y_in, z_in):
+    xdata = []
+    ydata = []
+    zdata = []
+    # TODO: verify all same length
+
+    for i in range(len(x_in)):
+        try:
+            x_float = float(x_in[i])
+            y_float = float(y_in[i])
+            z_float = float(z_in[i])
+            xdata.append(x_float)
+            ydata.append(y_float)
+            zdata.append(z_float)
+        except:
+            pass
+    output_array = [xdata, ydata, zdata]
+    return output_array
+
+def step_count(path_name):
+    try:
+        data = np.genfromtxt(path_name, delimiter =',', dtype = str, invalid_raise = False)
+    except:
+        print("Please Try Again. Data not being stored properly.")
+
+    # TODO: error handle
+    out_data = convert_strings_to_floats(data[:,2], data[:,3], data[:,4])
+    xdata = out_data[0]
+    ydata = out_data[1]
+    zdata = out_data[2]
+
+    accel_mag = np.sqrt((np.power(xdata, 2) + np.power(ydata, 2) + np.power(zdata, 2)))
+    accel_mag = accel_mag - np.mean(accel_mag)
+    
+    y_smooth = savgol_filter(accel_mag, window_length=40, polyorder=3, mode="nearest")
+    smooth_peaks, _ = find_peaks(y_smooth, height=0.2)
+
+    total_peaks = len(smooth_peaks)
+
+    return total_peaks
