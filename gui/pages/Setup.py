@@ -1,8 +1,9 @@
 import streamlit as st
-import ultraimport
 import os
 import datetime
-from ssh import main1
+print(os.listdir())
+import ssh
+#from ssh import main1
 
 #ssh = ultraimport('__dir__/../../ssh.py', 'main1')
 cwd = os.getcwd()
@@ -22,7 +23,7 @@ elif pi == 'Facial Recognition':
 elif pi == 'Fall Detection':
     pi = 'fall_detect'
 
-st.button('Click to Run', on_click = main1, args = (user, pwd, pi, hname))
+st.button('Click to Run', on_click = ssh.main1, args = (user, pwd, pi, hname))
 
 if os.path.exists('step_count_pi_ip.txt'):
     mtime = os.path.getmtime('step_count_pi_ip.txt')
