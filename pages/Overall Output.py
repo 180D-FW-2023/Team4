@@ -14,6 +14,14 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 # sys.path.append('../Team4')
 st_autorefresh(interval=1000, key="dataframerefresh")
 
+with open('server.txt','r') as f_obj:
+    s = f_obj.read()
+    status = "🔴"
+    if (s == "good"):
+        status = "🟢"
+    st.text("Server Status: " + status)
+
+
 with open('fall.txt','r') as f:
    my_set = f.read().splitlines()
 

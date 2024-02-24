@@ -7,6 +7,8 @@ def on_click():
     subprocess.call(['python','server.py'])
 
 def on_click_kill():
+    with open('server.txt','w') as f_obj:
+        f_obj.write("bad")
     subprocess.call(['pkill','-f','subscriber'])
     subprocess.call(['pkill','-f','shell_script_new'])
     subprocess.call(['pkill','-f','multiprocessing.spawn'])

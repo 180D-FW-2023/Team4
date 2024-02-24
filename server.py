@@ -24,6 +24,8 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback of the client when it disconnects.
 def on_disconnect(client, userdata, rc):
+    with open('server.txt','w') as f_obj:
+        f_obj.write("bad")
     if rc != 0:
         print('Unexpected Disconnect')
     else:
@@ -67,6 +69,8 @@ def main1():
         serv.bind(('0.0.0.0', 8080))
         serv.listen(5)
     except:
+        with open('server.txt','w') as f_obj:
+            f_obj.write("bad")
         print("Please Try Again. Server is not properly starting up.")
         return
 
@@ -89,6 +93,8 @@ def main1():
             break
 
     print("Server Starting to Accept TCP Connections")
+    with open('server.txt','w') as f_obj:
+        f_obj.write("good")
     while True:
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
