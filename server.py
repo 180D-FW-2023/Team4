@@ -61,6 +61,10 @@ def mqtt_create_pub(serv_ip_addr):
     client.disconnect()
 
 def main1():
+    with open(cwd + '/step_count_status.txt', 'w') as f:
+        f.write("down\n")
+    with open(cwd + '/face_recog_status.txt', 'w') as f:
+        f.write("down\n")
     try:
         serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Assigns a port for the server that listens to clients connecting to this port.
@@ -98,10 +102,14 @@ def main1():
             print('Bad Client Disconnected')
             continue
         if (first_message == "step count"):
+            with open(cwd + '/step_count_status.txt', 'w') as f:
+                f.write("up\n")
             print("Step Counter Pi Starting")
             p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
             p1.start()
         if (first_message == "face recognition"):
+            with open(cwd + '/face_recog_status.txt', 'w') as f:
+                f.write("up\n")
             print("Facial Recognition Pi Starting")
             p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
             p2.start()
@@ -273,9 +281,11 @@ def server_step_count(conn):
     except Exception as e:
         print(type(e))
         print(e)
+        print('Step Count Server Disconnected Socket')
+        with open(cwd + '/step_count_status.txt', 'w') as f:
+            f.write("down\n")
         conn.shutdown(SHUT_RDWR)
         conn.close()
-        print('Step Count Server Disconnected Socket')
 
 def file_open(file_name, type):
     try: 
@@ -336,9 +346,11 @@ def server_face_rec(conn):
     except Exception as e:
         print(type(e))
         print(e)
+        print('Facial Recognition Client Disconnected')
+        with open(cwd + '/face_recog_status.txt', 'w') as f:
+            f.write("down\n")
         conn.shutdown(SHUT_RDWR)
         conn.close()
-        print('Facial Recognition Client Disconnected')
 
 def ping_test(ip):
     num = 10

@@ -14,6 +14,22 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 # sys.path.append('../Team4')
 st_autorefresh(interval=1000, key="dataframerefresh")
 
+with open("step_count_status.txt", 'r') as f:
+    sc_status = f.read().rstrip()
+
+if sc_status == "up":
+    st.text("Step Count Status: " + "🟢")
+else:
+    st.text("Step Count Status: " + "🔴")
+
+with open('face_recog_status.txt', 'r') as f:
+    fr_status = f.read().rstrip()
+
+if fr_status == "up":
+    st.text("Facial Recognition Status: " + "🟢")
+else:
+    st.text("Facial Recognition Status: " + "🔴")
+
 with open('fall.txt','r') as f:
    my_set = f.read().splitlines()
 
