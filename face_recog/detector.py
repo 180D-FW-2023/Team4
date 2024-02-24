@@ -126,7 +126,7 @@ def _display_face(draw, bounding_box, name):
     text_left, text_top, text_right, text_bottom = draw.textbbox(
         (left, bottom), name
     )
-    font = ImageFont.truetype("~/Library/Fonts/DejaVuSans.ttf", 15)
+    font = ImageFont.load_default(15)
     draw.rectangle(
         ((text_left, text_top), (text_right, text_bottom)),
         fill="blue",

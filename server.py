@@ -13,9 +13,6 @@ import struct
 import cv2 as cv
 import numpy as np
 from face_recog.detector import recognize_faces
-import fabric
-import scrypt
-import paramiko
 
 import paho.mqtt.client as mqtt
 import subprocess
@@ -52,6 +49,17 @@ nice_pi_name = {
   "fall_detect": "Fall Detection"
 }
 
+def mqtt_create_pub(serv_ip_addr):
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = on_message
+    client.connect_async('test.mosquitto.org')
+    client.loop_start()
+    client.publish('/ece180d/team4/setup', str(serv_ip_addr), qos=1, retain=1)
+    client.loop_stop()
+    client.disconnect()
+
 def main1():
     try:
         serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -70,17 +78,15 @@ def main1():
     # p3 = multiprocessing.Process(target=server_fall)
     # p3.start()
 
-    client = mqtt.Client()
-    client.on_connect = on_connect
-    client.on_disconnect = on_disconnect
-    client.on_message = on_message
-    client.connect_async('test.mosquitto.org')
-    client.loop_start()
-    serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
-    serv_ip_addr = serv_ip_addr.stdout.decode()
-    client.publish('/ece180d/team4/setup', str(serv_ip_addr), qos=1, retain=1)
-    client.loop_stop()
-    client.disconnect()
+    while True:
+        try:
+            mqtt_create_pub(serv_ip_addr)
+        except:
+            time.sleep(2)
+            print("failed at starting mqtt")
+            continue
+        else:
+            break
 
     print("Server Starting to Accept TCP Connections")
     while True:
@@ -141,8 +147,6 @@ def step_count_update(data, day_step_count_prev_hours, conn, current_date, curre
     hour_step_count = step_count(data)
     cur_step_count = day_step_count_prev_hours + hour_step_count
     print("Step Count: " + str(cur_step_count))
-    # with open(cwd + '/steps.txt', 'w') as f:
-    #     f.write(str(cur_step_count))
     send_data = str(cur_step_count) + ";"
     conn.sendall(send_data.encode())
     file_total = file_open(path + current_date + "_total.csv", "r")
@@ -222,6 +226,15 @@ def server_step_count(conn):
                         file.close()
                     current_hour = list_item[1][0:2]
                     file_name = path + current_date + "_" + current_hour + ".csv"
+                    if os.path.exists(path + current_date + "_total.csv"):
+                        file_total = file_open(path + current_date + "_total.csv", "r")
+                        totals = file_total.readlines()
+                        # get the total step count
+                        total = int(totals[0].split(",")[1])
+                        # get step count for current hour
+                        hour_total = int(totals[int(current_hour)+1].split(",")[1])
+                        day_step_count_prev_hours = total - hour_total
+                        file_total.close()
                     file = file_open(file_name, "a")
                     file.write(item + "\n")
                 # in new date/just started
@@ -319,63 +332,13 @@ def server_face_rec(conn):
             #print("I passed")
             encodedMessage = bytes(message, 'utf-8')
             conn.sendall(encodedMessage)
-            #print("I passed")
+                #print("I passed")
     except Exception as e:
         print(type(e))
         print(e)
         conn.shutdown(SHUT_RDWR)
         conn.close()
         print('Facial Recognition Client Disconnected')
-
-def run_pi(info, server_ip_addr, pi_type):
-    pi_ip = info[0]
-    p0 = multiprocessing.Process(target=start_pi_code, args=(info, server_ip_addr, pi_type ))
-    p0.start()
-
-    while True:
-        time.sleep(1)
-        # if the pi is down
-        if not ping_test(pi_ip):
-            print(pi_type + ": ping down")
-            # if the run pi script is going
-            if p0 is not None and p0.is_alive():
-                p0.terminate()
-                p0.join()
-                print("Your " + nice_pi_name[pi_type] + " Pi is Down")
-        # if the pi is up
-        else:
-            print(pi_type + ": ping up")
-            # if the running pi code process is not running
-            # was down and coming back up
-            if p0 is not None and not p0.is_alive():
-                print("Your " + nice_pi_name[pi_type] + " Pi is Coming Back Up")
-                p0 = multiprocessing.Process(target=start_pi_code, args=(info, server_ip_addr, pi_type ))
-                p0.start()
-
-def start_pi_code(info, server_ip_addr, pi_type):
-    pi_ip = info[0]
-    pi_user = info[1]
-    pi_pswd = info[2]
-
-    try:
-        if pi_type == "step_count":
-            with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-                result = c.run('python ' + step_count_pi_path + ' ' + server_ip_addr)
-        elif pi_type == "facial_rec":
-            with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-                print("run")
-                result = c.run('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
-        elif pi_type == "fall_detect":
-            with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-                result = c.run("./subscriber/bin/simple_publisher")
-        else:
-            print("Error: Bad Handle")
-            return
-    except (TimeoutError, paramiko.ssh_exception.AuthenticationException):
-        print("Error: Please Run the Setup on Your " + nice_pi_name[pi_type] + " Pi Again")
-    except Exception as e:
-        print(type(e))
-        print(e)
 
 def ping_test(ip):
     num = 10

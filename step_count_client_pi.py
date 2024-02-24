@@ -3,9 +3,7 @@ from datetime import datetime
 import socket
 import multiprocessing
 import time
-from signal import SIGKILL
 import paho.mqtt.client as mqtt
-from sense_hat import SenseHat
 
 def start_client(ip_addr):
 	try:
@@ -42,6 +40,7 @@ def start_client(ip_addr):
 				p0.join()
 	# if any errors or processes terminate, run main again
 	finally:
+		print("a process terminated starting agains")
 		time.sleep(2)
 		main()
 
@@ -99,6 +98,7 @@ def on_disconnect(client, userdata, rc):
 # (you can create separate callbacks per subscribed topic)
 def on_message(client, userdata, message):
     msg_recv = str((message.payload).decode('utf_8').strip('\n'))
+    # TODO:verify good ip
     print('Received message: "' + msg_recv + '" on topic "' + message.topic + '" with QoS ' + str(message.qos))
     client.loop_stop()
     client.disconnect()
