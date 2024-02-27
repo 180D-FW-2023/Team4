@@ -24,7 +24,7 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback of the client when it disconnects.
 def on_disconnect(client, userdata, rc):
-    with open('server.txt','w') as f_obj:
+    with open('gui_txt_files/server.txt','w') as f_obj:
         f_obj.write("bad")
     with open(cwd + '/step_count_status.txt', 'w') as f:
         f.write("down\n")
@@ -69,9 +69,9 @@ def mqtt_create_pub(serv_ip_addr):
     client.disconnect()
 
 def main1():
-    with open(cwd + '/step_count_status.txt', 'w') as f:
+    with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
         f.write("down\n")
-    with open(cwd + '/face_recog_status.txt', 'w') as f:
+    with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
         f.write("down\n")
     try:
         serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -79,7 +79,7 @@ def main1():
         serv.bind(('0.0.0.0', 8080))
         serv.listen(5)
     except:
-        with open('server.txt','w') as f_obj:
+        with open('gui_txt_files/server.txt','w') as f_obj:
             f_obj.write("bad")
         print("Please Try Again. Server is not properly starting up.")
         return
@@ -103,7 +103,7 @@ def main1():
             break
 
     print("Server Starting to Accept TCP Connections")
-    with open('server.txt','w') as f_obj:
+    with open('gui_txt_files/server.txt','w') as f_obj:
         f_obj.write("good")
     while True:
         conn, addr = serv.accept()
@@ -114,13 +114,13 @@ def main1():
             print('Bad Client Disconnected')
             continue
         if (first_message == "step count"):
-            with open(cwd + '/step_count_status.txt', 'w') as f:
+            with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
                 f.write("up\n")
             print("Step Counter Pi Starting")
             p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
             p1.start()
         if (first_message == "face recognition"):
-            with open(cwd + '/face_recog_status.txt', 'w') as f:
+            with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
                 f.write("up\n")
             print("Facial Recognition Pi Starting")
             p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
@@ -294,10 +294,13 @@ def server_step_count(conn):
         print(type(e))
         print(e)
         print('Step Count Server Disconnected Socket')
-        with open(cwd + '/step_count_status.txt', 'w') as f:
+        with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
             f.write("down\n")
-        conn.shutdown(SHUT_RDWR)
-        conn.close()
+        try:
+            conn.shutdown(SHUT_RDWR)
+            conn.close()
+        except:
+            pass
 
 def file_open(file_name, type):
     try: 
@@ -352,7 +355,7 @@ def server_face_rec(conn):
                     message += name
                     message += ', '
             if len(total_seen) != 0:
-                with open(cwd + '/total_seen.txt', 'w') as f:
+                with open(cwd + '/gui_txt_files/total_seen.txt', 'w') as f:
                     f.write(str(total_seen))
             with open(cwd + '/face_recog_camera_status.txt', 'w') as f:
                 f.write("up\n")
@@ -372,10 +375,13 @@ def server_face_rec(conn):
         print(type(e))
         print(e)
         print('Facial Recognition Client Disconnected')
-        with open(cwd + '/face_recog_status.txt', 'w') as f:
+        with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
             f.write("down\n")
-        conn.shutdown(SHUT_RDWR)
-        conn.close()
+        try:
+            conn.shutdown(SHUT_RDWR)
+            conn.close()
+        except:
+            pass
 
 def ping_test(ip):
     num = 10
