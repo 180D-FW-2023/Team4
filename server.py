@@ -26,11 +26,11 @@ def on_connect(client, userdata, flags, rc):
 def on_disconnect(client, userdata, rc):
     with open('gui_txt_files/server.txt','w') as f_obj:
         f_obj.write("bad")
-    with open(cwd + '/step_count_status.txt', 'w') as f:
+    with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
         f.write("down\n")
-    with open(cwd + '/face_recog_status.txt', 'w') as f:
+    with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
         f.write("down\n")
-    with open(cwd + '/face_recog_camera_status.txt', 'w') as f:
+    with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
         f.write("down\n")
     if rc != 0:
         print('Unexpected Disconnect')
@@ -357,7 +357,7 @@ def server_face_rec(conn):
             if len(total_seen) != 0:
                 with open(cwd + '/gui_txt_files/total_seen.txt', 'w') as f:
                     f.write(str(total_seen))
-            with open(cwd + '/face_recog_camera_status.txt', 'w') as f:
+            with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
                 f.write("up\n")
             #print("I passed")
             encodedMessage = bytes(message, 'utf-8')
@@ -365,9 +365,9 @@ def server_face_rec(conn):
                 #print("I passed")
     except (struct.error, TimeoutError):
         print("No Camera")
-        with open(cwd + '/face_recog_status.txt', 'w') as f:
+        with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
             f.write("down\n")
-        with open(cwd + '/face_recog_camera_status.txt', 'w') as f:
+        with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
             f.write("down\n")
         conn.shutdown(SHUT_RDWR)
         conn.close()

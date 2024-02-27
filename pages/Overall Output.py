@@ -21,12 +21,12 @@ with open('gui_txt_files/server.txt','r') as f_obj:
         status = "🟢"
     st.sidebar.text("Server Status: " + status)
 
-with open('face_recog_camera_status.txt','r') as f_obj:
+with open('gui_txt_files/face_recog_camera_status.txt','r') as f_obj:
     s = f_obj.read().rstrip()
     if (s == "up"):
-        st.text("Camera Status: " + "🟢")
+        st.sidebar.text("Camera Status: " + "🟢")
     else:
-        st.text("Camera Status: " + "🔴")
+        st.sidebar.text("Camera Status: " + "🔴")
 
 with open("gui_txt_files/step_count_status.txt", 'r') as f:
     sc_status = f.read().rstrip()
