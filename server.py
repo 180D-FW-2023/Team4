@@ -26,6 +26,12 @@ def on_connect(client, userdata, flags, rc):
 def on_disconnect(client, userdata, rc):
     with open('server.txt','w') as f_obj:
         f_obj.write("bad")
+    with open(cwd + '/step_count_status.txt', 'w') as f:
+        f.write("down\n")
+    with open(cwd + '/face_recog_status.txt', 'w') as f:
+        f.write("down\n")
+    with open(cwd + '/face_recog_camera_status.txt', 'w') as f:
+        f.write("down\n")
     if rc != 0:
         print('Unexpected Disconnect')
     else:
@@ -325,7 +331,10 @@ def server_face_rec(conn):
             # Rewind the stream, open it as an image with PIL and do some
             # processing on it
             image_stream.seek(0)
+            # try:
             image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
+            # except:
+            #     print("No camera")
 
                 #Save the image to a folder called stream-pics (each image will have a different name)
                 # image.save('stream-pics/im' + str(i) + '.png')
@@ -345,10 +354,20 @@ def server_face_rec(conn):
             if len(total_seen) != 0:
                 with open(cwd + '/total_seen.txt', 'w') as f:
                     f.write(str(total_seen))
+            with open(cwd + '/face_recog_camera_status.txt', 'w') as f:
+                f.write("up\n")
             #print("I passed")
             encodedMessage = bytes(message, 'utf-8')
             conn.sendall(encodedMessage)
                 #print("I passed")
+    except (struct.error, TimeoutError):
+        print("No Camera")
+        with open(cwd + '/face_recog_status.txt', 'w') as f:
+            f.write("down\n")
+        with open(cwd + '/face_recog_camera_status.txt', 'w') as f:
+            f.write("down\n")
+        conn.shutdown(SHUT_RDWR)
+        conn.close()
     except Exception as e:
         print(type(e))
         print(e)

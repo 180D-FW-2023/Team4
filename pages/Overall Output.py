@@ -21,6 +21,13 @@ with open('server.txt','r') as f_obj:
         status = "🟢"
     st.text("Server Status: " + status)
 
+with open('face_recog_camera_status.txt','r') as f_obj:
+    s = f_obj.read().rstrip()
+    if (s == "up"):
+        st.text("Camera Status: " + "🟢")
+    else:
+        st.text("Camera Status: " + "🔴")
+
 with open("step_count_status.txt", 'r') as f:
     sc_status = f.read().rstrip()
 

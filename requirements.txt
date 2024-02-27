@@ -28,6 +28,7 @@ mdurl==0.1.2
 numpy==1.26.4
 opencv-python==4.9.0.80
 packaging==23.2
+paho-mqtt==1.6.1
 pandas==2.2.0
 paramiko==3.4.0
 pillow==10.2.0
