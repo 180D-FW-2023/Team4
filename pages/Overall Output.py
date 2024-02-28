@@ -19,6 +19,8 @@ with open('gui_txt_files/server.txt','r') as f_obj:
     status = "🔴"
     if (s == "good"):
         status = "🟢"
+    elif(s == "eh"):
+        status = "🟡"
     st.sidebar.text("Server Status: " + status)
 
 with open('gui_txt_files/face_recog_camera_status.txt','r') as f_obj:

@@ -73,11 +73,15 @@ def main1():
         f.write("down\n")
     with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
         f.write("down\n")
+    with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
+        f.write("down\n")
     try:
         serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Assigns a port for the server that listens to clients connecting to this port.
         serv.bind(('0.0.0.0', 8080))
         serv.listen(5)
+        with open('gui_txt_files/server.txt','w') as f_obj:
+            f_obj.write("eh")
     except:
         with open('gui_txt_files/server.txt','w') as f_obj:
             f_obj.write("bad")
