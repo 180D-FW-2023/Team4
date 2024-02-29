@@ -19,10 +19,10 @@ def main1(user, pswd, pi_name, host_name):
             if pi_name == "step_count":
                 file = open("./" + pi_name + "_pi_ip.txt", "w")
                 # TODO: move put to server?
-                c.put("./step_count_client_pi.py")
+                c.put("./pi_code/step_count_client_pi.py")
             elif pi_name == "facial_rec":
                 file = open("./" + pi_name + "_pi_ip.txt", "w")
-                c.put("./facial_rec_client_pi.py")
+                c.put("./pi_code/facial_rec_client_pi.py")
             elif pi_name == "fall_detect":
                 file = open("./" + pi_name + "_pi_ip.txt", "w")
                 s = "sshpass -p \"" + pswd + "\" scp -r ./fall_detection/subscriber "+user+"@"+pi_ip+":"

@@ -7,6 +7,7 @@ from datetime import timedelta
 import os
 import calendar
 import numpy as np
+from pages.Output import sidebar_status
 
 st_autorefresh(interval=1000, key="dataframerefresh")
 
@@ -91,3 +92,5 @@ bar_chart2 = alt.Chart(source2).mark_bar().encode(
 )
 
 st.altair_chart(bar_chart2, use_container_width=True)
+
+sidebar_status()

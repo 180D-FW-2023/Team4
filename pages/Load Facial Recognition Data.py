@@ -1,6 +1,7 @@
 import subprocess
 import streamlit as st
 import os
+from pages.Output import sidebar_status
 #import pandas as pd
 #from io import StringIO
 
@@ -40,4 +41,5 @@ def on_click_train():
 st.button("Upload files", on_click = on_click, args = (filepath, uploaded_files))
 
 st.button("Retrain", on_click = on_click_train)
+sidebar_status()
 

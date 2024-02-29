@@ -3,6 +3,7 @@ from streamlit_autorefresh import st_autorefresh
 import pandas as pd
 import ast
 import time
+from pages.Output import sidebar_status
 
 st_autorefresh(interval=1000, key="dataframerefresh")
 
@@ -34,3 +35,5 @@ d = {'lat': [lat], 'lon': [lon]}
 df = pd.DataFrame(d)
 
 st.map(df)
+
+sidebar_status()
