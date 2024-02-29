@@ -54,7 +54,7 @@ def recv_data(client):
         print('Received from server: ' + name)  # show in terminal (for now)
         # with open('./nn.txt', 'w') as f:
         #     f.write(str(name))
-        os.system('espeak ' + name + ' 2>/dev/null')
+        os.system('espeak "' + name + '" 2>/dev/null')
 	
 def get_images(connection, client):
     try:

@@ -93,8 +93,8 @@ def main1():
     serv_ip_addr = serv_ip_addr.stdout.decode()
     print("server ip adddress: " + serv_ip_addr)
 
-    # p3 = multiprocessing.Process(target=server_fall)
-    # p3.start()
+    p3 = multiprocessing.Process(target=server_fall)
+    p3.start()
 
     while True:
         try:
