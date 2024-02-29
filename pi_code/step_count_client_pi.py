@@ -6,6 +6,7 @@ import time
 import paho.mqtt.client as mqtt
 
 def start_client(ip_addr):
+	print("starting step counter")
 	try:
 		sense = SenseHat()
 
@@ -18,6 +19,7 @@ def start_client(ip_addr):
 				print("failed at socket connection")
 				continue
 			else:
+				print("connected to server")
 				break
 		client.sendall("step count".encode())
 
@@ -124,6 +126,7 @@ def mqtt_create_sub():
 	print("here")
 
 def main():
+	print("step count client starting")
 	while True:
 		try:
 			mqtt_create_sub()
