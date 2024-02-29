@@ -13,10 +13,34 @@ import struct
 import cv2 as cv
 import numpy as np
 from face_recog.detector import recognize_faces
-import fabric
-import scrypt
-import paramiko
 
+import paho.mqtt.client as mqtt
+import subprocess
+
+# 0. define callbacks - functions that run when events happen.
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, rc):
+    print("Connection returned result: "+str(rc))
+
+# The callback of the client when it disconnects.
+def on_disconnect(client, userdata, rc):
+    with open('gui_txt_files/server.txt','w') as f_obj:
+        f_obj.write("bad")
+    with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
+        f.write("down\n")
+    with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
+        f.write("down\n")
+    with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
+        f.write("down\n")
+    if rc != 0:
+        print('Unexpected Disconnect')
+    else:
+        print('Expected Disconnect')
+# The default message callback.
+# (won’t be used if only publishing, but can still exist)
+def on_message(client, userdata, message):
+    print('Received message: "' + str(message.payload) + '" on topic "' +
+    message.topic + '" with QoS ' + str(message.qos))
 
 cwd = os.getcwd()
 cwd = cwd[:cwd.find('Team4') + 5]
@@ -33,13 +57,34 @@ nice_pi_name = {
   "fall_detect": "Fall Detection"
 }
 
+def mqtt_create_pub(serv_ip_addr):
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = on_message
+    client.connect_async('test.mosquitto.org')
+    client.loop_start()
+    client.publish('/ece180d/team4/setup', str(serv_ip_addr), qos=1, retain=1)
+    client.loop_stop()
+    client.disconnect()
+
 def main1():
+    with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
+        f.write("down\n")
+    with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
+        f.write("down\n")
+    with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
+        f.write("down\n")
     try:
         serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Assigns a port for the server that listens to clients connecting to this port.
         serv.bind(('0.0.0.0', 8080))
         serv.listen(5)
+        with open('gui_txt_files/server.txt','w') as f_obj:
+            f_obj.write("eh")
     except:
+        with open('gui_txt_files/server.txt','w') as f_obj:
+            f_obj.write("bad")
         print("Please Try Again. Server is not properly starting up.")
         return
 
@@ -51,75 +96,36 @@ def main1():
     p3 = multiprocessing.Process(target=server_fall)
     p3.start()
 
-    # gets step counter pi info
-    step_count_info_list = None
-    try:
-        with open("step_count_pi_ip.txt") as file_step_count:
-            step_count_info_list = file_step_count.read().splitlines()
-            b = bytes.fromhex(step_count_info_list[-1])
-            step_count_info_list[-1] = scrypt.decrypt(b, 'password')
-    except:
-         print("Error: Set Up Your Step Counter Pi")
-    else:
-        if(len(step_count_info_list) != 3):
-            print("Error: Set Up Your Step Counter Pi Again")
+    while True:
+        try:
+            mqtt_create_pub(serv_ip_addr)
+        except:
+            time.sleep(2)
+            print("failed at starting mqtt")
+            continue
         else:
-            # step count start pi client code
-            p0 = multiprocessing.Process(target=run_pi, args=(step_count_info_list, serv_ip_addr, "step_count" ))
-            p0.start()
+            break
 
-    # facial rec start pi client code
-    facial_rec_info_list = None
-    try:
-        with open("facial_rec_pi_ip.txt") as file_facial_rec:
-            facial_rec_info_list = file_facial_rec.read().splitlines()
-            b = bytes.fromhex(facial_rec_info_list[-1])
-            facial_rec_info_list[-1] = scrypt.decrypt(b, 'password')
-    except:
-         print("Error: Set Up Your Facial Recognition Pi")
-    else:
-        if(len(facial_rec_info_list) != 3):
-            print("Error: Set Up Your Facial Recognition Pi Again")
-        else:
-            p01 = multiprocessing.Process(target=run_pi, args=(facial_rec_info_list, serv_ip_addr, "facial_rec" ))
-            p01.start()
-
-    # fall detection start pi client code
-    fall_detect_info_list = None
-    try:
-        with open("fall_detect_pi_ip.txt") as file_fall_detect:
-            fall_detect_info_list = file_fall_detect.read().splitlines()
-            b = bytes.fromhex(fall_detect_info_list[-1])
-            fall_detect_info_list[-1] = scrypt.decrypt(b, 'password')
-    except:
-         print("Error: Set Up Your Fall Detector Pi")
-    else:
-        if(len(fall_detect_info_list) != 3):
-            print("Error: Set Up Your Fall Detector Pi Again")
-        else:
-            # step count start pi client code
-            p02 = multiprocessing.Process(target=run_pi, args=(fall_detect_info_list, serv_ip_addr, "fall_detect" ))
-            p02.start()
-
-    # if no known ip adddresses exist, stop
-    if step_count_info_list is None and facial_rec_info_list is None:
-            return
-
+    print("Server Starting to Accept TCP Connections")
+    with open('gui_txt_files/server.txt','w') as f_obj:
+        f_obj.write("good")
     while True:
         conn, addr = serv.accept()
         print("client connection ip address: " + addr[0])
-        # if unknown client, don't accept tcp connections
-        if (step_count_info_list is None or addr[0] != step_count_info_list[0]) and (facial_rec_info_list is None or addr[0] != facial_rec_info_list[0]):
-            conn.shutdown(SHUT_RDWR)
-            conn.close()
-            print('Unknown Client Disconnected')
+        try:
+            first_message = conn.recv(4096).decode('utf_8')
+        except:
+            print('Bad Client Disconnected')
             continue
-        first_message = conn.recv(4096).decode('utf_8')
         if (first_message == "step count"):
+            with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
+                f.write("up\n")
             print("Step Counter Pi Starting")
             p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
             p1.start()
         if (first_message == "face recognition"):
+            with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
+                f.write("up\n")
             print("Facial Recognition Pi Starting")
             p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
             p2.start()
@@ -165,8 +171,6 @@ def step_count_update(data, day_step_count_prev_hours, conn, current_date, curre
     hour_step_count = step_count(data)
     cur_step_count = day_step_count_prev_hours + hour_step_count
     print("Step Count: " + str(cur_step_count))
-    # with open(cwd + '/steps.txt', 'w') as f:
-    #     f.write(str(cur_step_count))
     send_data = str(cur_step_count) + ";"
     conn.sendall(send_data.encode())
     file_total = file_open(path + current_date + "_total.csv", "r")
@@ -246,6 +250,15 @@ def server_step_count(conn):
                         file.close()
                     current_hour = list_item[1][0:2]
                     file_name = path + current_date + "_" + current_hour + ".csv"
+                    if os.path.exists(path + current_date + "_total.csv"):
+                        file_total = file_open(path + current_date + "_total.csv", "r")
+                        totals = file_total.readlines()
+                        # get the total step count
+                        total = int(totals[0].split(",")[1])
+                        # get step count for current hour
+                        hour_total = int(totals[int(current_hour)+1].split(",")[1])
+                        day_step_count_prev_hours = total - hour_total
+                        file_total.close()
                     file = file_open(file_name, "a")
                     file.write(item + "\n")
                 # in new date/just started
@@ -275,15 +288,23 @@ def server_step_count(conn):
                         file_total = file_open(path + current_date + "_total.csv", "w")
                         file_total.write("total,0\n")
                         for i in range(24):
-                            file_total.write(str(i)+",0\n")
+                            if i < 10:
+                                file_total.write("0" + str(i) + ",0\n")
+                            else:
+                                file_total.write(str(i) + ",0\n")
                         file_total.close()
                         day_step_count_prev_hours = 0
     except Exception as e:
         print(type(e))
         print(e)
-        conn.shutdown(SHUT_RDWR)
-        conn.close()
         print('Step Count Server Disconnected Socket')
+        with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
+            f.write("down\n")
+        try:
+            conn.shutdown(SHUT_RDWR)
+            conn.close()
+        except:
+            pass
 
 def file_open(file_name, type):
     try: 
@@ -317,7 +338,10 @@ def server_face_rec(conn):
             # Rewind the stream, open it as an image with PIL and do some
             # processing on it
             image_stream.seek(0)
+            # try:
             image = cv.imdecode(np.frombuffer(image_stream.read(), np.uint8), cv.IMREAD_COLOR)
+            # except:
+            #     print("No camera")
 
                 #Save the image to a folder called stream-pics (each image will have a different name)
                 # image.save('stream-pics/im' + str(i) + '.png')
@@ -335,68 +359,33 @@ def server_face_rec(conn):
                     message += name
                     message += ', '
             if len(total_seen) != 0:
-                with open(cwd + '/total_seen.txt', 'w') as f:
+                with open(cwd + '/gui_txt_files/total_seen.txt', 'w') as f:
                     f.write(str(total_seen))
+            with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
+                f.write("up\n")
             #print("I passed")
             encodedMessage = bytes(message, 'utf-8')
             conn.sendall(encodedMessage)
-            #print("I passed")
-    except Exception as e:
-        print(type(e))
-        print(e)
+                #print("I passed")
+    except (struct.error, TimeoutError):
+        print("No Camera")
+        with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
+            f.write("down\n")
+        with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
+            f.write("down\n")
         conn.shutdown(SHUT_RDWR)
         conn.close()
-        print('Facial Recognition Client Disconnected')
-
-def run_pi(info, server_ip_addr, pi_type):
-    pi_ip = info[0]
-    p0 = multiprocessing.Process(target=start_pi_code, args=(info, server_ip_addr, pi_type ))
-    p0.start()
-
-    while True:
-        time.sleep(1)
-        # if the pi is down
-        if not ping_test(pi_ip):
-            print(pi_type + ": ping down")
-            # if the run pi script is going
-            if p0 is not None and p0.is_alive():
-                p0.terminate()
-                p0.join()
-                print("Your " + nice_pi_name[pi_type] + " Pi is Down")
-        # if the pi is up
-        else:
-            print(pi_type + ": ping up")
-            # if the running pi code process is not running
-            # was down and coming back up
-            if p0 is not None and not p0.is_alive():
-                print("Your " + nice_pi_name[pi_type] + " Pi is Coming Back Up")
-                p0 = multiprocessing.Process(target=start_pi_code, args=(info, server_ip_addr, pi_type ))
-                p0.start()
-
-def start_pi_code(info, server_ip_addr, pi_type):
-    pi_ip = info[0]
-    pi_user = info[1]
-    pi_pswd = info[2]
-
-    try:
-        if pi_type == "step_count":
-            with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-                result = c.run('python ' + step_count_pi_path + ' ' + server_ip_addr)
-        elif pi_type == "facial_rec":
-            with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-                print("run")
-                result = c.run('python ' + facial_rec_pi_path + ' ' + server_ip_addr)
-        elif pi_type == "fall_detect":
-            with fabric.Connection(pi_ip, user=pi_user, connect_kwargs={'password': pi_pswd}) as c:
-                result = c.run("./subscriber/bin/simple_publisher")
-        else:
-            print("Error: Bad Handle")
-            return
-    except (TimeoutError, paramiko.ssh_exception.AuthenticationException):
-        print("Error: Please Run the Setup on Your " + nice_pi_name[pi_type] + " Pi Again")
     except Exception as e:
         print(type(e))
         print(e)
+        print('Facial Recognition Client Disconnected')
+        with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
+            f.write("down\n")
+        try:
+            conn.shutdown(SHUT_RDWR)
+            conn.close()
+        except:
+            pass
 
 def ping_test(ip):
     num = 10
