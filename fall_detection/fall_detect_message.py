@@ -16,7 +16,10 @@ lon = coords["best_lon"]
 subject = "Fall Detected"
 body = "A fall has been detected at https://www.google.com/maps/search/?api=1&query=" +str(lat) + "," + str(lon)
 sender = "memorymate.fall.detector@gmail.com"
-recipients = ["jolin51502@gmail.com"]
+recipients = []
+with open('gui_txt_files/email.txt', 'r') as file:
+    # Read all the lines of the file into a list
+    recipients = file.readlines()
 password = "jmmo dwyv mdoj kass"
 
 
