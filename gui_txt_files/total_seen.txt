@@ -1,1 +1,1 @@
-{'krisha'}
+{'isabella-friend', 'krisha-friend'}
