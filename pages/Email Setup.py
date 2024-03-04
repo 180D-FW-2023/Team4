@@ -26,10 +26,10 @@ if os.path.exists('gui_txt_files/email.txt'):
         email_list_pre = f.readlines()
     for email in email_list_pre:
         email = email.rstrip()
-        if email is not "":
+        if email != "":
             email_list.append(email)
 
-if len(email_list) is 0:
+if len(email_list) == 0:
     st.header("No Emails Reporting To")
 
 email_add = st.text_input('Add Email')
@@ -52,11 +52,11 @@ def checkbox_container(data):
     if cols[0].button('Select All'):
         for i in data:
             st.session_state['dynamic_checkbox_' + i] = True
-        st.experimental_rerun()
+        st.rerun()
     if cols[1].button('Unselect All'):
         for i in data:
             st.session_state['dynamic_checkbox_' + i] = False
-        st.experimental_rerun()
+        st.rerun()
     for i in data:
         st.checkbox(i, key='dynamic_checkbox_' + i)
     email_add = get_selected_checkboxes()
@@ -65,7 +65,7 @@ def checkbox_container(data):
 def get_selected_checkboxes():
     return [i.replace('dynamic_checkbox_','') for i in st.session_state.keys() if i.startswith('dynamic_checkbox_') and st.session_state[i]]
 
-if len(email_list) is not 0:
+if len(email_list) != 0:
     checkbox_container(email_list)
 
 sidebar_status()
