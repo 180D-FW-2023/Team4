@@ -6,7 +6,7 @@ import subprocess
 
 # wired connection and return ip addr of pi
 
-def main1(user, pswd, pi_name, host_name):
+def main1(user, pswd, pi_name, host_name, windows):
     try:
         file = None
         # TODO: connection fails
@@ -25,7 +25,10 @@ def main1(user, pswd, pi_name, host_name):
                 c.put("./pi_code/facial_rec_client_pi.py")
             elif pi_name == "fall_detect":
                 file = open("./" + pi_name + "_pi_ip.txt", "w")
-                s = "sshpass -p \"" + pswd + "\" scp -r ./fall_detection/subscriber "+user+"@"+pi_ip+":"
+                if (windows):
+                    s = "pscp -pw \"" + pswd + "\" ./fall_detection/subscriber/* "+user+"@"+pi_ip+":/subscriber"
+                else:
+                    s = "sshpass -p \"" + pswd + "\" scp -r ./fall_detection/subscriber "+user+"@"+pi_ip+":"
                 subprocess.run(s, shell=True)
                 c.run("make -C subscriber clean")
                 c.run("make -C subscriber bin")
