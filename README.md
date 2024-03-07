@@ -67,12 +67,17 @@ Once you are finished, you can stop the GUI and exit the virtual environment by 
 Ctrl-C
 deactivate
 ```
-## Setting Up The Physical Prototype
+## Setting Up The Physical Product
 ### Fall Detection
-![20240220_135955](https://github.com/180D-FW-2023/Team4/assets/33609544/c8064991-d40d-4e39-83f7-8213a2044850)
+![20240306_180011](https://github.com/180D-FW-2023/Team4/assets/85961054/8c850235-876d-40bd-95c5-7a142be475dd)
 Connect the powerbank to the power ports on the Notecard and the Raspberry Pi (with 2 USB-A to micro USB cables). The lights on the powerbank should turn on. Once the lights are on, hold the power button on the side of the power bank until the lights start flashing in order. 
 
-Velcro the powerbank and Pi into the center pocket of the sweatshirt in the orientation shown.
+![image](https://github.com/180D-FW-2023/Team4/assets/85961054/2d186a97-198b-4c7f-9d57-c9590cd87366)
+![image](https://github.com/180D-FW-2023/Team4/assets/85961054/0d06beb7-a26d-4c09-a8b6-02bc3275b30f)
+Place the powerbank and Notecard/Notecarrier into the pouch, then place the Raspberry Pi into one of the outside pockets with the Micro-USB connection pointing up.
+
+![image](https://github.com/180D-FW-2023/Team4/assets/85961054/4af90fc9-a1b1-4ab2-833f-fbbc7f436879)
+Place the pouch into the center pocket of the sweatshirt in the orientation shown.
 
 ### Face Recognition
 ![IMG_20240220_140318](https://github.com/180D-FW-2023/Team4/assets/33609544/10571175-d382-419c-b4a3-787b5cf39251)
