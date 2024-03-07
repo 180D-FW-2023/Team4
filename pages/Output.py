@@ -69,7 +69,7 @@ if s == "fall":
         f.write(str(f_time))
 
 try:
-    st.image('out.png', caption='Recognized Face')
+    st.image('gui_txt_files/out.png', caption='Recognized Face')
 except:
     pass
 

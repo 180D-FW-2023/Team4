@@ -5,8 +5,17 @@ import struct
 import time
 import picamera
 import os
+from datetime import datetime
 import paho.mqtt.client as mqtt
+import subprocess
 import multiprocessing
+
+def print_time():
+	now = datetime.now()
+
+	current_time = now.strftime("%H:%M:%S")
+    # with open('sends.txt', w) as f:
+	#     print(current_time)
 
 def start_client(ip_addr):
     try:
@@ -54,7 +63,7 @@ def recv_data(client):
         print('Received from server: ' + name)  # show in terminal (for now)
         # with open('./nn.txt', 'w') as f:
         #     f.write(str(name))
-        os.system('espeak "' + name + '" 2>/dev/null')
+        os.system('espeak "'+name+'" --stdout | paplay -v')
 	
 def get_images(connection, client):
     try:
@@ -85,6 +94,7 @@ def get_images(connection, client):
             stream.seek(0)
             stream.truncate()
         # Write a length of zero to the stream to signal we're done
+        
         connection.write(struct.pack('<L', 0))
     except:
         print("No camera")
@@ -120,33 +130,41 @@ def on_message(client, userdata, message):
 
 def mqtt_create_sub():
 	# 1. create a client instance.
-	client = mqtt.Client()
+    print("here1")
+    client = mqtt.Client()
+    print("here2")
 	# add additional client options (security, certifications, etc.)
 	# many default options should be good to start off.
 	# add callbacks to client.
-	client.on_connect = on_connect
-	client.on_disconnect = on_disconnect
-	client.on_message = on_message
+    client.on_connect = on_connect
+    print("here3")
+    client.on_disconnect = on_disconnect
+    print("here4")
+    client.on_message = on_message
 
 	# 2. connect to a broker using one of the connect*() functions.
-	client.connect_async('test.mosquitto.org')
+    print("here5")
+    client.connect_async('test.mosquitto.org')
 	# client.connect("mqtt.eclipse.org")
 
 	# 3. call one of the loop*() functions to maintain network traffic flow with the broker.
 	# client.loop_start()
-	client.loop_forever()
-	print("here")
+    print("here6")
+    client.loop_forever()
+    print("here")
 
 def main():
-	while True:
-		try:
-			mqtt_create_sub()
-		except:
-			time.sleep(2)
-			print("failed at starting mqtt")
-			continue
-		else:
-			break
+    subprocess.call(['sudo', 'bluetoothctl', '--', 'disconnect', '4C:B9:10:64:D8:6A'])
+    subprocess.call(['sudo', 'bluetoothctl', '--', 'connect', '4C:B9:10:64:D8:6A'])
+    while True:
+        try:
+            mqtt_create_sub()
+        except:
+            time.sleep(2)
+            print("failed at starting mqtt")
+            continue
+        else:
+            break
 
 if __name__ == "__main__":
     main()

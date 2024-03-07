@@ -12,7 +12,7 @@ show_pages_from_config()
 
 st_autorefresh(interval=1000, key="dataframerefresh")
 
-st.image('out.png', caption='Recognized Face')
+st.image('gui_txt_files/out.png', caption='Recognized Face')
 
 with open('gui_txt_files/total_seen.txt','r') as f:
    my_set = ast.literal_eval(f.read())

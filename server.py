@@ -353,11 +353,14 @@ def server_face_rec(conn):
 
             names_recognized = recognize_faces(cwd + '/face_recog/test.png')
             message = ''
+            global total_seen 
+            if len(names_recognized) == 0:
+                total_seen = set()
             for name in names_recognized:
                 if name not in total_seen:
-                    total_seen.add(name)
                     message += name
                     message += ', '
+                    total_seen.add(name)
             if len(total_seen) != 0:
                 with open(cwd + '/gui_txt_files/total_seen.txt', 'w') as f:
                     f.write(str(total_seen))

@@ -101,7 +101,7 @@ def recognize_faces(
     if COUNT == 5:
         try:
             pillow_image.verify()
-            pillow_image.save("out.png")
+            pillow_image.save("gui_txt_files/out.png")
             COUNT = 0
         except Exception:
             COUNT = COUNT - 1
