@@ -106,7 +106,7 @@ int main(int argc, const char *argv[])
     /* disconnect */
     printf("\n%s disconnecting from %s\n", argv[0], addr);
 
-    char *filename = "gps.txt";
+    char *filename = "gui_txt_files/gps.txt";
     FILE *fp = fopen(filename, "w");
     printf("\nBuffer: %s", buffer);
     if (fp == NULL)

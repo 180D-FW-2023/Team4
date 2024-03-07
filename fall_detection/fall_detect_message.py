@@ -7,7 +7,7 @@ import ast
 context = ssl.create_default_context()
 
 
-with open('gps.txt', 'r') as f:
+with open('gui_txt_files/gps.txt', 'r') as f:
     coords = ast.literal_eval(f.read())
 f.close()
 lat = coords["best_lat"]
@@ -16,6 +16,7 @@ lon = coords["best_lon"]
 subject = "Fall Detected"
 body = "A fall has been detected at https://www.google.com/maps/search/?api=1&query=" +str(lat) + "," + str(lon)
 sender = "memorymate.fall.detector@gmail.com"
+# recipients = ["jolin51502@gmail.com"]
 recipients = []
 with open('gui_txt_files/email.txt', 'r') as file:
     # Read all the lines of the file into a list
@@ -33,7 +34,7 @@ def send_email(subject, body, sender, recipients, password):
        smtp_server.sendmail(sender, recipients, msg.as_string())
     print("Message sent!")
 
-file = open("fall.txt", "r")
+file = open("gui_txt_files/fall.txt", "r")
 content = file.readline()
 if content == 'fall\n':
     send_email(subject, body, sender, recipients, password)
