@@ -244,7 +244,6 @@ def server_step_count(conn):
                     if file:
                         file.write(item + "\n")
                 # in current date, new hour
-                # TODO: test this!!
                 elif list_item[0] == current_date and list_item[1][0:2] != current_hour:
                     if file:
                         file.close()
@@ -270,7 +269,6 @@ def server_step_count(conn):
                     file_name = path + current_date + "_" + current_hour + ".csv"
                     file = file_open(file_name, "a")
                     file.write(item + "\n")
-                    # TODO: error handle/test
                     # if starting again
                     if p0 is not None:
                         p0.join()

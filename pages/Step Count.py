@@ -11,16 +11,6 @@ from pages.Output import sidebar_status
 
 st_autorefresh(interval=1000, key="dataframerefresh")
 
-# with open('steps.txt','r') as f:
-#    my_set = f.read().splitlines()
-
-# if len(my_set) >= 1:
-#     s = my_set[0]
-# else:
-#     s = 0
-
-# st.title("Today's Step Count: " + s)
-
 hours = []
 today = date.today()
 today_step = 0
