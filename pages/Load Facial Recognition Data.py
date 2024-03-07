@@ -1,25 +1,11 @@
 import subprocess
 import streamlit as st
 import os
-from pages.Output import sidebar_status
 from st_pages import show_pages_from_config, add_page_title
 
 add_page_title()
 
-show_pages_from_config()
-#import pandas as pd
-#from io import StringIO
-
-# uploaded_files = st.file_uploader("Upload 5-10 Images", type=['png', 'jpg'], accept_multiple_files = True)
-
-# for i in uploaded_files:
-#     # To read file as bytes:
-#     bytes_data = i.getvalue()
-#     st.write("filename: ", i.name)
-#     st.write(bytes_data)
-
-    # with open(i.name, "wb") as binary_file:
-    #     binary_file.write(bytes_data)
+# show_pages_from_config()
 
 uploaded_files = st.file_uploader("Upload 5-10 Images", type=['png', 'jpg'], accept_multiple_files=True)
 
@@ -46,5 +32,4 @@ def on_click_train():
 st.button("Upload files", on_click = on_click, args = (filepath, uploaded_files))
 
 st.button("Retrain", on_click = on_click_train)
-sidebar_status()
 
