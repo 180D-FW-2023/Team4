@@ -5,9 +5,14 @@ Face recognition allows the user to upload photos to add to the database, which 
 ## Code Organization
 The main repository is split into all of its major components, including product functions, GUI, and interactions with Raspberry Pi.
 `face_recog`, `fall_detection`, and `step_count` contain the code for the 3 modules of the device.
+- `face_recog`:
 - `fall_detection`: uses MQTT to receive GPS data from the Blues Wireless Notecard and accelerometer data from the BerryIMU.
-`gui`, `gui_txt_files`, and `pages` consist of code that makes up the display and user interface.
+- `step_count`:
 
+`gui`, `gui_txt_files`, and `pages` consist of code that makes up the display and user interface.
+- `gui`:
+- `gui_txt_files`:
+- `pages`:
 
 ## Cloning and Installing Dependencies
 Begin by cloning this repository and navigating to the Team4 folder. Run the following commands to make the binaries for fall detection:
