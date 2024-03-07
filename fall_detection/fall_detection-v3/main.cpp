@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <ctime>
 
 using namespace std;
 #include "edge-impulse-sdk/classifier/ei_run_classifier.h"
@@ -23,7 +24,7 @@ int main(int argc, char **argv) {
     fstream newfile;
     string tp;
     string complete;
-    newfile.open("test.txt",ios::in);
+    newfile.open("gui_txt_files/test.txt",ios::in);
     if(newfile.is_open()){
         while(getline(newfile, tp)){
             complete.append(tp);
@@ -152,9 +153,19 @@ int main(int argc, char **argv) {
     // }
 
     ofstream myfile;
-    myfile.open("fall.txt");
+    myfile.open("gui_txt_files/fall.txt");
     if(position == 1){
+        // write to time file
+        ofstream timefile;
+        timefile.open("gui_txt_files/fall_time.txt");
+        time_t now = time(0);
+        char* dt = ctime(&now);
+        timefile << dt << endl;
+        timefile.close();
+
+        // write to fall file
         myfile << "fall\n";
+
 
     } else if (position == 0) {
         myfile << "ADL\n";

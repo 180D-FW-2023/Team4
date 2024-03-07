@@ -1,7 +1,5 @@
 import streamlit as st
-import ultraimport
 import os
-from ssh import main1
 from st_pages import show_pages_from_config, add_page_title
 import fabric
 import paramiko
@@ -9,9 +7,8 @@ import socket
 import subprocess
 add_page_title()
 
-show_pages_from_config()
+# show_pages_from_config()
 
-#ssh = ultraimport('__dir__/../../ssh.py', 'main1')
 cwd = os.getcwd()
 print('setup' + cwd)
 

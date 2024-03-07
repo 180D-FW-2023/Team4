@@ -69,66 +69,77 @@ def mqtt_create_pub(serv_ip_addr):
     client.disconnect()
 
 def main1():
-    with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
-        f.write("down\n")
-    with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
-        f.write("down\n")
-    with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
-        f.write("down\n")
-    try:
-        serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # Assigns a port for the server that listens to clients connecting to this port.
-        serv.bind(('0.0.0.0', 8080))
-        serv.listen(5)
+    try: 
+        with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
+            f.write("down\n")
+        with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
+            f.write("down\n")
+        with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
+            f.write("down\n")
+        try:
+            serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            # Assigns a port for the server that listens to clients connecting to this port.
+            serv.bind(('0.0.0.0', 8080))
+            serv.listen(5)
+            with open('gui_txt_files/server.txt','w') as f_obj:
+                f_obj.write("eh")
+        except:
+            with open('gui_txt_files/server.txt','w') as f_obj:
+                f_obj.write("bad")
+            print("Please Try Again. Server is not properly starting up.")
+            return
+
+        # TODO: only on mac?
+        serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
+        serv_ip_addr = serv_ip_addr.stdout.decode()
+        print("server ip adddress: " + serv_ip_addr)
+
+        p3 = multiprocessing.Process(target=server_fall)
+        p3.start()
+
+        while True:
+            try:
+                mqtt_create_pub(serv_ip_addr)
+            except:
+                time.sleep(2)
+                print("failed at starting mqtt")
+                continue
+            else:
+                break
+
+        print("Server Starting to Accept TCP Connections")
         with open('gui_txt_files/server.txt','w') as f_obj:
-            f_obj.write("eh")
+            f_obj.write("good")
+        while True:
+            conn, addr = serv.accept()
+            print("client connection ip address: " + addr[0])
+            try:
+                first_message = conn.recv(4096).decode('utf_8')
+            except:
+                print('Bad Client Disconnected')
+                continue
+            if (first_message == "step count"):
+                with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
+                    f.write("up\n")
+                print("Step Counter Pi Starting")
+                p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
+                p1.start()
+            if (first_message == "face recognition"):
+                with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
+                    f.write("up\n")
+                print("Facial Recognition Pi Starting")
+                p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
+                p2.start()
     except:
         with open('gui_txt_files/server.txt','w') as f_obj:
             f_obj.write("bad")
-        print("Please Try Again. Server is not properly starting up.")
-        return
-
-    # TODO: only on mac?
-    serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
-    serv_ip_addr = serv_ip_addr.stdout.decode()
-    print("server ip adddress: " + serv_ip_addr)
-
-    p3 = multiprocessing.Process(target=server_fall)
-    p3.start()
-
-    while True:
-        try:
-            mqtt_create_pub(serv_ip_addr)
-        except:
-            time.sleep(2)
-            print("failed at starting mqtt")
-            continue
-        else:
-            break
-
-    print("Server Starting to Accept TCP Connections")
-    with open('gui_txt_files/server.txt','w') as f_obj:
-        f_obj.write("good")
-    while True:
-        conn, addr = serv.accept()
-        print("client connection ip address: " + addr[0])
-        try:
-            first_message = conn.recv(4096).decode('utf_8')
-        except:
-            print('Bad Client Disconnected')
-            continue
-        if (first_message == "step count"):
-            with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
-                f.write("up\n")
-            print("Step Counter Pi Starting")
-            p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
-            p1.start()
-        if (first_message == "face recognition"):
-            with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
-                f.write("up\n")
-            print("Facial Recognition Pi Starting")
-            p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
-            p2.start()
+        with open('gui_txt_files/step_count_status.txt', 'w') as f:
+            f.write("down\n")
+        with open('gui_txt_files/face_recog_status.txt', 'w') as f:
+            f.write("down\n")
+        with open('gui_txt_files/face_recog_camera_status.txt', 'w') as f:
+            f.write("down\n")
+        print("server went down")
         
 def convert_strings_to_floats(x_in, y_in, z_in):
     xdata = []
@@ -244,7 +255,6 @@ def server_step_count(conn):
                     if file:
                         file.write(item + "\n")
                 # in current date, new hour
-                # TODO: test this!!
                 elif list_item[0] == current_date and list_item[1][0:2] != current_hour:
                     if file:
                         file.close()
@@ -270,7 +280,6 @@ def server_step_count(conn):
                     file_name = path + current_date + "_" + current_hour + ".csv"
                     file = file_open(file_name, "a")
                     file.write(item + "\n")
-                    # TODO: error handle/test
                     # if starting again
                     if p0 is not None:
                         p0.join()
@@ -389,14 +398,6 @@ def server_face_rec(conn):
             conn.close()
         except:
             pass
-
-def ping_test(ip):
-    num = 10
-    response = os.popen(f"ping -c {num} {ip} ").read()
-    count = response.count("Request timeout") + response.count("Request timed out.")
-    if count >= num-1:
-        return False
-    return True
 
 if __name__ == "__main__":
     main1()

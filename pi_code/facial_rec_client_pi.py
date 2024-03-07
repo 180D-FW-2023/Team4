@@ -20,10 +20,17 @@ def print_time():
 def start_client(ip_addr):
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client.settimeout(20)
+        counter = 0
         while True:
             try:
                 client.connect((ip_addr, 8080))
             except:
+                counter += 1
+                if counter == 5:
+                    main()
+                    print("starting main again to relook at mqtt")
+                    return
                 time.sleep(2)
                 print("failed at socket connection")
                 continue
@@ -54,6 +61,13 @@ def start_client(ip_addr):
         print("No camera1")
         s = "No camera1"
         client.sendall(s.encode())
+        if p0.is_alive():
+            p0.terminate()
+        if p1.is_alive():
+            p1.terminate()
+        print("starting again")
+        p0.join()
+        p1.join()
         time.sleep(5)
         main()
 

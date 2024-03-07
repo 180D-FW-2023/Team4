@@ -2,6 +2,18 @@
 The MemoryMate is a device that helps people who struggle with Alzheimer's, some form of dementia, and face blindness, in the elderly community. It has several features: face recognition, step counter, and fall detection. 
 Face recognition allows the user to upload photos to add to the database, which will identify anyone the user sees. Step counter counts the number of steps the user has taken to track their health. Fall detection will trigger when the user falls to the ground.
 
+## Code Organization
+The main repository is split into all of its major components, including product functions, GUI, and interactions with Raspberry Pi.
+`face_recog`, `fall_detection`, and `step_count` contain the code for the 3 modules of the device.
+- `face_recog`:
+- `fall_detection`: uses MQTT to receive GPS data from the Blues Wireless Notecard and accelerometer data from the BerryIMU.
+- `step_count`:
+
+`gui`, `gui_txt_files`, and `pages` consist of code that makes up the display and user interface.
+- `gui`:
+- `gui_txt_files`:
+- `pages`:
+
 ## Cloning and Installing Dependencies
 Begin by cloning this repository and navigating to the Team4 folder. Run the following commands to make the binaries for fall detection:
 ```
@@ -55,12 +67,17 @@ Once you are finished, you can stop the GUI and exit the virtual environment by 
 Ctrl-C
 deactivate
 ```
-## Setting Up The Physical Prototype
+## Setting Up The Physical Product
 ### Fall Detection
-![20240220_135955](https://github.com/180D-FW-2023/Team4/assets/33609544/c8064991-d40d-4e39-83f7-8213a2044850)
+![20240306_180011](https://github.com/180D-FW-2023/Team4/assets/85961054/8c850235-876d-40bd-95c5-7a142be475dd)
 Connect the powerbank to the power ports on the Notecard and the Raspberry Pi (with 2 USB-A to micro USB cables). The lights on the powerbank should turn on. Once the lights are on, hold the power button on the side of the power bank until the lights start flashing in order. 
 
-Velcro the powerbank and Pi into the center pocket of the sweatshirt in the orientation shown.
+![image](https://github.com/180D-FW-2023/Team4/assets/85961054/2d186a97-198b-4c7f-9d57-c9590cd87366)
+![image](https://github.com/180D-FW-2023/Team4/assets/85961054/0d06beb7-a26d-4c09-a8b6-02bc3275b30f)
+Place the powerbank and Notecard/Notecarrier into the pouch, then place the Raspberry Pi into one of the outside pockets with the Micro-USB connection pointing up.
+
+![image](https://github.com/180D-FW-2023/Team4/assets/85961054/4af90fc9-a1b1-4ab2-833f-fbbc7f436879)
+Place the pouch into the center pocket of the sweatshirt in the orientation shown.
 
 ### Face Recognition
 ![IMG_20240220_140318](https://github.com/180D-FW-2023/Team4/assets/33609544/10571175-d382-419c-b4a3-787b5cf39251)
