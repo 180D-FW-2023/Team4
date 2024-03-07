@@ -6,6 +6,11 @@ import time
 from streamlit_autorefresh import st_autorefresh
 from PIL import ImageFile
 from datetime import date
+from st_pages import show_pages_from_config, add_page_title
+
+add_page_title()
+
+show_pages_from_config()
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 # cwd = os.getcwd()
