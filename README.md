@@ -2,6 +2,13 @@
 The MemoryMate is a device that helps people who struggle with Alzheimer's, some form of dementia, and face blindness, in the elderly community. It has several features: face recognition, step counter, and fall detection. 
 Face recognition allows the user to upload photos to add to the database, which will identify anyone the user sees. Step counter counts the number of steps the user has taken to track their health. Fall detection will trigger when the user falls to the ground.
 
+## Code Organization
+The main repository is split into all of its major components, including product functions, GUI, and interactions with Raspberry Pi.
+`face_recog`, `fall_detection`, and `step_count` contain the code for the 3 modules of the device.
+- `fall_detection`: uses MQTT to receive GPS data from the Blues Wireless Notecard and accelerometer data from the BerryIMU.
+`gui`, `gui_txt_files`, and `pages` consist of code that makes up the display and user interface.
+
+
 ## Cloning and Installing Dependencies
 Begin by cloning this repository and navigating to the Team4 folder. Run the following commands to make the binaries for fall detection:
 ```
