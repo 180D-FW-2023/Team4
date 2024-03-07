@@ -12,19 +12,9 @@ from st_pages import show_pages_from_config, add_page_title
 
 add_page_title()
 
-show_pages_from_config()
+# show_pages_from_config()
 
 st_autorefresh(interval=1000, key="dataframerefresh")
-
-# with open('steps.txt','r') as f:
-#    my_set = f.read().splitlines()
-
-# if len(my_set) >= 1:
-#     s = my_set[0]
-# else:
-#     s = 0
-
-# st.title("Today's Step Count: " + s)
 
 hours = []
 today = date.today()
