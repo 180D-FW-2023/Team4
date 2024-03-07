@@ -119,7 +119,7 @@ int main(int argc, const char *argv[])
         }
     }
 
-    char *filename = "test.txt";
+    char *filename = "gui_txt_files/test.txt";
     FILE *fp = fopen(filename, "w");
     // printf("\nBuffer: %s", buffer);
     if (fp == NULL)
