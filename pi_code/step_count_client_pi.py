@@ -5,20 +5,30 @@ import multiprocessing
 import time
 import paho.mqtt.client as mqtt
 
+def print_time():
+	now = datetime.now()
+
+	current_time = now.strftime("%H:%M:%S")
+	print("Current Time =", current_time)
+
 def start_client(ip_addr):
+	print_time()
 	print("starting step counter")
 	try:
 		sense = SenseHat()
 
 		client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		client.settimeout(20)
 		while True:
 			try:
 				client.connect((ip_addr, 8080))
 			except:
 				time.sleep(2)
+				print_time()
 				print("failed at socket connection")
 				continue
 			else:
+				print_time()
 				print("connected to server")
 				break
 		client.sendall("step count".encode())
@@ -42,7 +52,14 @@ def start_client(ip_addr):
 				p0.join()
 	# if any errors or processes terminate, run main again
 	finally:
-		print("a process terminated starting agains")
+		if p0.is_alive():
+			p0.terminate()
+		if p1.is_alive():
+			p1.terminate()
+		print_time()
+		print("a process terminated starting again")
+		p0.join()
+		p1.join()
 		time.sleep(2)
 		main()
 
@@ -126,12 +143,14 @@ def mqtt_create_sub():
 	print("here")
 
 def main():
+	print_time()
 	print("step count client starting")
 	while True:
 		try:
 			mqtt_create_sub()
 		except:
 			time.sleep(2)
+			print_time()
 			print("failed at starting mqtt")
 			continue
 		else:
