@@ -2,6 +2,11 @@ import subprocess
 import streamlit as st
 import os
 from pages.Output import sidebar_status
+from st_pages import show_pages_from_config, add_page_title
+
+add_page_title()
+
+show_pages_from_config()
 #import pandas as pd
 #from io import StringIO
 

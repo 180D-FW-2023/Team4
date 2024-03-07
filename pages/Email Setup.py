@@ -3,6 +3,11 @@ from streamlit_autorefresh import st_autorefresh
 from pages.Output import sidebar_status
 import os
 from email_validator import validate_email, EmailNotValidError
+from st_pages import show_pages_from_config, add_page_title
+
+add_page_title()
+
+show_pages_from_config()
 
 st_autorefresh(interval=1000, key="dataframerefresh")
 

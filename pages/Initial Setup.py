@@ -3,6 +3,11 @@ import ultraimport
 import os
 import datetime
 from ssh import main1
+from st_pages import show_pages_from_config, add_page_title
+
+add_page_title()
+
+show_pages_from_config()
 
 #ssh = ultraimport('__dir__/../../ssh.py', 'main1')
 cwd = os.getcwd()

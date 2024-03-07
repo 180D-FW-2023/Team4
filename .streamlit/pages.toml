@@ -1,0 +1,56 @@
+[[pages]]
+path = "Welcome.py"
+name = "Home"
+icon = ""
+
+[[pages]]
+name = "Setup"
+icon = ""
+is_section = true
+
+[[pages]]
+path = "pages/Email Setup.py"
+name = "Email Setup"
+icon = ""
+
+[[pages]]
+path = "pages/Initial Setup.py"
+name = "Initial Setup"
+icon = ""
+
+[[pages]]
+path = "pages/Load Facial Recognition Data.py"
+name = "Load Facial Recognition Data"
+icon = ""
+
+[[pages]]
+path = "pages/Run Server.py"
+name = "Run and Stop Server"
+in_section = false
+icon = ""
+
+[[pages]]
+name = "Output"
+icon = ""
+is_section = true
+in_section = false
+
+[[pages]]
+path = "pages/Output.py"
+name = "Overall Output"
+icon = ""
+
+[[pages]]
+path = "pages/Fall Detection.py"
+name = "Fall Detection"
+icon = ""
+
+[[pages]]
+path = "pages/Recognized Face.py"
+name = "Facial Recognition"
+icon = ""
+
+[[pages]]
+path = "pages/Step Count.py"
+name = "Step Counter"
+icon = ""
