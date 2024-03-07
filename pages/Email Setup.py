@@ -4,8 +4,6 @@ from pages.Output import sidebar_status
 import os
 from email_validator import validate_email, EmailNotValidError
 
-st_autorefresh(interval=1000, key="dataframerefresh")
-
 def update_email(email, email_list):
     try:
       if email in email_list:
@@ -68,5 +66,4 @@ def get_selected_checkboxes():
 if len(email_list) != 0:
     checkbox_container(email_list)
 
-sidebar_status()
     
