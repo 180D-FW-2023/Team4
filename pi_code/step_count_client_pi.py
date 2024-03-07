@@ -7,7 +7,6 @@ import paho.mqtt.client as mqtt
 
 def print_time():
 	now = datetime.now()
-
 	current_time = now.strftime("%H:%M:%S")
 	print("Current Time =", current_time)
 
@@ -19,10 +18,17 @@ def start_client(ip_addr):
 
 		client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		client.settimeout(20)
+		counter = 0
 		while True:
 			try:
 				client.connect((ip_addr, 8080))
 			except:
+				counter += 1
+				if counter == 5:
+					main()
+					print_time()
+					print("starting main again to relook at mqtt")
+					return
 				time.sleep(2)
 				print_time()
 				print("failed at socket connection")
