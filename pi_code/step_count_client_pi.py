@@ -63,7 +63,7 @@ def start_client(ip_addr):
 		if p1.is_alive():
 			p1.terminate()
 		print_time()
-		print("a process terminated starting again")
+		print("starting again")
 		p0.join()
 		p1.join()
 		time.sleep(2)
