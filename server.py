@@ -203,6 +203,7 @@ def server_step_count(conn):
     current_hour = ""
     day_step_count_prev_hours = 0
 
+    data_points = 0
     file_name = None
     file = None
     conn.settimeout(20)
@@ -233,21 +234,15 @@ def server_step_count(conn):
                     continue
                 if list_item[1][2] != ":" or list_item[1][5] != ":":
                     continue
-
-                if file_name and file and (p0 is None or not p0.is_alive()):
+                data_points += 1
+                if file_name and file and data_points == 50:
+                    data_points = 0
                     file.close()
                     try:
                         data = np.genfromtxt(file_name, delimiter =',', dtype = str, invalid_raise = False)
                     except:
                         print("Please Try Again. Data not being stored properly.")
-                    if p0 is not None:
-                        if not p0.is_alive():
-                            p0.join()
-                            p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, conn, current_date, current_hour)))
-                            p0.start()
-                    else:
-                        p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, conn, current_date, current_hour)))
-                        p0.start()
+                    step_count_update(data, day_step_count_prev_hours, conn, current_date, current_hour)
                     file = file_open(file_name, "a")
 
                 # in current date and hour
