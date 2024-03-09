@@ -53,20 +53,20 @@ def sidebar_status():
         st.sidebar.text("Facial Recognition Status: 🔴")
 
 sidebar_status()
-with open('gui_txt_files/fall.txt','r') as f:
-    my_set = f.read().splitlines()
+# with open('gui_txt_files/fall.txt','r') as f:
+#     my_set = f.read().splitlines()
 
-#f_time = "Never"
-if len(my_set) >= 1:
-    s = my_set[0]
-else:
-    s = 0
-if s == "fall":
-    t = time.localtime()
-    current_time = time.strftime("%H:%M:%S", t)
-    f_time = current_time
-    with open('gui_txt_files/falls.txt', 'w') as f:
-        f.write(str(f_time))
+# #f_time = "Never"
+# if len(my_set) >= 1:
+#     s = my_set[0]
+# else:
+#     s = 0
+# if s == "fall":
+#     t = time.localtime()
+#     current_time = time.strftime("%H:%M:%S", t)
+#     f_time = current_time
+#     with open('gui_txt_files/falls.txt', 'w') as f:
+#         f.write(str(f_time))
 
 try:
     st.image('gui_txt_files/out.png', caption='Recognized Face')
@@ -82,8 +82,8 @@ if os.path.exists("step_count/data/"+ str(today) + "_total.csv"):
 
 st.title("Today's Step Count: " + str(today_step))
 
-with open('gui_txt_files/falls.txt', 'r') as f:
+with open('gui_txt_files/fall_time.txt', 'r') as f:
     my_set = f.read().splitlines()
-st.title("Last Fall: " + my_set[0])
+st.title("Last Fall: " + my_set[-1])
 #st.dataframe(my_set, column_config={"value": "Last Fall"}, use_container_width = True)
 #on_click()
