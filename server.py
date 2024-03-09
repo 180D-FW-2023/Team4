@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import time
 from socket import SHUT_RDWR
+from datetime import datetime
 
 import io
 import struct
@@ -209,6 +210,8 @@ def server_step_count(conn):
     conn.settimeout(20)
     p0 = None
     try:
+        # # TODO: latency server receive
+        # now = datetime.now()
         while True:
             data = conn.recv(4096)
             if not data: break
@@ -235,14 +238,38 @@ def server_step_count(conn):
                 if list_item[1][2] != ":" or list_item[1][5] != ":":
                     continue
                 data_points += 1
+                # TODO: latency server receive
+                # old = now
+                # now = datetime.now()
+                # time_delta = now-old
+                # print(time_delta)
+                # TODO: unparallel
                 if file_name and file and data_points == 50:
+                # if file_name and file and (p0 is None or not p0.is_alive()):
                     data_points = 0
                     file.close()
                     try:
                         data = np.genfromtxt(file_name, delimiter =',', dtype = str, invalid_raise = False)
                     except:
                         print("Please Try Again. Data not being stored properly.")
+
+                    # # TODO: latency server comp
+                    # begin = datetime.now()
+                    # TODO: unparallel
                     step_count_update(data, day_step_count_prev_hours, conn, current_date, current_hour)
+                    # TODO: parallel
+                    # if p0 is not None:
+                    #     if not p0.is_alive():
+                    #         p0.join()
+                    #         p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, conn, current_date, current_hour)))
+                    #         p0.start()
+                    # else:
+                    #     p0 = multiprocessing.Process(target=step_count_update, args=((data, day_step_count_prev_hours, conn, current_date, current_hour)))
+                    #     p0.start()
+                    # # TODO: latency server comp
+                    # end = datetime.now()
+                    # time_delta = end-begin
+                    # print(time_delta)
                     file = file_open(file_name, "a")
 
                 # in current date and hour

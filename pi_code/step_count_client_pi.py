@@ -76,12 +76,17 @@ def recv_data(sense, client):
 	
 	step_count = 0
 	sense.stick.direction_any = print_num
-
+	now = datetime.now()
 	while True:
 		recv_data = client.recv(4096).decode('utf_8')
 		num = recv_data.split(";")
 		if(len(num) >= 2):
 			step_count = num.pop(-2)
+
+			old = now
+			now = datetime.now()
+			time_delta = now-old
+			print(time_delta)
 	
 def write_acc(sense, client):
 	count = 0
