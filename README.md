@@ -1,6 +1,6 @@
 # MemoryMate
 The MemoryMate is a device that helps people who struggle with Alzheimer's, some form of dementia, and face blindness, in the elderly community. It has several features: face recognition, step counter, and fall detection. 
-Face recognition allows the user to upload photos to add to the database, which will identify anyone the user sees. Step counter counts the number of steps the user has taken to track their health. Fall detection will trigger when the user falls to the ground.
+Face recognition allows the user to upload photos to add to the database, which will identify anyone the user sees. Step counter counts the number of steps the user has taken to track their health. Fall detection will trigger when the user falls to the ground, then email close contacts with the user's current location.
 
 ## Code Organization
 The main repository is split into all of its major components, including product functions, GUI, and interactions with Raspberry Pi.
@@ -55,7 +55,6 @@ The GUI should pop up in a new page on your browser. First, navigate to the Load
 Add 5-10 pictures for each person to be identified with the correct name. Make sure you click "Upload files" for each person! After all your photos are uploaded, go ahead and click the retrain button to update the facial recognition model.
 <img width="1293" alt="Screenshot 2024-02-20 at 1 01 28 PM" src="https://github.com/180D-FW-2023/Team4/assets/29986734/dfb77f19-de3c-4be0-8354-965ddd031137">
 
-Now, you can setup the Pi's. Plug each Pi in, one at a time. On the Setup page of the GUI, input the username, password, and hostname, and check the correct Pi type. Then click the button. You should be updated with the current date and time if the setup was successful. Once all three Pis are setup, you are ready to run the server!
 <img width="1272" alt="Screenshot 2024-02-20 at 1 04 25 PM" src="https://github.com/180D-FW-2023/Team4/assets/29986734/1389a06d-cf47-4135-9a6d-55a5736df61f">
 
 ## Run the Server:
