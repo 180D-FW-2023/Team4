@@ -23,6 +23,13 @@ def ssh(user, pswd, pi_name, host_name, windows):
                 c.put("./pi_code/step_count_client_pi.py")
             elif pi_name == "facial_rec":
                 c.put("./pi_code/facial_rec_client_pi.py")
+                c.put("./pi_code/bluetooth.sh")
+                c.run("chmod +x bluetooth.sh")
+                with open("gui_txt_files/bluetooth.txt") as file_blue:
+                    fb = file_blue.read().splitlines()[1]
+                bluec = "./bluetooth.sh " + fb
+                print(bluec)
+                result = c.run(bluec)
             elif pi_name == "fall_detect":
                 if (windows):
                     s = "pscp -pw \"" + pswd + "\" ./fall_detection/subscriber/* "+user+"@"+pi_ip+":/subscriber"
@@ -48,6 +55,12 @@ user = st.text_input('Username')
 pwd = st.text_input('Password', type="password")
 hname = st.text_input('Hostname', 'raspberrypi.local')
 pi = st.selectbox('Which Pi?', ('Step Counter', 'Facial Recognition', 'Fall Detection'))
+if os.path.exists('gui_txt_files/bluetooth.txt'):
+    with open("gui_txt_files/bluetooth.txt") as file_blue:
+        fb = file_blue.read().splitlines()[0]
+    st.text("Current bluetooth device: " + str(fb))
+else:
+    st.warning("No bluetooth device connected, please add before facial recognition setup.")
 windows = st.checkbox("I'm on Windows")
 
 if pi == 'Step Counter':

@@ -9,6 +9,11 @@ icon = ""
 is_section = true
 
 [[pages]]
+path = "pages/Bluetooth Headphone Connection.py"
+name = "Bluetooth Connection Setup"
+icon = ""
+
+[[pages]]
 path = "pages/Email Setup.py"
 name = "Email Setup"
 icon = ""
