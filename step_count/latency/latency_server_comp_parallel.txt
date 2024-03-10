@@ -1,0 +1,651 @@
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+./fall_detection/subscriber/bin/gps_subscriber listening for 'urmom' messages.
+Press CTRL-D to exit.
+
+Received publish('urmom'): {"val":"{\"best_country\":\"US\",\"best_lat\":34.06301250000001,\"best_location\":\"Westwood CA\",\"best_location_type\":\"gps\",\"best_location_when\":1709965209,\"best_lon\":-118.45128515625,\"best_timezone\":\"America/Los_Angeles\",\"when\":1710007533}","ack":true,"ts":1710007562385,"q":0,"from":"system.adapter.mqtt.0","user":"system.user.admin","lc":1710007562385}2385}??
+0:00:00.004313
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 42975 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:03.539465
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 42980 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+0:00:02.774861
+Step Count: 0
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.417076
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.416672
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 42986 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.349942
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.830067
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 42996 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.386889
+Step Count: 0
+0:00:02.505825
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43001 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.270324
+Step Count: 0
+0:00:02.359629
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43010 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+0:00:02.380387
+Step Count: 0
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.579374
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.617782
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43021 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.532086
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.571039
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43030 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.588707
+Step Count: 0
+0:00:02.291194
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43035 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.215404
+Step Count: 0
+0:00:02.350514
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43042 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+0:00:02.345726
+Step Count: 0
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.800402
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.488480
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43055 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.417219
+Step Count: 0
+0:00:02.379969
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43065 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.392511
+Step Count: 0
+0:00:02.698118
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43076 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.424625
+Step Count: 0
+0:00:02.291984
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43081 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+0:00:02.354009
+Step Count: 0
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.266358
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.274737
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43087 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.293067
+Step Count: 0
+0:00:02.457491
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43092 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.241491
+Step Count: 0
+0:00:02.279066
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.247807
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43098 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.268876
+Step Count: 0
+0:00:02.315261
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43103 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.216114
+Step Count: 0
+0:00:02.308125
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.248501
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43108 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.329113
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.321816
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43117 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.223798
+Step Count: 0
+0:00:02.291720
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43122 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.216490
+Step Count: 0
+0:00:02.285571
+Step Count: 0
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.250588
+Step Count: 0
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43128 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.310866
+Step Count: 5
+0:00:02.254328
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43133 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.179678
+Step Count: 5
+0:00:02.258523
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.197934
+Step Count: 5
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43138 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.249997
+Step Count: 5
+0:00:02.239853
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43144 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.213133
+Step Count: 5
+0:00:02.265100
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43149 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+0:00:02.191416
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+Step Count: 5
+0:00:02.268624
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.225567
+Step Count: 5
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43155 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.260263
+Step Count: 5
+0:00:02.232412
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43160 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.197536
+Step Count: 5
+0:00:02.298192
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.230747
+Step Count: 5
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43166 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.249846
+Step Count: 5
+0:00:02.259963
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43171 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.222231
+Step Count: 5
+0:00:02.259025
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43176 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.161733
+Step Count: 5
+0:00:02.252522
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.225146
+Step Count: 5
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43182 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.241371
+Step Count: 5
+0:00:02.314262
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43187 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.248330
+Step Count: 5
+0:00:02.242273
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43192 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+0:00:02.192893
+Not fall
+Step Count: 5
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.272260
+Step Count: 5
+0:00:02.287402
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+Step Count: 5
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43198 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.296641
+Step Count: 5
+0:00:02.280778
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43206 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.203642
+Step Count: 5
+0:00:02.248175
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.224011
+Step Count: 5
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43213 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.536127
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.325414
+Step Count: 5
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43219 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.274205
+Step Count: 5
+0:00:02.303826
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43224 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.281087
+Step Count: 5
+0:00:02.531261
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43229 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+0:00:02.309514
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+Step Count: 5
+0:00:02.608992
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43238 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+0:00:02.503511
+Step Count: 5
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.298632
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.227512
+Step Count: 5
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43244 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.264726
+Step Count: 5
+0:00:02.258953
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43249 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.205079
+Step Count: 5
+0:00:02.662113
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43258 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.707309
+Step Count: 5
+0:00:02.480264
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43267 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.435320
+Step Count: 5
+0:00:02.664694
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43276 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.572164
+Step Count: 5
+0:00:02.676878
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43289 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.650502
+Step Count: 5
+0:00:02.736072
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43298 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.652137
+Step Count: 5
+0:00:02.567073
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43307 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.548824
+Step Count: 5
+0:00:02.742134
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43316 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+0:00:02.479134
+Step Count: 5
+0:00:02.614464
+Step Count: 5
+
+./fall_detection/subscriber/bin/simple_subscriber disconnecting from test.mosquitto.org
+0:00:02.263326
+Step Count: 5
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43326 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+./fall_detection/while_loop.sh: line 8: 43328 Terminated: 15          ./fall_detection/subscriber/bin/simple_subscriber
+./fall_detection/while_loop_gps.sh: line 4: 42970 Terminated: 15          ./fall_detection/subscriber/bin/gps_subscriber
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 43330 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+
