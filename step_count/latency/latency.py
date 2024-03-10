@@ -66,8 +66,8 @@ def latency_meas_recv_send(file_name, title):
 # Parallel vs NonParallel
 latency_meas_comp("latency_server_comp_parallel.txt", "Latency of Computation for Step Count: Parallelization", False)
 latency_meas_comp("latency_server_comp.txt", "Latency of Computation for Step Count: No Parallelization", False)
-latency_meas_recv_send("latency_server_recv.txt", "Latency of Server Receiving Accelerometer Data: Parallelization")
-latency_meas_recv_send("latency_server_recv_parallel.txt", "Latency of Server Accelerometer Receiving: No Parallelization")
+latency_meas_recv_send("latency_server_recv_parallel.txt", "Latency of Server Receiving Accelerometer Data: Parallelization")
+latency_meas_recv_send("latency_server_recv.txt", "Latency of Server Receiving Accelerometer Data: No Parallelization")
 
 # Current No Parallel
 latency_meas_comp("latency_server_comp.txt", "Latency of Computation for Step Count", True)
