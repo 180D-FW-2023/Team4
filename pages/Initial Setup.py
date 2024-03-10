@@ -25,9 +25,10 @@ def ssh(user, pswd, pi_name, host_name, windows):
                 c.put("./pi_code/facial_rec_client_pi.py")
                 c.put("./pi_code/bluetooth.sh")
                 c.run("chmod +x bluetooth.sh")
+                c.put("./gui_txt_files/bluetooth.txt")
                 with open("gui_txt_files/bluetooth.txt") as file_blue:
                     fb = file_blue.read().splitlines()[1]
-                bluec = "./bluetooth.sh " + fb
+                bluec = "sudo ./bluetooth.sh " + fb
                 print(bluec)
                 result = c.run(bluec)
             elif pi_name == "fall_detect":
@@ -59,6 +60,7 @@ if os.path.exists('gui_txt_files/bluetooth.txt'):
     with open("gui_txt_files/bluetooth.txt") as file_blue:
         fb = file_blue.read().splitlines()[0]
     st.text("Current bluetooth device: " + str(fb))
+    st.warning("Make sure device is in pairing mode")
 else:
     st.warning("No bluetooth device connected, please add before facial recognition setup.")
 windows = st.checkbox("I'm on Windows")
