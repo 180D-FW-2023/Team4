@@ -46,6 +46,11 @@ name = "Overall Output"
 icon = ""
 
 [[pages]]
+path = "pages/Focus Camera.py"
+name = "Focus Camera"
+icon = ""
+
+[[pages]]
 path = "pages/Fall Detection.py"
 name = "Fall Detection"
 icon = ""

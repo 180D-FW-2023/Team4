@@ -10,13 +10,6 @@ import paho.mqtt.client as mqtt
 import subprocess
 import multiprocessing
 
-def print_time():
-	now = datetime.now()
-
-	current_time = now.strftime("%H:%M:%S")
-    # with open('sends.txt', w) as f:
-	#     print(current_time)
-
 def start_client(ip_addr):
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -72,12 +65,26 @@ def start_client(ip_addr):
         main()
 
 def recv_data(client):
-    while True:
-        name = client.recv(1024).decode()
-        print('Received from server: ' + name)  # show in terminal (for now)
-        # with open('./nn.txt', 'w') as f:
-        #     f.write(str(name))
-        os.system('espeak "'+name+'" --stdout | paplay -v')
+    #now = datetime.now()
+    try:
+        while True:
+            name = client.recv(1024).decode()
+            # old = now
+            # now = datetime.now()
+            # time_delta = now-old
+            #ith open("received.txt", 'a') as f:
+                #f.write(str(time_delta)+"\n")
+            #print('Received from server: ' + name)  # show in terminal (for now)
+            # with open('./nn.txt', 'w') as f:
+            #     f.write(str(name))
+            # pre = datetime.now()
+            os.system('espeak "'+name+'" --stdout | paplay -v')
+            # post = datetime.now()
+            # speak = post - pre
+            # with open("sound.txt", 'a') as f:
+            #     f.write(str(speak)+"\n")
+    except socket.timeout:
+        recv_data(client)
 	
 def get_images(connection, client):
     try:
@@ -94,8 +101,8 @@ def get_images(connection, client):
         # temporarily (we could write it directly to connection but in this
         # case we want to find out the size of each capture first to keep
         # our protocol simple)
-        start = time.time()
         stream = io.BytesIO()
+        #now = datetime.now()
         for foo in camera.capture_continuous(stream, 'jpeg'):
             # Write the length of the capture to the stream and flush to
             # ensure it actually gets sent
@@ -104,12 +111,18 @@ def get_images(connection, client):
             # Rewind the stream and send the image data over the wire
             stream.seek(0)
             connection.write(stream.read())
+            # old = now
+            # now = datetime.now()
+            # time_delta = now-old
+            # with open("sent.txt", 'a') as f:
+            #     f.write(str(time_delta)+"\n")
             # Reset the stream for the next capture
             stream.seek(0)
             stream.truncate()
         # Write a length of zero to the stream to signal we're done
         
         connection.write(struct.pack('<L', 0))
+        now = datetime.now()
     except:
         print("No camera")
         s = "No camera"
@@ -144,32 +157,34 @@ def on_message(client, userdata, message):
 
 def mqtt_create_sub():
 	# 1. create a client instance.
-    print("here1")
     client = mqtt.Client()
-    print("here2")
 	# add additional client options (security, certifications, etc.)
 	# many default options should be good to start off.
 	# add callbacks to client.
     client.on_connect = on_connect
-    print("here3")
     client.on_disconnect = on_disconnect
-    print("here4")
     client.on_message = on_message
 
 	# 2. connect to a broker using one of the connect*() functions.
-    print("here5")
     client.connect_async('test.mosquitto.org')
 	# client.connect("mqtt.eclipse.org")
 
 	# 3. call one of the loop*() functions to maintain network traffic flow with the broker.
 	# client.loop_start()
-    print("here6")
     client.loop_forever()
     print("here")
 
 def main():
-    subprocess.call(['sudo', 'bluetoothctl', '--', 'disconnect', '4C:B9:10:64:D8:6A'])
-    subprocess.call(['sudo', 'bluetoothctl', '--', 'connect', '4C:B9:10:64:D8:6A'])
+    # with open("sent_client.txt", 'w') as f:
+    #     f.write("sent\n")
+    # with open("received_client.txt", 'w') as f:
+    #     f.write("received\n")
+    # with open("sound.txt", 'w') as f:
+    #     f.write("sound\n")
+    with open('/home/pi/bluetooth.txt', 'r') as f:
+        fb = f.read().splitlines()[1]
+    subprocess.call(['sudo', 'bluetoothctl', '--', 'disconnect', fb])
+    subprocess.call(['sudo', 'bluetoothctl', '--', 'connect', fb])
     while True:
         try:
             mqtt_create_sub()

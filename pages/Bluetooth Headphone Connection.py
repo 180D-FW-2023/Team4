@@ -44,4 +44,4 @@ def on_click():
         f.write(dev_names[name])
 
 
-st.button(label = "Pair", on_click = on_click)
+st.button(label = "Save", on_click = on_click)

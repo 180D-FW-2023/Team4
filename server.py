@@ -1,3 +1,4 @@
+from datetime import datetime
 import socket
 from scipy.signal import find_peaks
 from scipy.signal import savgol_filter
@@ -51,6 +52,7 @@ facial_rec_pi_path = "./facial_rec_client_pi.py"
 
 names = []
 total_seen = set()
+recent_seen = set()
 nice_pi_name = {
   "step_count": "Step Count",
   "facial_rec": "Face Recognition",
@@ -351,7 +353,15 @@ def server_face_rec(conn):
     connection = conn.makefile('rb')
     conn.settimeout(20)
 
+    # with open("latency.txt", 'w') as f:
+    #     f.write("latency\n")
+
+    # with open("rec_server.txt", 'w') as f:
+    #     f.write("rec_server\n")
+
+
     try:
+        #now = datetime.now()
         while True:
             # Read the length of the image as a 32-bit unsigned int. If the
             # length is zero, quit the loop
@@ -361,6 +371,14 @@ def server_face_rec(conn):
                 #return
             # Construct a stream to hold the image data and read the image
             # data from the connection
+            # start_time = datetime.now()
+            # old = now
+            # now = start_time
+            # delta = now - old
+            # with open("rec_server.txt", 'a') as f:
+            #     f.write(str(delta)+"\n")
+            # start_time = start_time.strftime("%H:%M:%S.%f")
+            # start_time = datetime.strptime(start_time, "%H:%M:%S.%f")
             image_stream = io.BytesIO()
             image_stream.write(connection.read(image_len))
 
@@ -374,30 +392,43 @@ def server_face_rec(conn):
 
                 #Save the image to a folder called stream-pics (each image will have a different name)
                 # image.save('stream-pics/im' + str(i) + '.png')
-            cv.imwrite(cwd + '/face_recog/test.png', image)
+            cv.imwrite(cwd + '/gui_txt_files/test.png', image)
             # image = Image.open(image_stream)
             # print('Image is %dx%d' % image.size)
             # image.verify()
             # print('Image is verified')
 
-            names_recognized = recognize_faces(cwd + '/face_recog/test.png')
+            names_recognized = recognize_faces(cwd + '/gui_txt_files/test.png')
             message = ''
             global total_seen 
+            global recent_seen
             if len(names_recognized) == 0:
-                total_seen = set()
+                recent_seen = set()
+                #message = 'test, '
             for name in names_recognized:
                 if name not in total_seen:
+                    total_seen.add(name)
+                if name not in recent_seen:
+                    recent_seen.add(name)
+                    message += ". "
                     message += name
                     message += ', '
-                    total_seen.add(name)
             if len(total_seen) != 0:
                 with open(cwd + '/gui_txt_files/total_seen.txt', 'w') as f:
                     f.write(str(total_seen))
             with open(cwd + '/gui_txt_files/face_recog_camera_status.txt', 'w') as f:
                 f.write("up\n")
             #print("I passed")
+            #if (message != ''):
+            print("sending " + message)
             encodedMessage = bytes(message, 'utf-8')
             conn.sendall(encodedMessage)
+            # end_time = datetime.now()
+            # end_time = end_time.strftime("%H:%M:%S.%f")
+            # end_time = datetime.strptime(end_time, "%H:%M:%S.%f")
+            # duration = end_time - start_time
+            # with open("latency.txt", 'a') as f:
+            #     f.write(str(duration)+"\n")
                 #print("I passed")
     except (struct.error, TimeoutError):
         print("No Camera")
