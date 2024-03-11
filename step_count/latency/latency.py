@@ -31,6 +31,32 @@ def latency_meas_comp(file_name, title, fit):
     plt.show()
     print()
 
+def latency_meas_send_to_recv(file_name, title):
+    list = []
+    with open(file_name, "r") as f:
+        list = f.readlines()
+    lines = []
+    for line in list:
+        if len(line) < 5:
+            continue
+        if line[1] == ":" and line[4] == ":":
+            line = line.rstrip()
+            line = float(line[5:])
+            lines.append(line)
+    np_time = np.array(lines)
+    print(file_name)
+    print("Average Latency: " + str(np.mean(np_time)))
+    print("Min Latency: " + str(np.min(np_time)))
+    print("Max Latency: " + str(np.max(np_time)))
+    print("Amount of Data Points: " + str(len(np_time)))
+    np_data_pts = np.arange(len(np_time))
+    plt.scatter(np_data_pts, np_time)
+    plt.xlabel("number of data points")
+    plt.ylabel("latency (s)")
+    plt.title(title)
+    plt.show()
+    print()
+
 def latency_meas_recv_send(file_name, title):
     list = []
     with open(file_name, "r") as f:
@@ -64,13 +90,14 @@ def latency_meas_recv_send(file_name, title):
     print()
 
 # Parallel vs NonParallel
-latency_meas_comp("latency_server_comp_parallel.txt", "Latency of Computation for Step Count: Parallelization", False)
-latency_meas_comp("latency_server_comp.txt", "Latency of Computation for Step Count: No Parallelization", False)
-latency_meas_recv_send("latency_server_recv_parallel.txt", "Latency of Server Receiving Accelerometer Data: Parallelization")
-latency_meas_recv_send("latency_server_recv.txt", "Latency of Server Receiving Accelerometer Data: No Parallelization")
+# latency_meas_comp("latency_server_comp_parallel.txt", "Latency of Computation for Step Count: Parallelization", False)
+# latency_meas_comp("latency_server_comp.txt", "Latency of Computation for Step Count: No Parallelization", False)
+# latency_meas_recv_send("latency_server_recv_parallel.txt", "Latency of Server Receiving Accelerometer Data: Parallelization")
+# latency_meas_recv_send("latency_server_recv.txt", "Latency of Server Receiving Accelerometer Data: No Parallelization")
 
-# Current No Parallel
-latency_meas_comp("latency_server_comp.txt", "Latency of Computation for Step Count", True)
-latency_meas_recv_send("latency_server_recv.txt", "Latency of Server Receiving Accelerometer Data")
-latency_meas_recv_send("latency_pi_send.txt", "Latency of Pi Sending Accelerometer Data")
-latency_meas_recv_send("latency_pi_recv.txt", "Latency of Pi Receiving Step Count Data")
+# # Current No Parallel
+# latency_meas_comp("latency_server_comp.txt", "Latency of Computation for Step Count", True)
+# latency_meas_recv_send("latency_server_recv.txt", "Latency of Server Receiving Accelerometer Data")
+# latency_meas_recv_send("latency_pi_send.txt", "Latency of Pi Sending Accelerometer Data")
+# latency_meas_recv_send("latency_pi_recv.txt", "Latency of Pi Receiving Step Count Data")
+latency_meas_send_to_recv("latency_send_recv.txt", "Latency of Pi Sending Accelerometer Data to Server Receiving")
