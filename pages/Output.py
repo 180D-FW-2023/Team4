@@ -84,6 +84,6 @@ st.title("Today's Step Count: " + str(today_step))
 
 with open('gui_txt_files/fall_time.txt', 'r') as f:
     my_set = f.read().splitlines()
-st.title("Last Fall: " + my_set[-1])
+st.title("Last Fall: " + my_set[0])
 #st.dataframe(my_set, column_config={"value": "Last Fall"}, use_container_width = True)
 #on_click()

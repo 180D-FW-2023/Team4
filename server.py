@@ -385,6 +385,7 @@ def server_face_rec(conn):
                     total_seen.add(name)
                 if name not in recent_seen:
                     recent_seen.add(name)
+                    message += ". "
                     message += name
                     message += ', '
             if len(total_seen) != 0:
