@@ -1,0 +1,1 @@
+{"val":"{\"best_country\":\"US\",\"best_lat\":34.06301250000001,\"best_location\":\"Westwood CA\",\"best_location_type\":\"gps\",\"best_location_when\":1709965209,\"best_lon\":-118.45128515625,\"best_timezone\":\"America/Los_Angeles\",\"when\":1710007533}","ack":true,"ts":1710007562385,"q":0,"from":"system.adapter.mqtt.0","user":"system.user.admin","lc":1710007562385}2385}385}

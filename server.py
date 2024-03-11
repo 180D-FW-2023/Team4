@@ -119,14 +119,32 @@ def main1():
                 print('Bad Client Disconnected')
                 continue
             if (first_message == "step count"):
+                status = []
+                with open(cwd + '/gui_txt_files/step_count_status.txt', 'r') as f:
+                    status = f.readlines()
                 with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
-                    f.write("up\n")
+                    print(status)
+                    if len(status) == 1 and status[0].rstrip() == "down":
+                        f.write("up\n")
+                    else: 
+                        status.append("up\n")
+                        print(status)
+                        f.writelines(status)
                 print("Step Counter Pi Starting")
                 p1 = multiprocessing.Process(target=server_step_count, args=(conn, ))
                 p1.start()
             if (first_message == "face recognition"):
+                status = []
+                with open(cwd + '/gui_txt_files/face_recog_status.txt', 'r') as f:
+                    status = f.readlines()
                 with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
-                    f.write("up\n")
+                    print(status)
+                    if len(status) == 1 and status[0].rstrip() == "down":
+                        f.write("up\n")
+                    else: 
+                        status.append("up\n")
+                        print(status)
+                        f.writelines(status)
                 print("Facial Recognition Pi Starting")
                 p2 = multiprocessing.Process(target=server_face_rec, args=(conn, ))
                 p2.start()
@@ -302,8 +320,15 @@ def server_step_count(conn):
         print(type(e))
         print(e)
         print('Step Count Server Disconnected Socket')
+        status = []
+        with open(cwd + '/gui_txt_files/step_count_status.txt', 'r') as f:
+            status = f.readlines()
         with open(cwd + '/gui_txt_files/step_count_status.txt', 'w') as f:
-            f.write("down\n")
+            if len(status) <= 1:
+                f.write("down\n")
+            else: 
+                print("here")
+                f.writelines(status[1:])          
         try:
             conn.shutdown(SHUT_RDWR)
             conn.close()
@@ -386,8 +411,15 @@ def server_face_rec(conn):
         print(type(e))
         print(e)
         print('Facial Recognition Client Disconnected')
+        status = []
+        with open(cwd + '/gui_txt_files/face_recog_status.txt', 'r') as f:
+            status = f.readlines()
         with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
-            f.write("down\n")
+            if len(status) <= 1:
+                f.write("down\n")
+            else: 
+                print("here")
+                f.writelines(status[1:])     
         try:
             conn.shutdown(SHUT_RDWR)
             conn.close()
