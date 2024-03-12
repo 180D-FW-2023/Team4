@@ -27,9 +27,15 @@ def on_click(filepath, uploaded_files):
 
 def on_click_train():
     subprocess.run(["python", "face_recog/detector.py", "--train"])
+
+l = os.listdir("./face_recog/training")
+l.remove('.DS_Store')
+l.remove('-')
+st.text("Current faces in database: " + str(l))
     
 
 st.button("Upload files", on_click = on_click, args = (filepath, uploaded_files))
 
 st.button("Retrain", on_click = on_click_train)
+
 
