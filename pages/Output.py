@@ -37,7 +37,7 @@ def sidebar_status():
             st.sidebar.text("Camera Status: " + "🔴")
 
     with open("gui_txt_files/step_count_status.txt", 'r') as f:
-        sc_status = f.read().rstrip()
+        sc_status = f.readline().rstrip()
 
     if sc_status == "up":
         st.sidebar.text("Step Count Status: 🟢")
@@ -45,7 +45,7 @@ def sidebar_status():
         st.sidebar.text("Step Count Status: 🔴")
 
     with open('gui_txt_files/face_recog_status.txt', 'r') as f:
-        fr_status = f.read().rstrip()
+        fr_status = f.readline().rstrip()
 
     if fr_status == "up":
         st.sidebar.text("Facial Recognition Status: 🟢")
