@@ -52,8 +52,6 @@ def start_client(ip_addr):
 	# if any errors or processes terminate, run main again
     finally:
         print("No camera1")
-        s = "No camera1"
-        client.sendall(s.encode())
         if p0.is_alive():
             p0.terminate()
         if p1.is_alive():

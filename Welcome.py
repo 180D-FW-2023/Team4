@@ -9,8 +9,6 @@ cwd = os.getcwd()
 cwd = cwd[:cwd.find('Team4') + 5]
 os.chdir(cwd)
 add_page_title()
-
-show_pages_from_config()
 from pages.Output import sidebar_status
 
 
