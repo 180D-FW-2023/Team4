@@ -87,8 +87,7 @@ Power on the battery for the Raspberry Pi by pressing the button circled in red 
 
 Place it in the wrist pocket such that the LED display is facing outwards. The button circled in red in the image below indicates the bottom right of the device (for display purposes). You can orient the device however you may like within the pocket.
 
-![20240310_171827](https://github.com/180D-FW-2023/Team4/assets/85961054/943432bf-12bd-4d2a-a78f-53955ea544ef)
-
+![20240310_171713](https://github.com/180D-FW-2023/Team4/assets/85961054/afcf6a3d-da1d-4492-8a85-f07ddb56356e)
 <img width="308" alt="image" src="https://github.com/180D-FW-2023/Team4/assets/103907560/c2d69d28-59fc-4381-995c-ee198fc6331a">
 
 When the server is running, you can press the button circled in red in the image above to see your current daily step count show on the LED display.
