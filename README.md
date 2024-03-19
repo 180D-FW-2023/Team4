@@ -72,13 +72,12 @@ Connect the powerbank to the power ports on the Notecard and the Raspberry Pi (w
 ![image](https://github.com/180D-FW-2023/Team4/assets/85961054/2d186a97-198b-4c7f-9d57-c9590cd87366)
 ![image](https://github.com/180D-FW-2023/Team4/assets/85961054/0d06beb7-a26d-4c09-a8b6-02bc3275b30f)
 Place the powerbank and Notecard/Notecarrier into the pouch, then place the Raspberry Pi into one of the outside pockets with the Micro-USB connection pointing up.
-
-![image](https://github.com/180D-FW-2023/Team4/assets/85961054/4af90fc9-a1b1-4ab2-833f-fbbc7f436879)
-Place the pouch into the center pocket of the sweatshirt in the orientation shown.
+Place the pouch into the center pocket of the sweatshirt, zipper on the top side.
 
 ### Face Recognition
 ![IMG_20240220_140318](https://github.com/180D-FW-2023/Team4/assets/33609544/10571175-d382-419c-b4a3-787b5cf39251)
-Connect the camera to the Raspberry Pi and connect the power bank/battery to the Pi. Velcro the Pi and battery into the shoulder pouch, and put the camera through the slit as shown, and attach it to the velcro on the outside of the pocket.
+Connect the camera to the Raspberry Pi and connect the power bank/battery to the Pi. Velcro the Pi and battery into the shoulder pouch inside the sweatshirt, and put the camera through the slit
+![20240310_171827 (1)](https://github.com/180D-FW-2023/Team4/assets/85961054/54a0b7fe-bc42-446f-8c95-8c07f6085316)
 
 ### Step Counter
 
@@ -87,6 +86,8 @@ Power on the battery for the Raspberry Pi by pressing the button circled in red 
 <img width="371" alt="image" src="https://github.com/180D-FW-2023/Team4/assets/103907560/009759c6-c70b-412e-ac86-f3be8ebe9c9f">
 
 Place it in the wrist pocket such that the LED display is facing outwards. The button circled in red in the image below indicates the bottom right of the device (for display purposes). You can orient the device however you may like within the pocket.
+
+![20240310_171827](https://github.com/180D-FW-2023/Team4/assets/85961054/943432bf-12bd-4d2a-a78f-53955ea544ef)
 
 <img width="308" alt="image" src="https://github.com/180D-FW-2023/Team4/assets/103907560/c2d69d28-59fc-4381-995c-ee198fc6331a">
 
