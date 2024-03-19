@@ -66,7 +66,7 @@ deactivate
 ```
 ## Setting Up The Physical Product
 ### Fall Detection
-![20240306_180011](https://github.com/180D-FW-2023/Team4/assets/85961054/8c850235-876d-40bd-95c5-7a142be475dd | width=100)
+![20240306_180011](https://github.com/180D-FW-2023/Team4/assets/85961054/8c850235-876d-40bd-95c5-7a142be475dd)
 Connect the powerbank to the power ports on the Notecard and the Raspberry Pi (with 2 USB-A to micro USB cables). The lights on the powerbank should turn on. Once the lights are on, hold the power button on the side of the power bank until the lights start flashing in order. 
 
 ![image](https://github.com/180D-FW-2023/Team4/assets/85961054/2d186a97-198b-4c7f-9d57-c9590cd87366)
