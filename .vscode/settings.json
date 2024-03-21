@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "*.html.erb": "erb",
-        "xstring": "cpp",
-        "chrono": "cpp",
-        "iosfwd": "cpp"
-    },
-    "cmake.configureOnOpen": false
-}
