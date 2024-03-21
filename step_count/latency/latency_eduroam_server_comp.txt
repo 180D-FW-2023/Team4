@@ -1,0 +1,757 @@
+./fall_detection/subscriber/bin/simple_subscriber listening for 'berryaccel' messages.
+Press CTRL-D to exit.
+
+./fall_detection/subscriber/bin/gps_subscriber listening for 'urmom' messages.
+Press CTRL-D to exit.
+
+Received publish('urmom'): {"val":"{\"best_country\":\"US\",\"best_lat\":34.06301250000001,\"best_location\":\"Westwood CA\",\"best_location_type\":\"gps\",\"best_location_when\":1709965209,\"best_lon\":-118.45128515625,\"best_timezone\":\"America/Los_Angeles\",\"when\":1710007533}","ack":true,"ts":1710007562385,"q":0,"from":"system.adapter.mqtt.0","user":"system.user.admin","lc":1710007562385}2385}?
+client connection ip address: 131.179.18.20
+Step Counter Pi Starting
+Step Count: 0
+0:00:00.000930
+Step Count: 0
+0:00:00.000662
+Step Count: 0
+0:00:00.000919
+Step Count: 0
+0:00:00.001030
+Step Count: 0
+0:00:00.001091
+Step Count: 0
+0:00:00.001305
+Step Count: 0
+0:00:00.001366
+Step Count: 0
+0:00:00.001400
+Step Count: 0
+0:00:00.001514
+Step Count: 0
+0:00:00.001724
+Step Count: 0
+0:00:00.001832
+Step Count: 0
+0:00:00.002199
+Step Count: 0
+0:00:00.001915
+Step Count: 0
+0:00:00.002350
+Step Count: 0
+0:00:00.002681
+Step Count: 0
+0:00:00.002467
+Step Count: 0
+0:00:00.002842
+Step Count: 0
+0:00:00.003919
+Step Count: 0
+0:00:00.002723
+Step Count: 0
+0:00:00.002955
+Step Count: 0
+0:00:00.004350
+Step Count: 0
+0:00:00.003078
+Step Count: 0
+0:00:00.003295
+Step Count: 0
+0:00:00.004101
+Step Count: 0
+0:00:00.005124
+Step Count: 0
+0:00:00.003400
+Step Count: 0
+0:00:00.003695
+Step Count: 0
+0:00:00.003643
+Step Count: 0
+0:00:00.004167
+Step Count: 0
+0:00:00.004746
+Step Count: 0
+0:00:00.004338
+Step Count: 0
+0:00:00.003893
+Step Count: 0
+0:00:00.003943
+Step Count: 0
+0:00:00.004415
+Step Count: 0
+0:00:00.004011
+Step Count: 0
+0:00:00.004592
+Step Count: 0
+0:00:00.005007
+Step Count: 0
+0:00:00.005209
+Step Count: 0
+0:00:00.006716
+Step Count: 0
+0:00:00.005207
+Step Count: 0
+0:00:00.005196
+Step Count: 0
+0:00:00.005510
+Step Count: 0
+0:00:00.005236
+Step Count: 0
+0:00:00.006141
+Step Count: 0
+0:00:00.005468
+Step Count: 0
+0:00:00.005520
+Step Count: 0
+0:00:00.005625
+Step Count: 0
+0:00:00.005881
+Step Count: 0
+0:00:00.006185
+Step Count: 0
+0:00:00.006000
+Step Count: 0
+0:00:00.006389
+Step Count: 0
+0:00:00.006226
+Step Count: 0
+0:00:00.006849
+Step Count: 0
+0:00:00.006701
+Step Count: 0
+0:00:00.007233
+Step Count: 0
+0:00:00.007322
+Step Count: 0
+0:00:00.016281
+Step Count: 0
+0:00:00.007196
+Step Count: 0
+0:00:00.006294
+Step Count: 0
+0:00:00.007554
+Step Count: 0
+0:00:00.008639
+Step Count: 0
+0:00:00.007144
+Step Count: 0
+0:00:00.007622
+Step Count: 0
+0:00:00.007588
+Step Count: 0
+0:00:00.007653
+Step Count: 0
+0:00:00.007010
+Step Count: 0
+0:00:00.007870
+Step Count: 0
+0:00:00.007058
+Step Count: 0
+0:00:00.007733
+Step Count: 0
+0:00:00.007440
+Step Count: 0
+0:00:00.007814
+Step Count: 0
+0:00:00.007624
+Step Count: 0
+0:00:00.010245
+Step Count: 0
+0:00:00.010396
+Step Count: 0
+0:00:00.008875
+Step Count: 0
+0:00:00.009057
+Step Count: 0
+0:00:00.009551
+Step Count: 0
+0:00:00.010140
+Step Count: 0
+0:00:00.010189
+Step Count: 0
+0:00:00.009283
+Step Count: 0
+0:00:00.008707
+Step Count: 0
+0:00:00.009177
+Step Count: 0
+0:00:00.009014
+Step Count: 0
+0:00:00.009169
+Step Count: 0
+0:00:00.008788
+Step Count: 0
+0:00:00.013375
+Step Count: 0
+0:00:00.011396
+Step Count: 0
+0:00:00.011999
+Step Count: 0
+0:00:00.011496
+Step Count: 0
+0:00:00.011407
+Step Count: 0
+0:00:00.010109
+Step Count: 0
+0:00:00.013286
+Step Count: 0
+0:00:00.012744
+Step Count: 0
+0:00:00.012192
+Step Count: 0
+0:00:00.011866
+Step Count: 0
+0:00:00.011486
+Step Count: 0
+0:00:00.011368
+Step Count: 0
+0:00:00.011458
+Step Count: 0
+0:00:00.011226
+Step Count: 0
+0:00:00.011082
+Step Count: 0
+0:00:00.014021
+Step Count: 0
+0:00:00.012583
+Step Count: 0
+0:00:00.015828
+Step Count: 0
+0:00:00.011619
+Step Count: 0
+0:00:00.014269
+Step Count: 0
+0:00:00.012604
+Step Count: 0
+0:00:00.012806
+Step Count: 0
+0:00:00.015470
+Step Count: 0
+0:00:00.013556
+Step Count: 0
+0:00:00.017884
+Step Count: 0
+0:00:00.011786
+Step Count: 0
+0:00:00.011515
+Step Count: 0
+0:00:00.018941
+Step Count: 0
+0:00:00.013339
+Step Count: 0
+0:00:00.012902
+Step Count: 0
+0:00:00.013705
+Step Count: 0
+0:00:00.012528
+Step Count: 0
+0:00:00.013771
+Step Count: 0
+0:00:00.013320
+Step Count: 0
+0:00:00.013856
+Step Count: 0
+0:00:00.012930
+Step Count: 0
+0:00:00.013961
+Step Count: 0
+0:00:00.022018
+Step Count: 0
+0:00:00.019459
+Step Count: 0
+0:00:00.015976
+Step Count: 0
+0:00:00.016192
+Step Count: 0
+0:00:00.013522
+Step Count: 0
+0:00:00.014868
+Step Count: 0
+0:00:00.014085
+Step Count: 0
+0:00:00.014610
+Step Count: 0
+0:00:00.015907
+Step Count: 0
+0:00:00.015236
+Step Count: 0
+0:00:00.015403
+Step Count: 0
+0:00:00.016956
+Step Count: 0
+0:00:00.015244
+Step Count: 0
+0:00:00.017703
+Step Count: 0
+0:00:00.016060
+Step Count: 0
+0:00:00.016513
+Step Count: 0
+0:00:00.016643
+Step Count: 0
+0:00:00.015594
+Step Count: 0
+0:00:00.015452
+Step Count: 0
+0:00:00.015112
+Step Count: 0
+0:00:00.018557
+Step Count: 0
+0:00:00.016440
+Step Count: 0
+0:00:00.017724
+Step Count: 0
+0:00:00.019302
+Step Count: 0
+0:00:00.016703
+Step Count: 0
+0:00:00.016909
+Step Count: 0
+0:00:00.017072
+Step Count: 0
+0:00:00.022972
+Step Count: 0
+0:00:00.016907
+Step Count: 0
+0:00:00.017459
+Step Count: 0
+0:00:00.017311
+Step Count: 0
+0:00:00.018374
+Step Count: 0
+0:00:00.016623
+Step Count: 0
+0:00:00.017805
+Step Count: 0
+0:00:00.018399
+Step Count: 0
+0:00:00.018035
+Step Count: 0
+0:00:00.016854
+Step Count: 0
+0:00:00.017873
+Step Count: 0
+0:00:00.019239
+Step Count: 0
+0:00:00.020499
+Step Count: 0
+0:00:00.021282
+Step Count: 0
+0:00:00.017956
+Step Count: 0
+0:00:00.017728
+Step Count: 0
+0:00:00.019686
+Step Count: 0
+0:00:00.033369
+Step Count: 0
+0:00:00.020450
+Step Count: 0
+0:00:00.019603
+Step Count: 0
+0:00:00.018927
+Step Count: 0
+0:00:00.019949
+Step Count: 0
+0:00:00.017427
+Step Count: 0
+0:00:00.022568
+Step Count: 0
+0:00:00.022649
+Step Count: 0
+0:00:00.028102
+Step Count: 0
+0:00:00.021551
+Step Count: 0
+0:00:00.024462
+Step Count: 0
+0:00:00.021197
+Step Count: 0
+0:00:00.020013
+Step Count: 0
+0:00:00.019147
+Step Count: 0
+0:00:00.021084
+Step Count: 0
+0:00:00.020380
+Step Count: 0
+0:00:00.020107
+Step Count: 0
+0:00:00.019885
+Step Count: 0
+0:00:00.020230
+Step Count: 0
+0:00:00.020651
+Step Count: 0
+0:00:00.020953
+Step Count: 0
+0:00:00.022776
+Step Count: 0
+0:00:00.022624
+Step Count: 0
+0:00:00.025559
+Step Count: 0
+0:00:00.022366
+Step Count: 0
+0:00:00.020937
+Step Count: 0
+0:00:00.020642
+Step Count: 0
+0:00:00.021729
+Step Count: 0
+0:00:00.020898
+Step Count: 0
+0:00:00.020246
+Step Count: 0
+0:00:00.021728
+Step Count: 0
+0:00:00.022822
+Step Count: 0
+0:00:00.025705
+Step Count: 0
+0:00:00.020575
+Step Count: 0
+0:00:00.025281
+Step Count: 0
+0:00:00.022654
+Step Count: 0
+0:00:00.022419
+Step Count: 0
+0:00:00.023278
+Step Count: 0
+0:00:00.022474
+Step Count: 0
+0:00:00.022861
+Step Count: 0
+0:00:00.025933
+Step Count: 0
+0:00:00.027070
+Step Count: 0
+0:00:00.024699
+Step Count: 0
+0:00:00.025315
+Step Count: 0
+0:00:00.028602
+Step Count: 0
+0:00:00.027077
+Step Count: 0
+0:00:00.024575
+Step Count: 0
+0:00:00.027076
+Step Count: 0
+0:00:00.025200
+Step Count: 0
+0:00:00.027526
+Step Count: 0
+0:00:00.026458
+Step Count: 0
+0:00:00.034359
+Step Count: 0
+0:00:00.024883
+Step Count: 0
+0:00:00.027453
+Step Count: 0
+0:00:00.025848
+Step Count: 0
+0:00:00.024405
+Step Count: 0
+0:00:00.031004
+Step Count: 0
+0:00:00.031550
+Step Count: 0
+0:00:00.026718
+Step Count: 0
+0:00:00.031244
+Step Count: 0
+0:00:00.024016
+Step Count: 0
+0:00:00.026404
+Step Count: 0
+0:00:00.026285
+Step Count: 0
+0:00:00.027606
+Step Count: 0
+0:00:00.025429
+Step Count: 0
+0:00:00.032787
+Step Count: 0
+0:00:00.026906
+Step Count: 0
+0:00:00.026808
+Step Count: 0
+0:00:00.025566
+Step Count: 0
+0:00:00.025201
+Step Count: 0
+0:00:00.030345
+Step Count: 0
+0:00:00.027267
+Step Count: 0
+0:00:00.027927
+Step Count: 0
+0:00:00.028797
+Step Count: 0
+0:00:00.039388
+Step Count: 0
+0:00:00.028434
+Step Count: 0
+0:00:00.030320
+Step Count: 0
+0:00:00.030081
+Step Count: 0
+0:00:00.027227
+Step Count: 0
+0:00:00.025144
+Step Count: 0
+0:00:00.025580
+Step Count: 0
+0:00:00.027327
+Step Count: 0
+0:00:00.028257
+Step Count: 0
+0:00:00.025288
+Step Count: 0
+0:00:00.027279
+Step Count: 0
+0:00:00.026077
+Step Count: 0
+0:00:00.028899
+Step Count: 0
+0:00:00.028625
+Step Count: 0
+0:00:00.030782
+Step Count: 0
+0:00:00.034222
+Step Count: 0
+0:00:00.031992
+Step Count: 0
+0:00:00.031422
+Step Count: 0
+0:00:00.039660
+Step Count: 0
+0:00:00.034081
+Step Count: 0
+0:00:00.030673
+Step Count: 0
+0:00:00.034309
+Step Count: 0
+0:00:00.030169
+Step Count: 0
+0:00:00.028093
+Step Count: 0
+0:00:00.027959
+Step Count: 0
+0:00:00.027376
+Step Count: 0
+0:00:00.029318
+Step Count: 0
+0:00:00.029417
+Step Count: 0
+0:00:00.028842
+Step Count: 0
+0:00:00.029599
+Step Count: 0
+0:00:00.031564
+Step Count: 0
+0:00:00.029888
+Step Count: 0
+0:00:00.030258
+Step Count: 0
+0:00:00.027162
+Step Count: 0
+0:00:00.030477
+Step Count: 0
+0:00:00.047399
+Step Count: 0
+0:00:00.030067
+Step Count: 0
+0:00:00.029902
+Step Count: 0
+0:00:00.028666
+Step Count: 0
+0:00:00.031306
+Step Count: 0
+0:00:00.030651
+Step Count: 0
+0:00:00.030173
+Step Count: 0
+0:00:00.028193
+Step Count: 0
+0:00:00.030309
+Step Count: 0
+0:00:00.031667
+Step Count: 0
+0:00:00.032766
+Step Count: 0
+0:00:00.030130
+Step Count: 0
+0:00:00.031631
+Step Count: 0
+0:00:00.031003
+Step Count: 0
+0:00:00.031048
+Step Count: 0
+0:00:00.030910
+Step Count: 0
+0:00:00.031226
+Step Count: 0
+0:00:00.029121
+Step Count: 0
+0:00:00.029989
+Step Count: 0
+0:00:00.032494
+Step Count: 0
+0:00:00.032820
+Step Count: 0
+0:00:00.030317
+Step Count: 0
+0:00:00.032950
+Step Count: 0
+0:00:00.030511
+Step Count: 0
+0:00:00.032415
+Step Count: 0
+0:00:00.030079
+Step Count: 0
+0:00:00.033720
+Step Count: 0
+0:00:00.034230
+Step Count: 0
+0:00:00.033357
+Step Count: 0
+0:00:00.034284
+Step Count: 0
+0:00:00.034328
+Step Count: 0
+0:00:00.034129
+Step Count: 0
+0:00:00.034523
+Step Count: 0
+0:00:00.032821
+Step Count: 0
+0:00:00.034881
+Step Count: 0
+0:00:00.035280
+Step Count: 0
+0:00:00.033745
+Step Count: 1
+0:00:00.037207
+Step Count: 4
+0:00:00.034913
+Step Count: 4
+0:00:00.039941
+Step Count: 4
+0:00:00.036416
+Step Count: 4
+0:00:00.035460
+Step Count: 4
+0:00:00.041235
+Step Count: 4
+0:00:00.035963
+Step Count: 4
+0:00:00.035518
+Step Count: 4
+0:00:00.034172
+Step Count: 4
+0:00:00.033516
+Step Count: 4
+0:00:00.034017
+Step Count: 4
+0:00:00.034188
+Step Count: 4
+0:00:00.035970
+Step Count: 4
+0:00:00.039435
+Step Count: 4
+0:00:00.038721
+Step Count: 4
+0:00:00.036202
+Step Count: 4
+0:00:00.036854
+Step Count: 4
+0:00:00.034341
+Step Count: 4
+0:00:00.033659
+Step Count: 4
+0:00:00.035586
+Step Count: 4
+0:00:00.034637
+Step Count: 4
+0:00:00.034093
+Step Count: 4
+0:00:00.034212
+Step Count: 4
+0:00:00.037478
+Step Count: 4
+0:00:00.037304
+Step Count: 4
+0:00:00.037772
+Step Count: 4
+0:00:00.036403
+Step Count: 4
+0:00:00.034801
+Step Count: 4
+0:00:00.037362
+Step Count: 4
+0:00:00.038366
+Step Count: 4
+0:00:00.034155
+Step Count: 4
+0:00:00.037426
+Step Count: 4
+0:00:00.038084
+Step Count: 4
+0:00:00.034135
+Step Count: 4
+0:00:00.039889
+Step Count: 4
+0:00:00.037024
+Step Count: 4
+0:00:00.036676
+Step Count: 4
+0:00:00.037618
+Step Count: 4
+0:00:00.036981
+Step Count: 4
+0:00:00.039129
+Step Count: 4
+0:00:00.037935
+Step Count: 4
+0:00:00.035909
+Step Count: 4
+0:00:00.039797
+Step Count: 4
+0:00:00.037140
+Step Count: 4
+0:00:00.036561
+Step Count: 4
+0:00:00.037606
+Step Count: 4
+0:00:00.036960
+Step Count: 4
+0:00:00.039012
+Step Count: 4
+0:00:00.036378
+Step Count: 4
+0:00:00.039388
+Step Count: 4
+0:00:00.039172
+Step Count: 4
+0:00:00.036623
+Step Count: 4
+0:00:00.040322
+Step Count: 4
+0:00:00.040999
+Step Count: 4
+0:00:00.039982
+Step Count: 4
+0:00:00.038946
+Step Count: 4
+0:00:00.039094
+Step Count: 4
+0:00:00.039633
+Step Count: 4
+0:00:00.038867
+./fall_detection/while_loop_gps.sh: line 4: 55065 Terminated: 15          ./fall_detection/subscriber/bin/gps_subscriber
+./fall_detection/while_loop.sh: line 8: 55066 Terminated: 15          ./fall_detection/subscriber/bin/simple_subscriber
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stof: no conversion
+./fall_detection/while_loop.sh: line 8: 55174 Abort trap: 6           ./fall_detection/fall_detection-v3/build/app
+Not fall
+
