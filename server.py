@@ -353,15 +353,9 @@ def server_face_rec(conn):
     connection = conn.makefile('rb')
     conn.settimeout(20)
 
-    # with open("latency.txt", 'w') as f:
-    #     f.write("latency\n")
-
-    # with open("rec_server.txt", 'w') as f:
-    #     f.write("rec_server\n")
 
 
     try:
-        #now = datetime.now()
         while True:
             # Read the length of the image as a 32-bit unsigned int. If the
             # length is zero, quit the loop
@@ -371,14 +365,6 @@ def server_face_rec(conn):
                 #return
             # Construct a stream to hold the image data and read the image
             # data from the connection
-            # start_time = datetime.now()
-            # old = now
-            # now = start_time
-            # delta = now - old
-            # with open("rec_server.txt", 'a') as f:
-            #     f.write(str(delta)+"\n")
-            # start_time = start_time.strftime("%H:%M:%S.%f")
-            # start_time = datetime.strptime(start_time, "%H:%M:%S.%f")
             image_stream = io.BytesIO()
             image_stream.write(connection.read(image_len))
 
@@ -423,13 +409,6 @@ def server_face_rec(conn):
             print("sending " + message)
             encodedMessage = bytes(message, 'utf-8')
             conn.sendall(encodedMessage)
-            # end_time = datetime.now()
-            # end_time = end_time.strftime("%H:%M:%S.%f")
-            # end_time = datetime.strptime(end_time, "%H:%M:%S.%f")
-            # duration = end_time - start_time
-            # with open("latency.txt", 'a') as f:
-            #     f.write(str(duration)+"\n")
-                #print("I passed")
     except (struct.error, TimeoutError):
         print("No Camera")
         with open(cwd + '/gui_txt_files/face_recog_status.txt', 'w') as f:
