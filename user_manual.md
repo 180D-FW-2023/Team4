@@ -45,9 +45,11 @@ streamlit run Welcome.py
 
 ### Email Setup
 On this page, you can add emails you would like to send a message to if a fall is detected. All emails you are currently subscribed to will be listed under "Subscribed Emails".
+<img width="1313" alt="image" src="https://github.com/180D-FW-2023/Team4/assets/103907560/6d78f37c-ffaa-4f08-bf8d-af4981a79c92">
 
 ### Initial Setup
 You should rarely need to run this page as we code is already on the Pi's that are shipped. However, if for some reason the file that runs on the Pi gets deleted such as if you wipe your Pi, you can add the code to your Pi here. To use this page, first plug in your Pi to your laptop ensuring that you are plugged into the Data USB port on your Pi. You will have to enter your username, password, and hostname you use to ssh into your Pi (USERNAME@HOSTNAME). Also make sure to correctly select which Pi you are uploading to.
+<img width="1288" alt="image" src="https://github.com/180D-FW-2023/Team4/assets/103907560/de8ab4ec-b7c0-4592-90ed-c937fb98c336">
 
 ### Load Facial Recognition Data
 The GUI should pop up in a new page on your browser. First, navigate to the Load Facial Recognition Data page. 
