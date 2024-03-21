@@ -8,4 +8,6 @@ A brief overview of the contents of each directory/file is explained below. Each
 
 output: contains encodings used to recognize face after training  
 training: contains training images uploaded by user  
-detector.py: actual script used to recognize face and train model
+detector.py: actual script used to recognize face and train model  
+  - Sources:  
+     - Facial Recognition: https://realpython.com/face-recognition-with-python/# 
