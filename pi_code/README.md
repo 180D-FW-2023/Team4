@@ -3,8 +3,15 @@ This directory contains code that gets put onto the pis through the Initial Setu
 
 ## Files
 The purpose of each file will be explained below
-- `bluetooth.sh`: TODO: krisha
-- `facial_rec_client_pi.py`: TODO: krisha/maya
+- `bluetooth.sh`: a shell script to connect the user to the bluetooth device they have specified
+    - Sources:
+       - Bluetooth: https://forums.raspberrypi.com/viewtopic.php?t=214373#p1319723 
+- `facial_rec_client_pi.py`: a python script that runs on the facial recognition pi on boot which serves as the client TCP connection to stream images to the server for recognition as well as receive the current recognized names to output via audio.
+    - Sources:
+      - MQTT: Lab 3: Communication from Q1   
+      - TCP: https://realpython.com/python-sockets/  
+      - Multiprocesssing: https://www.digitalocean.com/community/tutorials/python-multiprocessing-example  
+      - Image Streaming: https://picamera.readthedocs.io/en/release-1.13/recipes1.html#capturing-to-a-network-stream  
 - `step_count_client_pi.py`: a python script that runs on the step counter pi on boot which serves as the client TCP connection to read accelerometer data and send it to the server for processing as well as receive the current step count that it can display
     - Sources:
       - MQTT: Lab 3: Communication from Q1 
