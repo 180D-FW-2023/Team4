@@ -2,46 +2,33 @@
 The MemoryMate is a device that helps people who struggle with Alzheimer's, some form of dementia, and face blindness, in the elderly community. It has several features: face recognition, step counter, and fall detection. 
 Face recognition allows the user to upload photos to add to the database, which will identify anyone the user sees. Step counter counts the number of steps the user has taken to track their health. Fall detection will trigger when the user falls to the ground.
 
-## Fall Detection
-Begin by navigating to the fall detection folder with:
-`cd fall_detection`
+## Code Organization
+The main repository is split into all of its major components, including product functions, GUI, and interactions with Raspberry Pi. 
 
-Make the binaries needed for launching the subscriber and publisher by going to the subscriber folder:
-```shell
-cd subscriber
-make clean
-make bin
-make simple_subscriber
-make simple_publisher
-```
+### Subdirectories
+A brief overview of the contents of each directory is explained below. Each directory will have an individual README within that contains more detail. 
+- `face_recog`: TODO: krisha/mayaa
+- `fall_detection`: uses MQTT to receive GPS data from the Blues Wireless Notecard and accelerometer data from the BerryIMU
+- `gui_txt_files`: contains all files the server code writes to that the GUI reads to update each page
+- `pages`: TODO: krisha
+- `pi_code`: contains code that gets put onto the pis through the Initial Setup GUI page
+- `step_count`: contains data that the step count module collects whie running, latency measurements, and some developental code for step counter algorithms
 
-Then launch the subscriber and the fall detection model by running the shell script after going back to the previous folder:
-```shell
-cd ..
-sh shell_script.sh
-```
-You may need to give the file permission with:
-`chmod +x shell_script.sh`
-
-Next, ssh into the Raspberry Pi and navigate to the folder for the publisher:
-```shell
-cd subscriber
-./bin/simple_publisher
-```
-## Facial Recognition and Step Count
-
-### Setup:
-2. Get the ip address of your laptop that will be acting as the server: `ipconfig getifaddr en0`
-3. In the client code stream_client.py, replace '192.168.1.104' in `client_socket.connect(('192.168.1.104', 8000))` and in step_count_client_pi.py, replace '192.168.1.199' in `client.connect(('192.168.1.199', 8080))` with your laptop's ip address
-4. ssh into your two Raspberry Pis. One pi (pi 1) will be for facial recognition and the other (pi 2) will be for the step counter
-5. Copy stream_client.py onto pi 1 and step_count_client_pi.py onto pi 2 (that have your changes from step 2)
-6. On your server you will need to install the packages used in server.py: `pip install socket matplotlib.pyplot numpy scipy.signal multiprocessing io struct PIL cv2 face_recognition argparse pathlib collections pickle`
-7. On pi 1 you will need to install the packages used in stream_client.py: `pip install socket io picamera struct time`
-8. On pi 2 you will need ot install the packages used in step_count_client_pi.py `pip install sense_hat datetime socket`
-
-## Run the Code
-Now that you have finished setup, you can now run everything!
-1. Start up the server code (server.py) on your laptop: `python3 server.py`
-2. Run the client code on your two pis in any order
-   1. pi 1 with stream_client.py: `python stream_client.py`
-   2. pi 2 with step_count_client_pi.py: `python3 step_count_client_pi.py`
+### Files
+The purpose of each file will be explained below
+- `__init__.py`: 
+   - Sources: TODO: krisha
+- `server.py`: 
+   - Sources:
+      - MQTT: Lab 3: Communication from Q1 
+      - TCP: https://realpython.com/python-sockets/
+      - Multiprocesssing: https://www.digitalocean.com/community/tutorials/python-multiprocessing-example
+      - Step Count Algorithm (`step_count()`): https://dwightreid.com/site/how-to-count-steps-using-python-data-analysis-of-acceleration-data/, https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html
+      - read .csv data: https://stackoverflow.com/questions/68359017/numpy-genfromtxt-skip-invalid-lines
+      - TODO: image stuff
+   - Decisions: We decided to run every process with a new Multiprocessing Processs to keep them self-contained and isolated. Additionally, it was decided to implement the facial recognition and step count modules with TCP for communication, whereas the fall detection module uses MQTT.
+   - Bugs: None that we know of and all should be handled by the try except blocks.
+   - Future Improvements: Improve on process clean up by potentially switching to a Multiprocessing Pool so that on a control-C, every process terminates nicely. Currrently this is handled manually in the GUI Run Server page by manually killing all processes spawned.
+- `requirements.txt`: TODO: krisha
+- `user_manual.md`: the user manual for how to setup and run the system utilizing the code in this repo
+- `Welcome.py`: TODO: krisha

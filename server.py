@@ -91,7 +91,6 @@ def main1():
             print("Please Try Again. Server is not properly starting up.")
             return
 
-        # TODO: only on mac?
         serv_ip_addr = subprocess.run(['ipconfig', 'getifaddr', 'en0'], stdout=subprocess.PIPE)
         serv_ip_addr = serv_ip_addr.stdout.decode()
         print("server ip adddress: " + serv_ip_addr)
