@@ -38,7 +38,6 @@ args = parser.parse_args()
 
 Path(cwd + "/face_recog/training").mkdir(exist_ok=True)
 Path(cwd + "/face_recog/output").mkdir(exist_ok=True)
-Path(cwd + "/face_recog/validation").mkdir(exist_ok=True)
 
 def encode_known_faces(
     model: str = "hog", encodings_location: Path = DEFAULT_ENCODINGS_PATH
