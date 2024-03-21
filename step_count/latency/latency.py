@@ -100,4 +100,11 @@ def latency_meas_recv_send(file_name, title):
 # latency_meas_recv_send("latency_server_recv.txt", "Latency of Server Receiving Accelerometer Data")
 # latency_meas_recv_send("latency_pi_send.txt", "Latency of Pi Sending Accelerometer Data")
 # latency_meas_recv_send("latency_pi_recv.txt", "Latency of Pi Receiving Step Count Data")
-latency_meas_send_to_recv("latency_send_recv.txt", "Latency of Pi Sending Accelerometer Data to Server Receiving")
+# latency_meas_send_to_recv("latency_send_recv.txt", "Latency of Pi Sending Accelerometer Data to Server Receiving")
+
+# eduroam
+latency_meas_comp("latency_eduroam_server_comp.txt", "Latency of Computation for Step Count", True)
+latency_meas_recv_send("latency_eduroam_server_recv.txt", "Latency of Server Receiving Accelerometer Data")
+latency_meas_recv_send("latency_eduroam_pi_send.txt", "Latency of Pi Sending Accelerometer Data")
+latency_meas_recv_send("latency_eduroam_pi_recv.txt", "Latency of Pi Receiving Step Count Data")
+latency_meas_send_to_recv("latency_eduroam_send_recv.txt", "Latency of Pi Sending Accelerometer Data to Server Receiving")
