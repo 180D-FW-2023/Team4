@@ -1,8 +1,8 @@
-Code Organization
+## Code Organization
 
 This directory contains all folders, python files, and scripts specific to the fall detection module.
 
-Subdirectories
+### Subdirectories
 
 A brief overview of the contents of each directory/file is explained below. Each directory will have an individual README within that contains more detail.
 
@@ -13,7 +13,7 @@ while_loop.sh: the shell script for running the subscriber, fall detection analy
 while_loop_gps.sh: shell script for running updates on the current GPS location.
 shell_script_new.sh: overall shell script for running both while loop shell scripts.
 
-**Sources:**
+### Sources
 
 Fall Detection: https://www.hackster.io/naveenbskumar/fall-detection-system-with-edge-impulse-and-blues-wireless-a4dbba
 
