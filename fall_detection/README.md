@@ -13,7 +13,9 @@ while_loop.sh: the shell script for running the subscriber, fall detection analy
 while_loop_gps.sh: shell script for running updates on the current GPS location.
 shell_script_new.sh: overall shell script for running both while loop shell scripts.
 
-Sources:
+**Sources:**
 Fall Detection: https://www.hackster.io/naveenbskumar/fall-detection-system-with-edge-impulse-and-blues-wireless-a4dbba
+
 Emailing: https://mailtrap.io/blog/python-send-email-gmail/
+
 GPS with Notecard: https://dev.blues.io/guides-and-tutorials/notecard-guides/asset-tracking/
