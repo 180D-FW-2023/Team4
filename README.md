@@ -31,5 +31,5 @@ The purpose of each file will be explained below
    - Bugs: None that we know of and all should be handled by the try except blocks.
    - Future Improvements: Improve on process clean up by potentially switching to a Multiprocessing Pool so that on a control-C, every process terminates nicely. Currrently this is handled manually in the GUI Run Server page by manually killing all processes spawned.
 - `requirements.txt`: A list of requirements for setup. Used to setup conda environment.
-- `user_manual.pdf`: the user manual for how to setup and run the system utilizing the code in this repo
+- `User Manual.pdf`: the user manual for how to setup and run the system utilizing the code in this repo
 - `Welcome.py`: Home page for GUI. Also, used to trigger startup of GUI from command line
