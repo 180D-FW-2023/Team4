@@ -14,6 +14,7 @@ while_loop_gps.sh: shell script for running updates on the current GPS location.
 shell_script_new.sh: overall shell script for running both while loop shell scripts.
 
 **Sources:**
+
 Fall Detection: https://www.hackster.io/naveenbskumar/fall-detection-system-with-edge-impulse-and-blues-wireless-a4dbba
 
 Emailing: https://mailtrap.io/blog/python-send-email-gmail/
