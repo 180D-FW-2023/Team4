@@ -1,22 +1,13 @@
 import streamlit as st
-import subprocess
-import sys
 import os
-import time
 from streamlit_autorefresh import st_autorefresh
 from PIL import ImageFile
 from datetime import date
-from st_pages import show_pages_from_config, add_page_title
+from st_pages import add_page_title
 
 add_page_title()
 
-# show_pages_from_config()
-
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-# cwd = os.getcwd()
-# path = cwd[:cwd.find('Team4') + 5]
-
-# sys.path.append('../Team4')
 st_autorefresh(interval=1000, key="dataframerefresh")
 
 def sidebar_status():
@@ -53,20 +44,6 @@ def sidebar_status():
         st.sidebar.text("Facial Recognition Status: 🔴")
 
 sidebar_status()
-# with open('gui_txt_files/fall.txt','r') as f:
-#     my_set = f.read().splitlines()
-
-# #f_time = "Never"
-# if len(my_set) >= 1:
-#     s = my_set[0]
-# else:
-#     s = 0
-# if s == "fall":
-#     t = time.localtime()
-#     current_time = time.strftime("%H:%M:%S", t)
-#     f_time = current_time
-#     with open('gui_txt_files/falls.txt', 'w') as f:
-#         f.write(str(f_time))
 
 try:
     st.image('gui_txt_files/out.png', caption='Recognized Face')
@@ -85,5 +62,3 @@ st.title("Today's Step Count: " + str(today_step))
 with open('gui_txt_files/fall_time.txt', 'r') as f:
     my_set = f.read().splitlines()
 st.title("Last Fall: " + my_set[0])
-#st.dataframe(my_set, column_config={"value": "Last Fall"}, use_container_width = True)
-#on_click()

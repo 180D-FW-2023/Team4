@@ -8,11 +8,9 @@ import os
 import calendar
 import numpy as np
 from pages.Output import sidebar_status
-from st_pages import show_pages_from_config, add_page_title
+from st_pages import add_page_title
 
 add_page_title()
-
-# show_pages_from_config()
 
 st_autorefresh(interval=1000, key="dataframerefresh")
 

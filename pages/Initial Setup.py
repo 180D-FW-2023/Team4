@@ -1,13 +1,11 @@
 import streamlit as st
 import os
-from st_pages import show_pages_from_config, add_page_title
+from st_pages import add_page_title
 import fabric
 import paramiko
 import socket
 import subprocess
 add_page_title()
-
-# show_pages_from_config()
 
 cwd = os.getcwd()
 print('setup' + cwd)

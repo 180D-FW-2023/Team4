@@ -1,11 +1,9 @@
 import subprocess
 import streamlit as st
 import os
-from st_pages import show_pages_from_config, add_page_title
+from st_pages import add_page_title
 
 add_page_title()
-
-# show_pages_from_config()
 
 uploaded_files = st.file_uploader("Upload 5-10 Images", type=['png', 'jpg'], accept_multiple_files=True)
 
