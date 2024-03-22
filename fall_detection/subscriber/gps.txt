@@ -1,1 +1,0 @@
-{"best_country":"US","best_lat":34.06066250000001,"best_location":"Westwood CA","best_location_type":"tower","best_location_when":1707555624,"best_lon":-118.438390625,"best_timezone":"America/Los_Angeles","when":1707555625}

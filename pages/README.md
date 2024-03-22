@@ -1,32 +1,55 @@
 # Code Organization
-This directory contains TODO: krisha
+This directory contains all scripts/pages other than the first home page for the streamlit GUI
 
 ## Files
 The purpose of each file will be explained below
-- `Bluetooth Headphone Connection.py`: 
-- `Email Setup.py`: a page where you can add the emails you want the fall detector to send messages to upon a fall
-   - Sources:
-      - checkbox: https://discuss.streamlit.io/t/dynamically-created-multiple-checkbox/18273
-      - email validation: https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/
-   - Decisions: We decided to allow and implement the ability to subscribe multiple emails to fall detection messages
-   - Future Improvements: Send a confirmation email that the email address is subsribed to
-- `Fall Detection.py`: 
-- `Focus Camera.py`: 
-- `Initial Setup.py`: a page where you can upload code onto your plugged in pi
-    - Sources:
-      - fabric ssh: https://www.fabfile.org
-   - Decisions: We decided to not have this page used before every setup but instead only if your pi is wiped and you need to put code back on it.
-   - Future Improvements: Add a section that updates the rc.local
-- `Load Facial Recognition Data.py`: 
-- `Output.py`: 
- - Sources:
-      - sidebar: https://docs.streamlit.io/library/api-reference/layout/st.sidebar
-   - Decisions:
-   - Future Improvements: 
-- `Recognized Face.py`: 
-- `Run Server.py`: 
-- `Step Count.py`: a page where the current and weekly step count data is displayed
-   - Sources:
-      - bar chart: https://blog.finxter.com/bar-charts-learning-streamlit-with-bar-charts/
-   - Decisions: We wanted to display the day's worth of data and the week's worth of data which required changing how server stores data.
-   - Future Improvements: Add month worth of data to display
+- `Bluetooth Headphone Connection.py`: a page where you can select the bluetooth device you would like the facial recognition module to pair to.  
+   - Sources:  
+      - Get Bluetooth info: https://managingosx.wordpress.com/2014/04/23/reporting-on-bluetooth-mousekeyboard-battery-status/  
+      - Parse system output: https://docs.python.org/3/library/plistlib.html  
+      - Button: https://docs.streamlit.io/library/api-reference/widgets/st.button   
+- `Email Setup.py`: a page where you can add the emails you want the fall detector to send messages to upon a fall  
+   - Sources:  
+      - checkbox: https://discuss.streamlit.io/t/dynamically-created-multiple-checkbox/18273  
+      - email validation: https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/  
+   - Decisions: We decided to allow and implement the ability to subscribe multiple emails to fall detection messages  
+   - Future Improvements: Send a confirmation email that the email address is subsribed to  
+- `Fall Detection.py`: a page to view the fall detection output: latest fall and gps location  
+   - Sources:  
+      - GPS Location: https://docs.streamlit.io/library/api-reference/charts/st.map  
+      - Dataframe: https://docs.streamlit.io/library/api-reference/data/st.dataframe    
+- `Focus Camera.py`: a page to view a continuous stream from the camera and output the current frame to focus the lens.  
+   - Sources:  
+      - Image: https://docs.streamlit.io/library/api-reference/media/st.image  
+- `Initial Setup.py`: a page where you can upload code onto your plugged in pi  
+    - Sources:  
+      - fabric ssh: https://www.fabfile.org  
+      - sshpass: https://www.redhat.com/sysadmin/ssh-automation-sshpass  
+      - pscp: https://opensource.com/article/22/10/transfer-files-windows-linux-pscp  
+      - subprocess: https://docs.python.org/3/library/subprocess.html  
+      - Button: https://docs.streamlit.io/library/api-reference/widgets/st.button  
+      - Select Box: https://docs.streamlit.io/library/api-reference/widgets/st.selectbox  
+   - Decisions: We decided to not have this page used before every setup but instead only if your pi is wiped and you need to put code back on it.  
+   - Future Improvements: Add a section that updates the rc.local  
+- `Load Facial Recognition Data.py`: a page to upload images for facial recognition  
+   - Sources:  
+      - File Uploader: https://docs.streamlit.io/library/api-reference/widgets/st.file_uploader  
+      - Select Box: https://docs.streamlit.io/library/api-reference/widgets/st.selectbox  
+      - Button: https://docs.streamlit.io/library/api-reference/widgets/st.button  
+- `Output.py`: a page that displays current recognized face, last fall, and latest step count.  
+   - Sources:  
+      - sidebar: https://docs.streamlit.io/library/api-reference/layout/st.sidebar  
+      - Image: https://docs.streamlit.io/library/api-reference/media/st.image  
+- `Recognized Face.py`: a page that displays current recognized face and names of people recognized in the session.  
+   - Sources:  
+      - Image: https://docs.streamlit.io/library/api-reference/media/st.image  
+      - Dataframe: https://docs.streamlit.io/library/api-reference/data/st.dataframe  
+- `Run Server.py`: a page where user can trigger the server and stop it  
+   - Sources:  
+      - subprocess: https://docs.python.org/3/library/subprocess.html  
+      - Button: https://docs.streamlit.io/library/api-reference/widgets/st.button  
+- `Step Count.py`: a page where the current and weekly step count data is displayed  
+   - Sources:  
+      - bar chart: https://blog.finxter.com/bar-charts-learning-streamlit-with-bar-charts/  
+   - Decisions: We wanted to display the day's worth of data and the week's worth of data which required changing how server stores data.  
+   - Future Improvements: Add month worth of data to display  
